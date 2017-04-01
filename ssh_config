@@ -1,3 +1,4 @@
 Host caen
   HostName login-course.engin.umich.edu
   User joebb
+  IdentityFile ~/.ssh/id_rsa
