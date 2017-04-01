@@ -1,3 +1,4 @@
+set clipboard=unnamed
 colorscheme molokai "colors! 
 syntax enable "enable different syntaxes
 "set tabstop=2 "set tabs to 2 visual spaces

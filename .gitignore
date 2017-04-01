@@ -1,0 +1,9 @@
+*
+!*/
+!*.*
+*.swp
+.color_coded
+*.ycm
+*.exe
+.DS_Store
+.ycm*
