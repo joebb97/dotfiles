@@ -13,8 +13,8 @@ set wildmenu "autocompletes
 set showmatch
 set incsearch "makes searching better
 set hlsearch
-set foldenable "enable folding
-set foldmethod=indent "sets where folding is determined
+"set foldenable "enable folding
+"set foldmethod=indent "sets where folding is determined
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
