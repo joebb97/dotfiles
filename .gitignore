@@ -7,4 +7,4 @@
 *.exe
 .DS_Store
 .ycm*
-.o
+*.o
