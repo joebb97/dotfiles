@@ -4,3 +4,4 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh -a'
 alias connectumich='ssh joebb@login-course.engin.umich.edu'
 alias debug='sudo gdb'
+source /usr/share/autojump/autojump.sh
