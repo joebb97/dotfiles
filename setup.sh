@@ -32,7 +32,7 @@ if [ ! -d /usr/share/autojump ]
 then
     printf "installing autojump\n"
     sudo apt install autojump
-    echo "source /usr/share/autojump.sh" >> ~/.bashrc
+    echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc
     source ~/.bashrc
 fi
 
