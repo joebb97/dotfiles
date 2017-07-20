@@ -35,3 +35,9 @@ then
     echo "source /usr/share/autojump.sh" >> ~/.bashrc
     source ~/.bashrc
 fi
+
+echo "sourcing tmux conf"
+tmux source ~/.tmux.conf
+echo "sourcing bashrc"
+source ~/.bashrc
+
