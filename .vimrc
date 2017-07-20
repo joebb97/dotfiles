@@ -1,12 +1,11 @@
 set clipboard=unnamed
-colorscheme molokai "colors! 
+"colorscheme molokai "colors! 
 syntax enable "enable different syntaxes
 set tabstop=4 "set tabs to 2 visual spaces
-set softtabstop=4 "typing tab adds 2 spaces
+set shiftwidth=4
 set expandtab
 set number "shows line numbers
 set showcmd "shows last entered command 
-set cursorline " highlight current line
 filetype indent on "load file-specific indent files
 set wildmenu "autocompletes
 "set lazyredraw "redraw only when needed
