@@ -17,7 +17,7 @@ then
                 cp -ivb ~/$file ~/dot-file-backups/$file
             fi   
             
-            ln -sivb $file ~/$file
+            ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
         fi
     done
 fi
