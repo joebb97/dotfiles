@@ -2,7 +2,7 @@
 printf "running dotfiles setup at $(date)...\n"
 if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
-    files=".vimrc .tmux.conf .bashrc .gitconfig .inputrc"
+    files=".vimrc .tmux.conf .gitconfig .inputrc"
     backup_dir = "~/dotfile-backups"
     for file in $files
     do
@@ -13,11 +13,8 @@ then
                 mkdir $backup_dir
             fi
 
-            if [ ! -f $backup_dir/$file ]
-            then
-                printf "Moving $file to $backup_dir...\n"
-                mv -ivb ~/$file $backup_dir/$file
-            fi   
+            printf "Moving $file to $backup_dir...\n"
+            mv -ivb ~/$file $backup_dir/$file
             
             printf "Making symlink from $(pwd)/$file to ~/$file...\n"
             ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
@@ -40,6 +37,7 @@ fi
 
 if [ ! -d ~/.bash_it ]
 then
+    printf "installing bash_it...\n"
     git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
     ~/.bash_it/install.sh
 fi
