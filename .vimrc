@@ -1,30 +1,15 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible              " DO NOT REMOVE
+filetype off                  " DO NOT REMOVE
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim' " DO NOT REMOVE
 Plugin 'valloric/youcompleteme'
+" PLUGINS MUST GO HERE
+call vundle#end()            " DO NOT REMOVE
+filetype plugin indent on    " DO NOT REMOVE
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" NON PLUGIN STUFF BELOW HERE
 set clipboard=unnamed
 "colorscheme molokai "colors! 
 syntax enable "enable different syntaxes
@@ -44,4 +29,5 @@ set hlsearch
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
-
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
