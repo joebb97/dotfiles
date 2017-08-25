@@ -4,21 +4,20 @@ if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
     files=".vimrc .tmux.conf .gitconfig .inputrc"
     backup_dir = "~/dotfile-backups"
+    if [ ! -d $backup_dir]
+    then
+        mkdir $backup_dir
+    fi
     for file in $files
     do
         if [ -f ~/$file ]
         then
-            if [ ! -d $backup_dir]
-            then
-                mkdir $backup_dir
-            fi
-
             printf "Moving $file to $backup_dir...\n"
             mv -ivb ~/$file $backup_dir/$file
-            
-            printf "Making symlink from $(pwd)/$file to ~/$file...\n"
-            ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
         fi
+        
+        printf "Making symlink from $(pwd)/$file to ~/$file...\n"
+        ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
     done
 fi
 
