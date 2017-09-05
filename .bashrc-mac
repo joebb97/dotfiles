@@ -55,4 +55,5 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
-source /usr/share/autojump/autojump.sh
+source /usr/local/Cellar/autojump/22.5.1/share/autojump/autojump.bash
+alias vim=/usr/local/Cellar/vim/8.0.0823/bin/vim

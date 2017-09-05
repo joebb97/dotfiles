@@ -2,7 +2,7 @@
 printf "running dotfiles setup at $(date)...\n"
 if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
-    files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config"
+    files=".bashrc-mac .vimrc .gitconfig .inputrc"
     backup_dir = "~/dotfile-backups"
     if [ ! -d $backup_dir]
     then
@@ -10,10 +10,23 @@ then
     fi
     for file in $files
     do
+        if [ $file == ".bashrc-mac" ]
+        then
+            if [ -f ~/.bashrc]
+            then
+                printf "Moving bashrc to $backup_dir...\n"
+                mv -iv ~/$file $backup_dir/.bashrc
+            fi
+            
+            printf "Making symlink from $(pwd)/$file to ~/.bashrc...\n"
+            ln -siv $(pwd)$file ~/.bashrc
+            continue
+        fi
+
         if [ -f ~/$file ]
         then
             printf "Moving $file to $backup_dir...\n"
-            mv -ivb ~/$file $backup_dir/$file
+            mv -iv ~/$file $backup_dir/$file
         fi
 
         if [ $file == "ssh_config" ]
@@ -24,26 +37,13 @@ then
             fi
             
             printf "Making symlink from $(pwd)/$file to ~/.ssh/config...\n"
-            ln -sivb $(pwd)/$file ~/.ssh/config
+            ln -siv $(pwd)/$file ~/.ssh/config
             continue
         fi
-        
+
         printf "Making symlink from $(pwd)/$file to ~/$file...\n"
-        ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
+        ln -siv $(pwd)/$file ~/$file # symbolic links require full path
     done
-fi
-
-if [ ! -d ~/.tmux ]
-then
-    printf "cloning tmux plugin manager...\n"
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
-if [ ! -d /usr/share/autojump ]
-then
-    printf "installing autojump...\n"
-    sudo apt install autojump
-    echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc
 fi
 
 if [ ! -d ~/.bash_it ]
@@ -59,14 +59,8 @@ then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-if [ ! $(dpkg -l | grep 'vim-gtk') ]
-then
-    sudo apt install vim-gtk
+if [ ! -d /usr/local/Cellar/autojump ]
+    brew install autojump
 fi
 
-if [ ! $(dpkg -l | grep 'tmux') ]
-    sudo apt install tmux
-fi
-    
-echo "sourcing bashrc"
 source ~/.bashrc

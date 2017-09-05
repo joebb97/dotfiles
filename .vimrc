@@ -20,6 +20,8 @@ set number "shows line numbers
 set showcmd "shows last entered command 
 filetype indent on "load file-specific indent files
 set wildmenu "autocompletes
+set backspace=2
+set backspace=indent,eol,start
 "set lazyredraw "redraw only when needed
 set showmatch
 set incsearch "makes searching better
