@@ -9,6 +9,7 @@ alias gits="git status"
 alias gita="git add -A"
 alias gitcm="git commit -m"
 alias gitp="git push"
+alias gitd="git diff"
 
 # Path to the bash it configuration
 export BASH_IT="/Users/Joey/.bash_it"
