@@ -1,0 +1,13 @@
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh -a'
+alias connectumich='ssh joebb@login-course.engin.umich.edu'
+alias debug='sudo gdb'
+alias sbrc='source ~/.bashrc'
+alias ebrc="vim ~/.bashrc"
+alias evrc="vim ~/.vimrc"
+alias gits="git status"
+alias gita="git add -A"
+alias gitcm="git commit -m"
+alias gitp="git push"
+alias gitd="git diff"

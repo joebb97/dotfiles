@@ -29,6 +29,8 @@ set incsearch "makes searching better
 set foldenable "enable folding
 set cursorline
 set foldmethod=indent "sets where folding is determined
+let @e = 'Lzt'
+let @y = 'Hzb'
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]

@@ -2,7 +2,7 @@
 printf "running dotfiles setup at $(date)...\n"
 if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
-    files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config"
+    files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config .bashrc"
     backup_dir = "~/dotfile-backups"
     if [ ! -d $backup_dir]
     then
@@ -59,12 +59,15 @@ then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-if [ ! $(dpkg -l | grep 'vim-gtk') ]
+dpkg -l | grep 'vim-gtk' > /dev/null
+if [ $? != 0 ]
 then
     sudo apt install vim-gtk
 fi
 
-if [ ! $(dpkg -l | grep 'tmux') ]
+dpkg -l | grep 'tmux' > /dev/null
+if [ $? != 0 ]
+then
     sudo apt install tmux
 fi
     
