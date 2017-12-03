@@ -42,6 +42,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <space> za
 inoremap <C-J> <ESC><C-W><C-J>
 inoremap <C-K> <ESC><C-W><C-K>
 inoremap <C-L> <ESC><C-W><C-L>
@@ -50,6 +51,7 @@ inoremap jj <ESC>
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
+nnoremap <leader>r :! rscript -e "library('knitr');knit2pdf('$(ls *.Rnw)')"<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>j Lzt
