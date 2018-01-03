@@ -7,14 +7,21 @@ Plugin 'valloric/youcompleteme'
 Plugin 'epmatsw/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " PLUGINS MUST GO HERE
 call vundle#end()            " DO NOT REMOVE
 filetype plugin indent on    " DO NOT REMOVE
 
 " NON PLUGIN STUFF BELOW HERE
-"colorscheme molokai "colors! 
+colorscheme molokai "colors! 
 syntax enable "enable different syntaxes
 filetype indent on "load file-specific indent files
+
+"SET
 set clipboard=unnamed
 set tabstop=4 "set tabs to 2 visual spaces
 set shiftwidth=4
@@ -33,21 +40,43 @@ set foldmethod=indent "sets where folding is determined
 set cursorline
 set splitbelow
 set splitright
+set laststatus=2
+set ttimeoutlen=50
+
+"LET
 let mapleader=","
+
+"WEIRD SHIT FOR PLUGINS
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <space> za
+"let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
+let g:airline#extensions#tabline#enabled=1 
+let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline_theme='molokai'
+"COMMAND
+command!  Svrc :source $MYVIMRC
+command!  Save :mksession!
+command!  Evrc :e $MYVIMRC
+
+"INOREMAP
 inoremap <C-J> <ESC><C-W><C-J>
 inoremap <C-K> <ESC><C-W><C-K>
 inoremap <C-L> <ESC><C-W><C-L>
 inoremap <C-H> <ESC><C-W><C-H>
 inoremap jj <ESC>
+
+"NNOREMAP
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <space> za
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
@@ -58,9 +87,8 @@ nnoremap <leader>j Lzt
 nnoremap <leader>k Hzb
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>b $A{<CR>}<ESC>O
-nnoremap <leader>svrc :source $MYVIMRC<CR>
-nnoremap <leader>save :mksession!<CR>
 nnoremap <leader>/ :Ag  
 nnoremap <leader>u :GundoToggle<CR>
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>h :bp<CR>
+nnoremap <leader>l :bn<CR>

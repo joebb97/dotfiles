@@ -2,6 +2,7 @@
 !*/
 !*.*
 !Makefile
+!CPPMakefile
 *.swp
 *.pyc
 .color_coded
