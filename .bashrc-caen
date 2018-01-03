@@ -8,7 +8,7 @@ alias gitcm="git commit -m"
 alias gitp="git push"
 alias gitd="git diff"
 
-export BASH_IT="~/.bash_it"
+export BASH_IT="/home/joebb/.bash_it"
 export BASH_IT_THEME='bakke'
 export TODO="t"
 export SCM_CHECK=true
