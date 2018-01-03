@@ -7,11 +7,14 @@ alias gita="git add -A"
 alias gitcm="git commit -m"
 alias gitp="git push"
 alias gitd="git diff"
-
-export BASH_IT="/home/joebb/.bash_it"
-export BASH_IT_THEME='bakke'
-export TODO="t"
-export SCM_CHECK=true
-source "$BASH_IT"/bash_it.sh
+alias m="make"
 alias submit370='/afs/umich.edu/class/eecs370/bin/submit370'
+
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+export BASH_IT="$HOME/.bash_it"
+export BASH_IT_THEME='bakke'
+export SCM_CHECK=true
+
+source "$BASH_IT"/bash_it.sh
 source $HOME/.autojump/share/autojump/autojump.bash
