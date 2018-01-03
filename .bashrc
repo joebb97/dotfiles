@@ -9,10 +9,12 @@ alias gita="git add -A"
 alias gitcm="git commit -m"
 alias gitp="git push"
 alias gitd="git diff"
+alias submit370='/afs/umich.edu/class/eecs370/bin/submit370'
 
 # Path to the bash it configuration
-export BASH_IT="/Users/Joey/.bash_it"
-
+source ~/.autojump/share/autojump/autojump.bash
+# Path to the bash it configuration
+export BASH_IT="/home/joebb/.bash_it"
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
 export BASH_IT_THEME='bakke'
@@ -60,4 +62,3 @@ export SCM_CHECK=true
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
-source /usr/share/autojump/autojump.sh
