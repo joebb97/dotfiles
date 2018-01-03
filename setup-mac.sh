@@ -60,6 +60,7 @@ then
 fi
 
 if [ ! -d /usr/local/Cellar/autojump ]
+then
     brew install autojump
 fi
 

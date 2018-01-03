@@ -1,1 +1,0 @@
-/home/joebb/dotfiles/.bashrc-caen
