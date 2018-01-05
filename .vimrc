@@ -42,9 +42,10 @@ set splitbelow
 set splitright
 set laststatus=2
 set ttimeoutlen=50
-
 "LET
 let mapleader=","
+" enable line numbers
+let NERDTreeShowLineNumbers=1
 
 "WEIRD SHIT FOR PLUGINS
 autocmd StdinReadPre * let s:std_in=1
