@@ -2,7 +2,7 @@
 printf "running dotfiles setup at $(date)...\n"
 if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
-    files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config .bashrc"
+    files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config .bashrc-deb"
     backup_dir = "~/dotfile-backups"
     if [ ! -d $backup_dir]
     then
@@ -14,6 +14,19 @@ then
         then
             printf "Moving $file to $backup_dir...\n"
             mv -ivb ~/$file $backup_dir/$file
+        fi
+
+        if [ $file == ".bashrc-deb" ]
+        then
+            if [ -f $HOME/.bashrc]
+            then
+                printf "Moving bashrc to $backup_dir...\n"
+                mv -iv $HOME/$file $backup_dir/.bashrc
+            fi
+            
+            printf "Making symlink from $(pwd)/$file to ~/.bashrc...\n"
+            ln -siv $(pwd)/$file ~/.bashrc
+            continue
         fi
 
         if [ $file == "ssh_config" ]
@@ -59,6 +72,7 @@ then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
+sudo apt-get update
 dpkg -l | grep 'vim-gtk' > /dev/null
 if [ $? != 0 ]
 then

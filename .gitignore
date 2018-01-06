@@ -3,6 +3,7 @@
 !*.*
 !Makefile
 !CPPMakefile
+Session.vim
 *.swp
 *.pyc
 .color_coded
