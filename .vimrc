@@ -19,13 +19,18 @@ filetype plugin indent on    " DO NOT REMOVE
 " NON PLUGIN STUFF BELOW HERE
 colorscheme molokai "colors! 
 syntax enable "enable different syntaxes
-filetype indent on "load file-specific indent files
 
 "SET
-set clipboard=unnamed
-set tabstop=4 "set tabs to 2 visual spaces
+set clipboard=unnamed "universal clipboard
+set autoindent
+set tabstop=4 
 set shiftwidth=4
+set softtabstop=4
 set expandtab
+"set noexpandtab "use tabs
+"set list
+"set listchars=tab:>
+
 set number "shows line numbers
 set showcmd "shows last entered command 
 set wildmenu "autocompletes
@@ -36,12 +41,14 @@ set showmatch
 set incsearch "makes searching better
 "set hlsearch
 set foldenable "enable folding
+set foldlevelstart=10
 set foldmethod=indent "sets where folding is determined
 set cursorline
 set splitbelow
 set splitright
 set laststatus=2
 set ttimeoutlen=50
+
 "LET
 let mapleader=","
 " enable line numbers
