@@ -4,6 +4,7 @@
 !Makefile
 !CPPMakefile
 Session.vim
+compile_commands.json
 *.swp
 *.pyc
 .color_coded
