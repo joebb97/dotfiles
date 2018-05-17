@@ -14,3 +14,4 @@ compile_commands.json
 .ycm*
 *.o
 *.out
+.bashrc
