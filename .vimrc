@@ -3,7 +3,7 @@ filetype off                  " DO NOT REMOVE
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " DO NOT REMOVE
-Plugin 'valloric/youcompleteme'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'epmatsw/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
@@ -12,6 +12,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'mileszs/ack.vim'
 " PLUGINS MUST GO HERE
 call vundle#end()            " DO NOT REMOVE
 filetype plugin indent on    " DO NOT REMOVE
@@ -36,7 +37,7 @@ set showcmd "shows last entered command
 set wildmenu "autocompletes
 set backspace=2
 set backspace=indent,eol,start
-"set lazyredraw "redraw only when needed
+set lazyredraw "redraw only when needed
 set showmatch
 set incsearch "makes searching better
 "set hlsearch
@@ -62,11 +63,21 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'ra'
 "let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme='molokai'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 "COMMAND
 command!  Svrc :source $MYVIMRC
 command!  Save :mksession!

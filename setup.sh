@@ -3,73 +3,66 @@ printf "running dotfiles setup at $(date)...\n"
 if [ "$1" == "-c" ] || [ "$1" == "--copy" ]
 then
     files=".vimrc .tmux.conf .gitconfig .inputrc ssh_config .bashrc-deb"
-    backup_dir = "~/dotfile-backups"
-    if [ ! -d $backup_dir]
+    backup_dir="$HOME/dotfile-backups"
+    if [ ! -d $backup_dir ]
     then
         mkdir $backup_dir
     fi
     for file in $files
     do
-        if [ -f ~/$file ]
+        if [ -f $HOME/$file ]
         then
             printf "Moving $file to $backup_dir...\n"
-            mv -ivb ~/$file $backup_dir/$file
+            mv -ivb $HOME/$file $backup_dir/$file
         fi
 
         if [ $file == ".bashrc-deb" ]
         then
-            if [ -f $HOME/.bashrc]
-            then
-                printf "Moving bashrc to $backup_dir...\n"
-                mv -iv $HOME/$file $backup_dir/.bashrc
-            fi
-            
-            printf "Making symlink from $(pwd)/$file to ~/.bashrc...\n"
-            ln -siv $(pwd)/$file ~/.bashrc
-            continue
+            file=".bashrc"
+            cp .bashrc-deb .bashrc
         fi
 
         if [ $file == "ssh_config" ]
         then
-            if [ ! -d ~/.ssh ]
+            if [ ! -d $HOME/.ssh ]
             then
-                mkdir ~/.ssh
+                mkdir $HOME/.ssh
             fi
             
-            printf "Making symlink from $(pwd)/$file to ~/.ssh/config...\n"
-            ln -sivb $(pwd)/$file ~/.ssh/config
+            printf "Making symlink from $(pwd)/$file to $HOME/.ssh/config...\n"
+            ln -sivb $(pwd)/$file $HOME/.ssh/config
             continue
         fi
         
-        printf "Making symlink from $(pwd)/$file to ~/$file...\n"
-        ln -sivb $(pwd)/$file ~/$file # symbolic links require full path
+        printf "Making symlink from $(pwd)/$file to $HOME/$file...\n"
+        ln -sivb $(pwd)/$file $HOME/$file # symbolic links require full path
     done
 fi
 
-if [ ! -d ~/.tmux ]
+if [ ! -d $HOME/.tmux ]
 then
     printf "cloning tmux plugin manager...\n"
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 fi
 
 if [ ! -d /usr/share/autojump ]
 then
     printf "installing autojump...\n"
     sudo apt install autojump
-    echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc
+    echo "source /usr/share/autojump/autojump.sh" >> $HOME/.bashrc
 fi
 
-if [ ! -d ~/.bash_it ]
+if [ ! -d $HOME/.bash_it ]
 then
     printf "installing bash_it...\n"
-    git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-    ~/.bash_it/install.sh
+    git clone --depth=1 https://github.com/Bash-it/bash-it.git $HOME/.bash_it
+    $HOME/.bash_it/install.sh
 fi
 
-if [ ! -d ~/.vim/bundle/Vundle.vim ]
+if [ ! -d $HOME/.vim/bundle/Vundle.vim ]
 then
     printf "cloning Vundle (vim plugin manager)...\n"
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 fi
 
 sudo apt-get update
@@ -86,4 +79,5 @@ then
 fi
     
 echo "sourcing bashrc"
-source ~/.bashrc
+rm -f .bashrc
+source $HOME/.bashrc

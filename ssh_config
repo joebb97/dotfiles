@@ -1,4 +1,9 @@
+Host *
+    ForwardAgent yes
+    AddKeysToAgent yes
+    PubkeyAcceptedKeyTypes +ssh-dss
+
 Host caen
-  HostName login-course.engin.umich.edu
-  User joebb
-  IdentityFile ~/.ssh/id_rsa
+    HostName login-course.engin.umich.edu
+    User joebb
+    IdentityFile ~/.ssh/id_rsa
