@@ -8,10 +8,10 @@ Plugin 'epmatsw/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/taglist.vim'
 Plugin 'mileszs/ack.vim'
 " PLUGINS MUST GO HERE
 call vundle#end()            " DO NOT REMOVE
