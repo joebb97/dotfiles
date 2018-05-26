@@ -10,6 +10,7 @@ alias gitd="git diff"
 alias m='make'
 alias vim=/usr/local/Cellar/vim/8.0.0823/bin/vim
 alias make=/usr/local/bin/make
+alias destroy='suspend'
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
