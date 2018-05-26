@@ -4,6 +4,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " DO NOT REMOVE
 Plugin 'davidhalter/jedi-vim'
+"Plugin 'valloric/youcompleteme'
 Plugin 'epmatsw/ag.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
@@ -32,6 +33,7 @@ set expandtab
 "set list
 "set listchars=tab:>
 
+set nobackup
 set number "shows line numbers
 set showcmd "shows last entered command 
 set wildmenu "autocompletes
@@ -73,10 +75,11 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height=5
 
 "COMMAND
 command!  Svrc :source $MYVIMRC
@@ -106,8 +109,11 @@ nnoremap <leader>j Lzt
 nnoremap <leader>k Hzb
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>b $A{<CR>}<ESC>O
-nnoremap <leader>/ :Ag  
+nnoremap <leader>/ :Ack
+nnoremap <leader>s :SyntasticCheck<CR>
+nnoremap <leader>a :SyntasticReset<CR>
 nnoremap <leader>u :GundoToggle<CR>
-nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>c :NERDTreeToggle<CR>
+nnoremap <leader>t :TlistToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
