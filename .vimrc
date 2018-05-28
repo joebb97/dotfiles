@@ -1,22 +1,55 @@
-set nocompatible              " DO NOT REMOVE
-filetype off                  " DO NOT REMOVE
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim' " DO NOT REMOVE
-Plugin 'davidhalter/jedi-vim'
-"Plugin 'valloric/youcompleteme'
-Plugin 'epmatsw/ag.vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'mileszs/ack.vim'
-" PLUGINS MUST GO HERE
-call vundle#end()            " DO NOT REMOVE
-filetype plugin indent on    " DO NOT REMOVE
+"PLUGINS BB
+call plug#begin()
+"Plug 'davidhalter/jedi-vim'
+"Plug 'valloric/youcompleteme'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'sjl/gundo.vim'
+Plug 'kien/ctrlp.vim'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'nvie/vim-flake8'
+Plug 'scrooloose/nerdtree'
+" VIM AIRLINE
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/taglist.vim'
+Plug 'mileszs/ack.vim'
+"Plug 'maralla/completor.vim'
+Plug 'w0rp/ale'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/asyncomplete.vim'
+call plug#end()            " DO NOT REMOVE
+"
+"WEIRD SHIT FOR PLUGINS
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_auto_popup = 1
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+let python_highlight_all=1
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
+let g:airline#extensions#tabline#enabled=1 
+let g:airline#extensions#tabline#fnamemod=':t'
+let g:airline_theme='molokai'
+
+"SYNTASTIC
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_loc_list_height=5
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme molokai "colors! 
@@ -54,32 +87,7 @@ set ttimeoutlen=50
 
 "LET
 let mapleader=","
-" enable line numbers
-let NERDTreeShowLineNumbers=1
 
-"WEIRD SHIT FOR PLUGINS
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-let python_highlight_all=1
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
-let g:airline#extensions#tabline#enabled=1 
-let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='molokai'
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-let g:syntastic_loc_list_height=5
 
 "COMMAND
 command!  Svrc :source $MYVIMRC
