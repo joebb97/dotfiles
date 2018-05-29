@@ -6,7 +6,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 "Plug 'vim-syntastic/syntastic'
-"Plug 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 Plug 'scrooloose/nerdtree'
 " VIM AIRLINE
 Plug 'vim-airline/vim-airline'
@@ -15,41 +15,41 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'mileszs/ack.vim'
 "Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete.vim'
+" Auto completion boys
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'keremc/asyncomplete-clang.vim'
 call plug#end()            " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let g:asyncomplete_auto_popup = 1
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+    \ asyncomplete#sources#clang#get_source_options())
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+set completeopt+=preview
 imap <c-space> <Plug>(asyncomplete_force_refresh)
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " enable line numbers
 let NERDTreeShowLineNumbers=1
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif " close preview tab of youcompleteme
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme='molokai'
-
-"SYNTASTIC
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_loc_list_height=5
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme molokai "colors! 
