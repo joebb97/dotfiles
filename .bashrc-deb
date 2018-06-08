@@ -7,15 +7,16 @@ alias gita="git add -A"
 alias gitcm="git commit -m"
 alias gitp="git push"
 alias gitd="git diff"
-alias m='make'
+alias m="make"
 
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 export BASH_IT="$HOME/.bash_it"
-export BASH_IT_THEME='bakke'
+export BASH_IT_THEME="bakke"
 export SCM_CHECK=true
+
+export PATH="$HOME/.local/bin:$HOME/.local/share:$PATH"
 
 source "$BASH_IT"/bash_it.sh
 [[ -s /home/jbuiteweg/.autojump/etc/profile.d/autojump.sh ]] && source /home/jbuiteweg/.autojump/etc/profile.d/autojump.sh ]]
 
-export PATH="$HOME/bin:$PATH"

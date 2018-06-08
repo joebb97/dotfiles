@@ -1,6 +1,6 @@
 "PLUGINS BB
 call plug#begin()
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 "Plug 'valloric/youcompleteme'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
@@ -13,34 +13,37 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/taglist.vim'
 Plug 'mileszs/ack.vim'
-"Plug 'maralla/completor.vim'
+Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 " Auto completion boys
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'keremc/asyncomplete-clang.vim'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'keremc/asyncomplete-clang.vim'
 call plug#end()            " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
-autocmd User asyncomplete_setup call asyncomplete#register_source(
-    \ asyncomplete#sources#clang#get_source_options())
+"autocmd User asyncomplete_setup call asyncomplete#register_source(
+"    \ asyncomplete#sources#clang#get_source_options())
 
-if executable('pyls')
+"if executable('pyls')
     " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-set completeopt+=preview
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'pyls',
+"        \ 'cmd': {server_info->['pyls']},
+"        \ 'whitelist': ['python'],
+"        \ })
+"endif
+
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+"set completeopt+=preview
+"imap <c-space> <Plug>(asyncomplete_force_refresh)
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 let python_highlight_all=1
@@ -118,8 +121,6 @@ nnoremap <leader>k Hzb
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>b $A{<CR>}<ESC>O
 nnoremap <leader>/ :Ack
-nnoremap <leader>s :SyntasticCheck<CR>
-nnoremap <leader>a :SyntasticReset<CR>
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>c :NERDTreeToggle<CR>
 nnoremap <leader>t :TlistToggle<CR>
