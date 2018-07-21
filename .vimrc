@@ -45,6 +45,7 @@ call plug#end()            " DO NOT REMOVE
 "imap <c-space> <Plug>(asyncomplete_force_refresh)
 "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " enable line numbers
+let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
