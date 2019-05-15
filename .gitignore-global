@@ -16,5 +16,3 @@ bats
 *.sublime-project
 enabled/*
 tags
-.cfg
-.ssh/id_rsa*

@@ -6,13 +6,14 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 "Plug 'vim-syntastic/syntastic'
-Plug 'nvie/vim-flake8'
+"Plug 'nvie/vim-flake8'
 Plug 'scrooloose/nerdtree'
 " VIM AIRLINE
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/taglist.vim'
 Plug 'mileszs/ack.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
@@ -56,10 +57,9 @@ let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme='molokai'
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme molokai "colors! 
+colorscheme deus "colors! 
 syntax enable "enable different syntaxes
 
-"SET
 set clipboard=unnamed "universal clipboard
 set autoindent
 set tabstop=4 
