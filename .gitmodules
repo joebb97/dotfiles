@@ -1,0 +1,18 @@
+[submodule ".bash_it"]
+	path = .bash_it
+	url = https://github.com/Bash-it/bash-it
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule ".tools/ctags"]
+	path = .tools/ctags
+	url = https://github.com/universal-ctags/ctags
+[submodule ".tools/autojump"]
+	path = .tools/autojump
+	url = https://github.com/wting/autojump
+[submodule ".tools/Bear"]
+	path = .tools/Bear
+	url = https://github.com/rizsotto/Bear
+[submodule ".tools/vim"]
+	path = .tools/vim
+	url = https://github.com/vim/vim
