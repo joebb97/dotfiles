@@ -16,3 +16,6 @@
 [submodule ".tools/vim"]
 	path = .tools/vim
 	url = https://github.com/vim/vim
+[submodule ".tools/tmux"]
+	path = .tools/tmux
+	url = https://github.com/tmux/tmux
