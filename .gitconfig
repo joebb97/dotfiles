@@ -9,4 +9,4 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [core]
-	excludesfile = ~/.gitignore-global
+	excludesfile = ~/.extra/git-files/global-gitignore.txt
