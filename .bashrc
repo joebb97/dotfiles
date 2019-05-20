@@ -11,3 +11,8 @@ source "$BASH_IT"/bash_it.sh
 if [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
     source $HOME/.autojump/etc/profile.d/autojump.sh
 fi
+
+# AUTOJUMP WAS INSTALLED VIA PACKAGE MANAGER
+if [[ -s /usr/share/autojump/autojump.bash ]]; then
+    source /usr/share/autojump/autojump.bash  
+fi
