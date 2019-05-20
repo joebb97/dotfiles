@@ -55,6 +55,14 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme='molokai'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'python': ['autopep8', 'yapf', 'isort']
+\}
+let g:ale_linters = {
+\   'python': ['pylint', 'flake8', 'pydocstyle']
+\}
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme deus "colors! 
