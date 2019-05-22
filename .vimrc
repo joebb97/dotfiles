@@ -61,8 +61,12 @@ let g:ale_fixers = {
 \   'python': ['autopep8', 'yapf', 'isort']
 \}
 let g:ale_linters = {
-\   'python': ['pylint', 'flake8', 'pydocstyle']
+\   'python': ['pylint', 'flake8', 'pydocstyle'],
+\   'c': ['gcc', 'clang'],
+\   'cpp': ['gcc', 'clang']
 \}
+let g:ale_c_parse_compile_commands=1
+let g:ale_c_parse_makefile=1
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme deus "colors! 
