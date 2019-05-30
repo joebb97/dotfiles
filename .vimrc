@@ -109,6 +109,8 @@ let mapleader=","
 command!  Svrc :source $MYVIMRC
 command!  Save :mksession!
 command!  Evrc :e $MYVIMRC
+command!  Ebrc :e $HOME/.bashrc
+command!  Egcfg :e $HOME/.gitconfig
 
 "INOREMAP
 inoremap <C-J> <ESC><C-W><C-J>
@@ -139,3 +141,4 @@ nnoremap <leader>c :NERDTreeToggle<CR>
 nnoremap <leader>t :TlistToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
+nnoremap <leader>f :NERDTreeFind<CR>

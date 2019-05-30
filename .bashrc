@@ -4,6 +4,8 @@ export BASH_IT_THEME='bakke'
 export BASH_IT_CUSTOM="$HOME/.custom-bash"
 export SCM_CHECK=true
 export TERM=screen-256color
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export HISTIGNORE="ls:rm:history:cd"
 
 # SOURCE NECESSARY SCRIPTS
 source "$BASH_IT"/bash_it.sh
