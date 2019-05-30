@@ -6,12 +6,13 @@
 !.gitconfig
 !.gitignore-global
 !.inputrc
-!.local
+!.local/bin/ack
 !.ssh/config
-!.tmux
+!.tmux/plugins/tpm
 !.tmux.conf
 !.tools
-!.vim
+!.vim/autoload
+!.vim/colors
 !.vimrc
 !README.md
 !.custom-bash
