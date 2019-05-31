@@ -58,10 +58,10 @@ let g:airline_theme='molokai'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
-\   'python': ['autopep8', 'yapf', 'isort']
+\   'python': ['autopep8', 'isort']
 \}
 let g:ale_linters = {
-\   'python': ['pylint', 'flake8', 'pydocstyle'],
+\   'python': ['flake8', 'pydocstyle'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang']
 \}
@@ -137,8 +137,10 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>b $A{<CR>}<ESC>O
 nnoremap <leader>/ :Ack
 nnoremap <leader>u :GundoToggle<CR>
-nnoremap <leader>c :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>c :NERDTreeFind<CR>
+nnoremap <leader>f :ALEFix<CR>
+nnoremap <leader>i :ALEInfo<CR>
 nnoremap <leader>t :TlistToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
