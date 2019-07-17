@@ -4,9 +4,9 @@
 [push]
 	default = simple
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+	; required = true
+	; clean = git-lfs clean -- %f
+	; smudge = git-lfs smudge -- %f
+	; process = git-lfs filter-process
 [core]
 	excludesfile = ~/.extra/git-files/global-gitignore.txt

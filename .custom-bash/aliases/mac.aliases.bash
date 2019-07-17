@@ -6,4 +6,5 @@ if [[ $(uname) == "Darwin" ]]; then
         alias vim=${BREW_VIM_PATH}/${VIM_VER}/bin/vim
     fi
     alias make=/usr/local/bin/make
+
 fi

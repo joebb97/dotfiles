@@ -20,7 +20,7 @@ USER $USER
 
 # CHECKOUT THE DOTFILES REPO AND SUBMODULES
 ENV cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-RUN git clone --bare https://gitlab.eecs.umich.edu/joebb/dotfiles/ $HOME/.cfg
+RUN git clone --depth 1 --bare https://gitlab.eecs.umich.edu/joebb/dotfiles/ $HOME/.cfg
 RUN git clone --depth 1 https://gitlab.eecs.umich.edu/joebb/sandbox $HOME/sandbox
 RUN $cfg checkout -f
 RUN $cfg submodule update --init 

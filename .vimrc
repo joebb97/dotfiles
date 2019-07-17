@@ -52,6 +52,16 @@ let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 'ra'
+" Prefer rg over ag over ack
+if executable('rg')
+    set grepprg=rg\ --hidden
+    let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+elseif executable('ag')
+    set grepprg=ag\ --no-color\ --hidden
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+elseif executable('ack')
+    set grepprg=ack\ --no-color
+endif
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
 let g:airline_theme='molokai'
@@ -63,7 +73,8 @@ let g:ale_fixers = {
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle'],
 \   'c': ['gcc', 'clang'],
-\   'cpp': ['gcc', 'clang']
+\   'cpp': ['gcc', 'clang'],
+\   'javascript': ['eslint']
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1
