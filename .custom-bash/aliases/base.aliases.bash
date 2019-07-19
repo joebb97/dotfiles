@@ -16,3 +16,14 @@ alias cfgll='cfg log --graph --pretty=oneline --abbrev-commit'
 alias cfgd='cfg diff'
 alias ssh-no-conf='ssh -F /dev/null'
 alias m='make -j5'
+# Use best tool for job for finding files
+alias_name="find_file"
+if hash rg 2>/dev/null; then
+    alias ${alias_name}="rg --files -g"
+elif hash ag 2>/dev/null; then
+    alias ${alias_name}="ag -g"
+elif hash ack 2>/dev/null; then
+    alias ${alias_name}="ack --ignore-file=is:tags -g"
+else
+    alias ${alias_name}="find . -iname"
+fi

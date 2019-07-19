@@ -14,7 +14,10 @@ function push_changes {
         local no_ext="${bname%.*}"
         if [[ ${ext} == 'less' ]]; then
             bname="${no_ext}.css"
-            echo "Found .less file, needs building, copying ${bname}"
+            # item="$(dirname ${item})/${bname}"
+            # echo "Found .less file, needs building, copying ${bname}"
+            echo "Found .less file, skipping"
+            continue
         fi
         local file=$(ssh -F /dev/null root@$1 find /base/pkg -iname $bname)
         local num_files=$(echo ${file} | wc -w)
@@ -37,8 +40,8 @@ function find_remote {
         echo "Error: usage find_remote <box_name>"
         return 1
     fi
-    local file=$(ssh -F /dev/null root@$1 find /base/pkg/ -wholename $2)
-    echo ${file}
+    local file=$(ssh -F /dev/null root@$1 find /base/pkg/ -iname $2)
+    echo "root@$1:${file}"
 }
 
 function do_remote {
