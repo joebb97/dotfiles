@@ -1,14 +1,12 @@
 "PLUGINS BB
 call plug#begin()
 Plug 'davidhalter/jedi-vim'
-"Plug 'valloric/youcompleteme'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 "Plug 'vim-syntastic/syntastic'
 "Plug 'nvie/vim-flake8'
 Plug 'scrooloose/nerdtree'
-" VIM AIRLINE
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/taglist.vim'
@@ -18,6 +16,7 @@ Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Auto completion boys
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/async.vim'
@@ -27,25 +26,9 @@ Plug 'tpope/vim-fugitive'
 call plug#end()            " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
-"autocmd User asyncomplete_setup call asyncomplete#register_source(
-"    \ asyncomplete#sources#clang#get_source_options())
-
-"if executable('pyls')
-    " pip install python-language-server
-"    au User lsp_setup call lsp#register_server({
-"        \ 'name': 'pyls',
-"        \ 'cmd': {server_info->['pyls']},
-"        \ 'whitelist': ['python'],
-"        \ })
-"endif
-
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-"set completeopt+=preview
-"imap <c-space> <Plug>(asyncomplete_force_refresh)
-"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" enable line numbers
+let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix"
+let g:go_fmt_autosave = 0
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
 let python_highlight_all=1
@@ -83,6 +66,7 @@ let g:ale_c_parse_makefile=1
 colorscheme deus "colors! 
 syntax enable "enable different syntaxes
 
+set autowrite " Enable autowrite
 set clipboard=unnamed "universal clipboard
 set autoindent
 set tabstop=4 
@@ -139,19 +123,69 @@ nnoremap <space> za
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
-nnoremap <leader>r :! rscript -e "library('knitr');knit2pdf('$(ls *.Rnw)')"<CR>
+nnoremap <C-g>v :vert term<CR>
+nnoremap <C-g>% :vert term<CR>
+nnoremap <C-g>s :term<CR>
+nnoremap <C-g>" :term<CR>
+nnoremap <C-g>c :tabe<CR>:term ++curwin<CR>
+nnoremap <C-g>n :gt
+nnoremap <C-g>p :gT
+nnoremap <C-g>" :term<CR>
+nnoremap <C-g>h <C-W><C-h>
+nnoremap <C-g>j <C-W><C-j>
+nnoremap <C-g>k <C-W><C-k>
+nnoremap <C-g>l <C-W><C-l>
+nnoremap <C-g><C-H> <C-W><C-h>
+nnoremap <C-g><C-J> <C-W><C-j>
+nnoremap <C-g><C-K> <C-W><C-k>
+nnoremap <C-g><C-l> <C-W><C-l>
+
+"TNOREMAP
+tnoremap jj <C-W>N
+tnoremap <C-g>v <C-W>N:vert term<CR>
+tnoremap <C-g>% <C-W>N:vert term<CR>
+tnoremap <C-g>s <C-W>N:term<CR>
+tnoremap <C-g>" <C-W>N:vert term<CR>
+tnoremap <C-g>c :tabe<CR>:term ++curwin<CR>
+tnoremap <C-g>n :gt
+tnoremap <C-g>p :gT
+tnoremap <C-g>h <C-W><C-h>
+tnoremap <C-g>j <C-W><C-j>
+tnoremap <C-g>k <C-W><C-k>
+tnoremap <C-g>l <C-W><C-l>
+tnoremap <C-g><C-H> <C-W><C-h>
+tnoremap <C-g><C-J> <C-W><C-j>
+tnoremap <C-g><C-K> <C-W><C-k>
+tnoremap <C-g><C-l> <C-W><C-l>
+
+"LEADER KEY
+nnoremap <leader>rnw:! rscript -e "library('knitr');knit2pdf('$(ls *.Rnw)')"<CR>
 nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>j Lzt
 nnoremap <leader>k Hzb
+nnoremap <leader>sa :Save<CR>
+nnoremap <leader>sv :Svrc<CR>
+nnoremap <leader>ev :Evrc<CR>
+nnoremap <leader>eb :Ebrc<CR>
 nnoremap <leader><space> :noh<CR>
-nnoremap <leader>b $A{<CR>}<ESC>O
+nnoremap <leader>bl $A {<CR>}<ESC>O
+nnoremap <leader>bs $A<CR>{<CR>}<ESC>O
 nnoremap <leader>/ :Ack
 nnoremap <leader>u :GundoToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>c :NERDTreeFind<CR>
-nnoremap <leader>f :ALEFix<CR>
-nnoremap <leader>i :ALEInfo<CR>
-nnoremap <leader>t :TlistToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>nc :NERDTreeClose<CR>
+nnoremap <leader>cc :cclose<CR>
+nnoremap <leader>cn :cn<CR>
+nnoremap <leader>cp :cp<CR>
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>ai :ALEInfo<CR>
+nnoremap <leader>gb :GoBuild<CR>
+nnoremap <leader>gf :GoFmt<CR>
+nnoremap <leader>gr :GoRun<CR>
+nnoremap <leader>gl :GoMetaLinter<CR>
+nnoremap <leader>tl :TlistToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
