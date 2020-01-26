@@ -21,6 +21,7 @@ function set_path {
 prepend_path ${HOME}/.cargo/bin
 prepend_path ${HOME}/.local/share
 prepend_path ${HOME}/.local/bin
+prepend_path ${HOME}/go/bin
 
 
 # --- GOPATH ---
@@ -42,5 +43,4 @@ function append_gopath {
 }
 set_gopath ${HOME}/go
 append_gopath ${HOME}/Dev/sandbox/go
-append_gopath ${HOME}/Dev/eecs491/project1
-append_gopath ${HOME}/Dev/eecs491/project2
+append_gopath ${HOME}/Dev/eecs491/project4

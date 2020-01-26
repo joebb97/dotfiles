@@ -16,6 +16,7 @@ alias cfgll='cfg log --graph --pretty=oneline --abbrev-commit'
 alias cfgd='cfg diff'
 alias ssh-no-conf='ssh -F /dev/null'
 alias m='make -j5'
+alias make='make -j5'
 # Use best tool for job for finding files
 alias_name="find_file"
 if hash rg 2>/dev/null; then
@@ -27,3 +28,4 @@ elif hash ack 2>/dev/null; then
 else
     alias ${alias_name}="find . -iname"
 fi
+alias weather="curl wttr.in/ann_arbor"

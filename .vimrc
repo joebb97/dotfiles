@@ -4,6 +4,8 @@ Plug 'davidhalter/jedi-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 "Plug 'vim-syntastic/syntastic'
 "Plug 'nvie/vim-flake8'
 Plug 'scrooloose/nerdtree'
@@ -128,8 +130,8 @@ nnoremap <C-g>% :vert term<CR>
 nnoremap <C-g>s :term<CR>
 nnoremap <C-g>" :term<CR>
 nnoremap <C-g>c :tabe<CR>:term ++curwin<CR>
-nnoremap <C-g>n :gt
-nnoremap <C-g>p :gT
+nnoremap <C-g>n gt
+nnoremap <C-g>p gT
 nnoremap <C-g>" :term<CR>
 nnoremap <C-g>h <C-W><C-h>
 nnoremap <C-g>j <C-W><C-j>
@@ -141,14 +143,14 @@ nnoremap <C-g><C-K> <C-W><C-k>
 nnoremap <C-g><C-l> <C-W><C-l>
 
 "TNOREMAP
-tnoremap jj <C-W>N
+tnoremap <C-j> <C-W>N
 tnoremap <C-g>v <C-W>N:vert term<CR>
 tnoremap <C-g>% <C-W>N:vert term<CR>
 tnoremap <C-g>s <C-W>N:term<CR>
 tnoremap <C-g>" <C-W>N:vert term<CR>
-tnoremap <C-g>c :tabe<CR>:term ++curwin<CR>
-tnoremap <C-g>n :gt
-tnoremap <C-g>p :gT
+tnoremap <C-g>c <C-W>N:tabe<CR>:term ++curwin<CR>
+tnoremap <C-g>n <C-W>Ngt
+tnoremap <C-g>p <C-W>NgT
 tnoremap <C-g>h <C-W><C-h>
 tnoremap <C-g>j <C-W><C-j>
 tnoremap <C-g>k <C-W><C-k>
@@ -180,6 +182,7 @@ nnoremap <leader>nc :NERDTreeClose<CR>
 nnoremap <leader>cc :cclose<CR>
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
+nnoremap <leader>te :tabe<CR>
 nnoremap <leader>af :ALEFix<CR>
 nnoremap <leader>ai :ALEInfo<CR>
 nnoremap <leader>gb :GoBuild<CR>

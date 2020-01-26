@@ -18,3 +18,5 @@ fi
 if [[ -s /usr/share/autojump/autojump.bash ]]; then
     source /usr/share/autojump/autojump.bash  
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
