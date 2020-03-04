@@ -18,7 +18,9 @@ Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'christoomey/vim-tmux-navigator'
 " Auto completion boys
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/async.vim'
@@ -190,5 +192,6 @@ nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gr :GoRun<CR>
 nnoremap <leader>gl :GoMetaLinter<CR>
 nnoremap <leader>tl :TlistToggle<CR>
+nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
