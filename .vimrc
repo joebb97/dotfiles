@@ -55,13 +55,15 @@ let g:airline_theme='molokai'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
-\   'python': ['autopep8', 'isort']
+\   'python': ['autopep8', 'isort'],
+\   'cpp': ['clang-format'],
+\   'c': ['clang-format'],
 \}
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
-\   'javascript': ['eslint']
+\   'javascript': ['eslint'],
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1
