@@ -4,10 +4,6 @@ Plug 'davidhalter/jedi-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-"Plug 'vim-syntastic/syntastic'
-"Plug 'nvie/vim-flake8'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -20,6 +16,10 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'nvie/vim-flake8'
 " Plug 'christoomey/vim-tmux-navigator'
 " Auto completion boys
 "Plug 'prabirshrestha/asyncomplete.vim'
