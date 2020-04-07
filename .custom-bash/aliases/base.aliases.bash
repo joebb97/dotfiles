@@ -18,8 +18,8 @@ alias cfgd='cfg diff'
 alias sshnc='ssh -F /dev/null'
 alias m='make -j5'
 alias make='make -j5'
-alias ls='ls --color=auto'
 # Use best tool for job for finding files
+alias ls='ls --color=auto'
 alias_name="find_file"
 if hash rg 2>/dev/null; then
     alias ${alias_name}="rg --files -g"
