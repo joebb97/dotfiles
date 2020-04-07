@@ -28,6 +28,8 @@ prepend_path ${HOME}/go/bin
 function set_gopath {
     if [[ -d $1 ]]; then
         export GOPATH=$1
+    else
+        mkdir $1
     fi
 }
 

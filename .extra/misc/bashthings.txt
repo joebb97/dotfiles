@@ -1,1 +1,8 @@
 Lots of shortcuts to remember
+
+## FUN THINGS
+ascii/utf-8 art
+brew tap jmhobbs/parrot
+brew install terminal-parrot
+brew install asciiquarium
+see awdeorio's always_forget at the bottom for more
