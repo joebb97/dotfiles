@@ -1,6 +1,7 @@
 # QUALITY OF LIFE ALIASES
 alias sbrc='source $HOME/.bashrc'
 alias ebrc="vim $HOME/.bashrc"
+alias ebhi="vim $HOME/.bash_history"
 alias evrc="vim $HOME/.vimrc"
 alias egcfg="vim $HOME/.gitconfig"
 alias eggig="vim $HOME/.extra/git-files/global-gitignore.txt"
@@ -18,6 +19,7 @@ alias cfgd='cfg diff'
 alias sshnc='ssh -F /dev/null'
 alias m='make -j5'
 alias make='make -j5'
+alias ag="ag --pager='less -XFR'"
 # Use best tool for job for finding files
 alias ls='ls --color=auto'
 alias_name="find_file"
@@ -31,3 +33,4 @@ else
     alias ${alias_name}="find . -iname"
 fi
 alias weather="curl wttr.in/ann_arbor"
+alias dkc="docker container"

@@ -9,3 +9,11 @@ function hgrep {
 function noman {
     $1 --help | less
 }
+
+function cdl {
+    cd $1; l
+}
+
+function jl {
+    j $@; l
+}
