@@ -34,3 +34,4 @@ else
 fi
 alias weather="curl wttr.in/ann_arbor"
 alias dkc="docker container"
+alias tma="tmux attach"

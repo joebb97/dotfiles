@@ -1,4 +1,6 @@
-Lots of shortcuts to remember
+--- ALWAYS FORGET ---
+# Don't need to retype the password on your private key
+ssh-add ~/.ssh/id_rsa
 
 ## FUN THINGS
 ascii/utf-8 art

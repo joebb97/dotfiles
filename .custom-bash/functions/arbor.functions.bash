@@ -4,14 +4,17 @@ function push_changes {
         return 1
     fi
     local testing=false
-    if [[ ! -z $2 ]]; then
+    if [[ -n $2 ]]; then
         testing=true
     fi
     for item in $(git diff --name-only)
     do
-        local bname=$(basename $item)
-        local ext="${bname##*.}"
-        local no_ext="${bname%.*}"
+        local bname
+        bname=$(basename "${item}")
+        local ext
+        ext=${bname##*.}
+        local no_ext
+        ext=${bname%.*}
         if [[ ${ext} == 'less' ]]; then
             bname="${no_ext}.css"
             # item="$(dirname ${item})/${bname}"
@@ -19,8 +22,10 @@ function push_changes {
             echo "Found .less file, skipping"
             continue
         fi
-        local file=$(ssh -F /dev/null root@$1 find /base/pkg -iname $bname)
-        local num_files=$(echo ${file} | wc -w)
+        local file
+        file=$(ssh -F /dev/null root@"$1" find /base/pkg -iname "$bname")
+        local num_files
+        num_files=$(echo "${file}" | wc -w)
         if [[ ${num_files} -ne 1 ]]; then
             echo "Found duplicate files with name ${bname} skipping ..."
             continue
@@ -40,7 +45,8 @@ function find_remote {
         echo "Error: usage find_remote <box_name>"
         return 1
     fi
-    local file=$(ssh -F /dev/null root@$1 find /base/pkg/ -iname $2)
+    local file
+    file=$(ssh -F /dev/null root@$1 find /base/pkg/ -iname $2)
     echo "root@$1:${file}"
 }
 
