@@ -3,11 +3,12 @@
 !.bash_profile
 !.bash_it
 !.extra
+.vagrant
 !.gitconfig
 !.gitignore-global
 !.inputrc
 !.local/bin/ack
-!.ssh/config
+!.ssh/ssh_config
 !.tmux/plugins/tpm
 !.tmux.conf
 !.tools

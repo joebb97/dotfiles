@@ -68,6 +68,7 @@ let g:ale_linters = {
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1
+let g:gundo_prefer_python3=1
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme deus "colors! 

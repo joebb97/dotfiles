@@ -2,6 +2,12 @@
 # Don't need to retype the password on your private key
 ssh-add ~/.ssh/id_rsa
 
+tar -tf filename.tar.gz
+vim wow.tar.gz # VIM CAN PREVIEW IT BY ITSELF WOAHH
+
+# Get highlighting for ssh config file if vim can't detect it
+set syntax=sshconfig
+
 ## FUN THINGS
 ascii/utf-8 art
 brew tap jmhobbs/parrot
