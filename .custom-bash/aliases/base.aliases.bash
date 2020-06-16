@@ -5,6 +5,7 @@ alias ebhi="vim $HOME/.bash_history"
 alias evrc="vim $HOME/.vimrc"
 alias egcfg="vim $HOME/.gitconfig"
 alias eggig="vim $HOME/.extra/git-files/global-gitignore.txt"
+alias ealias="vim $HOME/.custom-bash/aliases/base.aliases.bash"
 alias howbig="du -sh"
 # CONFIG ALIASES
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

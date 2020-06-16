@@ -52,7 +52,7 @@ function find_remote {
 
 function do_remote {
     if [[ $# -ne 2 ]]; then
-        echo "Error: usage find_remote <box_name>"
+        echo "Error: usage do_remote <box_name>"
         return 1
     fi
     local cmd="ssh -F /dev/null root@$1 $2"

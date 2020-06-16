@@ -8,6 +8,9 @@ vim wow.tar.gz # VIM CAN PREVIEW IT BY ITSELF WOAHH
 # Get highlighting for ssh config file if vim can't detect it
 set syntax=sshconfig
 
+.ssh needs to be 700 in order for public key auth and agent forwarding to work
+ssh-copy-id is useful
+
 ## FUN THINGS
 ascii/utf-8 art
 brew tap jmhobbs/parrot
