@@ -3,19 +3,19 @@
 
 function append_path {
     # Make sure the directory exists and isn't apart of the path
-    if [[ -d $1 && :$PATH: != *:"$1":* ]]; then
+    if [[ -d $1 ]]; then
         export PATH=${PATH}:$1
     fi
 }
 
 function prepend_path {
-    if [[ -d $1 && :$PATH: != *:"$1":* ]]; then
+    if [[ -d $1 ]]; then
         export PATH=$1:${PATH}
     fi
 }
 
 function set_path {
-    if [[ -d $1 && :$PATH: != *:"$1":* ]]; then
+    if [[ -d $1 ]]; then
         export PATH=$1
     fi
 }
@@ -24,7 +24,14 @@ function print_path {
     echo "${PATH}" | awk -v RS=: '{print}'
 }
 
-prepend_path /usr/local/bin
+function prune_path {
+    local _cur_path="${PATH}"
+    local _fixed_path
+    _fixed_path=$(echo -n "${_cur_path}" | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+    export PATH=${_fixed_path}
+}
+
+
 # If we're logged in as root we don't want an extra leading slash
 _home=${HOME}
 if [[ ${_home} == "/" ]]; then
@@ -38,6 +45,8 @@ prepend_path "${_home}"/go/bin
 # macOS feels the need to put this somewhere else lol
 prepend_path "${_home}"/Library/Python/2.7/bin
 prepend_path "${_home}"/Library/Python/3.7/bin
+prepend_path /usr/local/bin
+prune_path
 
 
 # --- GOPATH ---

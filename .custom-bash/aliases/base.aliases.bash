@@ -9,7 +9,7 @@ alias eggig='vim $HOME/.extra/git-files/global-gitignore.txt'
 alias ealias='vim $HOME/.custom-bash/aliases/base.aliases.bash'
 alias howbig='du -sh'
 # CONFIG ALIASES
-alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias cfg='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cfgs='cfg status'
 alias cfga='cfg add '
 alias cfgall='cfg add -A'
@@ -26,13 +26,13 @@ alias ag="ag --pager='less -XFR'"
 alias ls='ls --color=auto'
 _alias_name='find_file'
 if hash rg 2>/dev/null; then
-    alias ${_alias_name}='rg --files -g'
+    alias find_file='rg --files -g'
 elif hash ag 2>/dev/null; then
-    alias ${_alias_name}='ag -g'
+    alias find_file='ag -g'
 elif hash ack 2>/dev/null; then
-    alias ${_alias_name}='ack --ignore-file=is:tags -g'
+    alias find_file='ack --ignore-file=is:tags -g'
 else
-    alias ${alias_name}="find . -iname"
+    alias find_file="find . -iname"
 fi
 alias weather="curl wttr.in/ann_arbor"
 alias dkc="docker container"
