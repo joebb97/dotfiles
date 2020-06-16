@@ -1,12 +1,13 @@
+#!/bin/bash
 # QUALITY OF LIFE ALIASES
 alias sbrc='source $HOME/.bashrc'
-alias ebrc="vim $HOME/.bashrc"
-alias ebhi="vim $HOME/.bash_history"
-alias evrc="vim $HOME/.vimrc"
-alias egcfg="vim $HOME/.gitconfig"
-alias eggig="vim $HOME/.extra/git-files/global-gitignore.txt"
-alias ealias="vim $HOME/.custom-bash/aliases/base.aliases.bash"
-alias howbig="du -sh"
+alias ebrc='vim $HOME/.bashrc'
+alias ebhi='vim $HOME/.bash_history'
+alias evrc='vim $HOME/.vimrc'
+alias egcfg='vim $HOME/.gitconfig'
+alias eggig='vim $HOME/.extra/git-files/global-gitignore.txt'
+alias ealias='vim $HOME/.custom-bash/aliases/base.aliases.bash'
+alias howbig='du -sh'
 # CONFIG ALIASES
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias cfgs='cfg status'
@@ -23,13 +24,13 @@ alias make='make -j5'
 alias ag="ag --pager='less -XFR'"
 # Use best tool for job for finding files
 alias ls='ls --color=auto'
-alias_name="find_file"
+_alias_name='find_file'
 if hash rg 2>/dev/null; then
-    alias ${alias_name}="rg --files -g"
+    alias ${_alias_name}='rg --files -g'
 elif hash ag 2>/dev/null; then
-    alias ${alias_name}="ag -g"
+    alias ${_alias_name}='ag -g'
 elif hash ack 2>/dev/null; then
-    alias ${alias_name}="ack --ignore-file=is:tags -g"
+    alias ${_alias_name}='ack --ignore-file=is:tags -g'
 else
     alias ${alias_name}="find . -iname"
 fi
