@@ -16,4 +16,6 @@
 !.vim/colors
 !.vimrc
 !README.md
+!.config/fish/config.fish
 !.custom-bash
+.tools/google-cloud-sdk

@@ -10,3 +10,8 @@
 	; process = git-lfs filter-process
 [core]
 	excludesfile = ~/.extra/git-files/global-gitignore.txt
+[credential]
+	helper = !aws codecommit credential-helper $@
+	UseHttpPath = true
+[bash-it]
+	hide-status = 0

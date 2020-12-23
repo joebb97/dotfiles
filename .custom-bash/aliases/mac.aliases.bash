@@ -5,6 +5,6 @@ if [[ $(uname) == "Darwin" ]]; then
     if [[ -d $BREW_VIM_PATH ]]
     then
         VIM_VER=$(ls $BREW_VIM_PATH)
-        # alias vim=${BREW_VIM_PATH}/${VIM_VER}/bin/vim
+        alias vim=${BREW_VIM_PATH}/${VIM_VER}/bin/vim
     fi
 fi

@@ -46,6 +46,7 @@ prepend_path "${_home}"/go/bin
 prepend_path "${_home}"/Library/Python/2.7/bin
 prepend_path "${_home}"/Library/Python/3.7/bin
 prepend_path /usr/local/bin
+prepend_path /usr/local/share
 prune_path
 
 

@@ -87,3 +87,7 @@ vim
 wget
 xz
 zeromq
+jq
+sipcalc
+autopep8
+aws-vault
