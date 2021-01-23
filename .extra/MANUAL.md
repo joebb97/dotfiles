@@ -32,3 +32,18 @@ cd vim
 ```bash
 python $HOME/.tools/get-pip.py
 ```
+
+# Enable git aliases for bash-it
+
+```bash
+bash-it enable alias git
+sbrc
+```
+
+# Install silver searcher
+
+```bash
+cd .tools/the_silver_searcher
+./build.sh
+<configure if you want to>
+make install

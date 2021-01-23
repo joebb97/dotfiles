@@ -24,7 +24,6 @@ alias make='make -j5'
 alias ag="ag --pager='less -XFR'"
 # Use best tool for job for finding files
 alias ls='ls --color=auto'
-_alias_name='find_file'
 if hash rg 2>/dev/null; then
     alias find_file='rg --files -g'
 elif hash ag 2>/dev/null; then
@@ -37,3 +36,4 @@ fi
 alias weather="curl wttr.in/ann_arbor"
 alias dkc="docker container"
 alias tma="tmux attach"
+alias top15="find . -maxdepth 1 -mindepth 1 -print0 | xargs -0 du -ks -- | sort -rn | head -15"

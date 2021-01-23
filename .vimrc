@@ -59,12 +59,16 @@ let g:ale_fixers = {
 \   'python': ['autopep8', 'isort'],
 \   'cpp': ['clang-format'],
 \   'c': ['clang-format'],
+\   'elm': ['elm-format'],
+\   'go': ['go-fmt'],
+\   'rust': ['rustfmt']
 \}
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['eslint'],
+\   'rust': ['cargo', 'rls', 'rustc']
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1

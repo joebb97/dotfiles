@@ -91,3 +91,4 @@ jq
 sipcalc
 autopep8
 aws-vault
+sipcalc

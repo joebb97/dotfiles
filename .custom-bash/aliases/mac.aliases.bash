@@ -7,4 +7,5 @@ if [[ $(uname) == "Darwin" ]]; then
         VIM_VER=$(ls $BREW_VIM_PATH)
         alias vim=${BREW_VIM_PATH}/${VIM_VER}/bin/vim
     fi
+    alias swipl="/Applications/SWI-Prolog.app/Contents/MacOS/swipl"
 fi
