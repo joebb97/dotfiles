@@ -23,3 +23,4 @@ if [[ -s /usr/share/autojump/autojump.bash ]]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source "$HOME/.cargo/env"

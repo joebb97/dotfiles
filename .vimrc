@@ -67,7 +67,7 @@ let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
-\   'javascript': ['eslint'],
+\   'javascript': ['jshint'],
 \   'rust': ['cargo', 'rls', 'rustc']
 \}
 let g:ale_c_parse_compile_commands=1
@@ -177,6 +177,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>j Lzt
 nnoremap <leader>k Hzb
+nnoremap <leader>z <C-w>\|<C-w>_
+nnoremap <leader>x <C-w>=
 nnoremap <leader>sa :Save<CR>
 nnoremap <leader>sv :Svrc<CR>
 nnoremap <leader>ev :Evrc<CR>

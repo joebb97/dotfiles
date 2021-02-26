@@ -137,3 +137,18 @@ alias gsw="git switch"
 alias gswm="git switch master"
 alias gswc="git switch --create"
 alias gswt="git switch --track"
+alias arc="duoconnect -arc -relay phab.duosec.org arc"
+# Set the path
+# set -U fish_user_paths /Users/jbuiteweg/.cargo/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/.local/share $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/.local/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/go/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/Library/Python/2.7/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/Library/Python/3.7/bin $fish_user_paths
+# set -U fish_user_paths /usr/local/bin $fish_user_paths
+# set -U fish_user_paths /usr/local/share $fish_user_paths
+set -x GOPATH /Users/jbuiteweg/go:/Users/jbuiteweg/src/sandbox/go
+set -x TMPDIR /Users/jbuiteweg/src/tmpdir
+set -x SSH_AUTH_SOCK /Users/jbuiteweg/.ssh/ykpiv-sock
+set -gx EDITOR vim
+if test -f /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; . /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; end
