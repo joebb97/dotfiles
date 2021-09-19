@@ -138,3 +138,29 @@ alias gswm="git switch master"
 alias gswc="git switch --create"
 alias gswt="git switch --track"
 set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths
+alias arc="duoconnect -arc -relay phab.duosec.org arc"
+alias awk="gawk"
+alias dk="docker"
+alias dkc="docker-compose"
+alias l="ls"
+alias upd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
+alias downd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down"
+alias cycledb="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down; docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
+alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/aperture/go:/src/duoconnect/go:ro" duodev/duoconnect-build bash /src/duoconnect/scripts/run-tests-duoconnect-docker.sh"
+
+# for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
+# Set the path
+# set -U fish_user_paths /Users/jbuiteweg/.cargo/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/.local/share $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/.local/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/go/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/Library/Python/2.7/bin $fish_user_paths
+# set -U fish_user_paths /Users/jbuiteweg/Library/Python/3.7/bin $fish_user_paths
+# set -U fish_user_paths /usr/local/bin $fish_user_paths
+# set -U fish_user_paths /usr/local/share $fish_user_paths
+set -x GOPATH /Users/jbuiteweg/go:/Users/jbuiteweg/src/sandbox/go:/Users/jbuiteweg/src/aperture/go
+set -x TMPDIR /Users/jbuiteweg/src/tmpdir
+set -x ELM_HOME /Users/jbuiteweg/src/.elm
+set -x SSH_AUTH_SOCK /Users/jbuiteweg/.ssh/ykpiv-sock
+set -gx EDITOR vim
+if test -f /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; . /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; end

@@ -1,6 +1,6 @@
 "PLUGINS BB
 call plug#begin()
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
@@ -15,6 +15,7 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
+Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -67,15 +68,21 @@ let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
-\   'javascript': ['eslint'],
+\   'javascript': ['jshint'],
 \   'rust': ['cargo', 'rls', 'rustc']
 \}
 let g:ale_c_parse_compile_commands=1
+let g:ale_python_flake8_executable='python3'
+let g:ale_python_flake8_options='-m flake8'
+let g:ale_python_pyflakes_executable='python3'
+let g:ale_python_pyflakes_options='-m pyflakes'
+let g:ale_python_pydocstyle_executable='python3'
+let g:ale_python_pydocstyle_options='-m pydocstyle'
 let g:ale_c_parse_makefile=1
 let g:gundo_prefer_python3=1
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme deus "colors! 
+" colorscheme deus "colors! 
 syntax enable "enable different syntaxes
 
 set autowrite " Enable autowrite
@@ -107,6 +114,7 @@ set splitbelow
 set splitright
 set laststatus=2
 set ttimeoutlen=50
+set path+=**
 
 "LET
 let mapleader=","
@@ -153,7 +161,6 @@ nnoremap <C-g><C-K> <C-W><C-k>
 nnoremap <C-g><C-l> <C-W><C-l>
 
 "TNOREMAP
-tnoremap <C-j> <C-W>N
 tnoremap <C-g>v <C-W>N:vert term<CR>
 tnoremap <C-g>% <C-W>N:vert term<CR>
 tnoremap <C-g>s <C-W>N:term<CR>
@@ -177,6 +184,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>j Lzt
 nnoremap <leader>k Hzb
+nnoremap <leader>z <C-w>\|<C-w>_
+nnoremap <leader>x <C-w>=
 nnoremap <leader>sa :Save<CR>
 nnoremap <leader>sv :Svrc<CR>
 nnoremap <leader>ev :Evrc<CR>
@@ -184,6 +193,9 @@ nnoremap <leader>eb :Ebrc<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>bl $A {<CR>}<ESC>O
 nnoremap <leader>bs $A<CR>{<CR>}<ESC>O
+nnoremap <leader>nill oif err != nil {<CR>return err<CR>}<ESC>
+nnoremap <leader>nili oif err != nil {<CR>}<ESC>O
+nnoremap <leader>nilt oif err != nil {<CR>return nil, err<CR>}<ESC>
 nnoremap <leader>/ :Ack
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>

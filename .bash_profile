@@ -7,3 +7,4 @@ if [ -f '/Users/Joey/.tools/google-cloud-sdk/path.bash.inc' ]; then . '/Users/Jo
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/Joey/.tools/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/Joey/.tools/google-cloud-sdk/completion.bash.inc'; fi
+source "$HOME/.cargo/env"
