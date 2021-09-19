@@ -137,3 +137,4 @@ alias gsw="git switch"
 alias gswm="git switch master"
 alias gswc="git switch --create"
 alias gswt="git switch --track"
+set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths

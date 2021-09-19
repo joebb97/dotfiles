@@ -60,7 +60,7 @@ let g:ale_fixers = {
 \   'cpp': ['clang-format'],
 \   'c': ['clang-format'],
 \   'elm': ['elm-format'],
-\   'go': ['go-fmt'],
+\   'go': ['gofmt'],
 \   'rust': ['rustfmt']
 \}
 let g:ale_linters = {
