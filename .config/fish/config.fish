@@ -149,15 +149,16 @@ alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/apertur
 
 # for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
 # Set the path
-# set -U fish_user_paths /Users/jbuiteweg/.cargo/bin $fish_user_paths
-# set -U fish_user_paths /Users/jbuiteweg/.local/share $fish_user_paths
-# set -U fish_user_paths /Users/jbuiteweg/.local/bin $fish_user_paths
-# set -U fish_user_paths /Users/jbuiteweg/go/bin $fish_user_paths
-# set -U fish_user_paths /Users/jbuiteweg/Library/Python/2.7/bin $fish_user_paths
-# set -U fish_user_paths /Users/jbuiteweg/Library/Python/3.7/bin $fish_user_paths
-# set -U fish_user_paths /usr/local/bin $fish_user_paths
-# set -U fish_user_paths /usr/local/share $fish_user_paths
-set -x GOPATH /Users/jbuiteweg/go:/Users/jbuiteweg/src/sandbox/go:/Users/jbuiteweg/src/aperture/go
+fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.local/share
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/go/bin
+fish_add_path $HOME/Library/Python/2.7/bin
+fish_add_path $HOME/Library/Python/3.7/bin
+fish_add_path /usr/local/bin
+fish_add_path /usr/local/share
+
+set -x GOPATH $HOME/go:$HOME/src/sandbox/go:$HOME/src/aperture/go
 set -x TMPDIR /Users/jbuiteweg/src/tmpdir
 set -x ELM_HOME /Users/jbuiteweg/src/.elm
 set -x SSH_AUTH_SOCK /Users/jbuiteweg/.ssh/ykpiv-sock
