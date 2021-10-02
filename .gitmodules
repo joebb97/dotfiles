@@ -19,3 +19,6 @@
 [submodule ".tools/tmux"]
 	path = .tools/tmux
 	url = https://github.com/tmux/tmux
+[submodule ".tools/iterm-one-dark-theme"]
+	path = .tools/iterm-one-dark-theme
+	url = https://github.com/one-dark/iterm-one-dark-theme.git

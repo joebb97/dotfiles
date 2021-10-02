@@ -9,7 +9,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/taglist.vim'
 Plug 'mileszs/ack.vim'
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
@@ -53,7 +53,7 @@ elseif executable('ack')
 endif
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='molokai'
+let g:airline_theme='onedark'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
@@ -82,7 +82,7 @@ let g:ale_c_parse_makefile=1
 let g:gundo_prefer_python3=1
 
 " NON PLUGIN STUFF BELOW HERE
-" colorscheme deus "colors! 
+colorscheme onedark "colors!
 syntax enable "enable different syntaxes
 
 set autowrite " Enable autowrite
