@@ -7,7 +7,7 @@ COPY install.go ./
 
 RUN CGO_ENABLED=0 go build -a -o installer install.go
 
-FROM docker.io/ubuntu:latest
+FROM docker.io/debian:latest
 
 WORKDIR /
 COPY --from=build /app/installer .

@@ -35,7 +35,7 @@ func (d *distroGroup) runInstall(packs ...string) error {
 
 var distroGroups = []distroGroup{
 	{
-		names:      []string{"Debian", "Pop", "Ubuntu", "Mint", "debian"},
+		names:      []string{"Debian", "Pop", "Ubuntu", "Mint"},
 		manager:    "apt-get",
 		installCmd: []string{"install", "-y"},
 		updateCmd:  "update",
@@ -73,7 +73,10 @@ func getDistroGroup() *distroGroup {
 	osInfo := parseInfoFile(osInfoFilename, "ID")
 	for _, dg := range distroGroups {
 		for _, name := range dg.names {
-			if name == lsbInfo || name == osInfo {
+			lowerName := strings.ToLower(name)
+			lowerLsbInfo := strings.ToLower(lsbInfo)
+			lowerOsInfo := strings.ToLower(osInfo)
+			if lowerName == lowerLsbInfo || lowerName == lowerOsInfo {
 				return &dg
 			}
 		}
@@ -91,6 +94,8 @@ func checkErr(err error) {
 func asUser(user string, cmd string, args ...string) *exec.Cmd {
 	fullArgs := []string{"-u", user, cmd}
 	fullArgs = append(fullArgs, args...)
+	asStr := fmt.Sprint(fullArgs)
+	fmt.Println("Running sudo", asStr[1:len(asStr)-1])
 	return exec.Command("sudo", fullArgs...)
 }
 
@@ -126,8 +131,8 @@ func main() {
 		fmt.Println("Skipping installing packages")
 	} else {
 		checkErr(d.runUpdate())
-		// toInstall := []string{"git", "vim", "sudo"}
-		toInstall := []string{"sudo"}
+		toInstall := []string{"git", "vim", "sudo"}
+		// toInstall := []string{"git", "sudo"}
 		checkErr(d.runInstall(toInstall...))
 	}
 	instUser, err := user.Current()
@@ -139,7 +144,7 @@ func main() {
 				fmt.Println("home dir already exists for", instUser.Username)
 			}
 		} else {
-			fmt.Println("Adding new user ", newUserName)
+			fmt.Println("Adding new user", newUserName)
 			checkErr(exec.Command("adduser", newUserName).Run())
 			instUser, err = user.Lookup(newUserName)
 			checkErr(err)
@@ -157,4 +162,35 @@ func main() {
 			return
 		}
 	}
+	cfgDir := fmt.Sprintf("%s/.cfg", instUser.HomeDir)
+	if _, err = os.Stat(cfgDir); err != nil {
+		gitArgs := []string{"clone", "--depth", "1", "--bare",
+			"https://github.com/joebb97/dotfiles", cfgDir}
+
+		checkErr(asUser(instUser.Username, "git", gitArgs...).Run())
+		cfgCommandArgs := []string{
+			fmt.Sprintf("--git-dir=%s/.cfg/", instUser.HomeDir),
+			fmt.Sprintf("--work-tree=%s", instUser.HomeDir),
+		}
+		fullArgs := append(cfgCommandArgs, "checkout", "-f")
+		checkErr(asUser(instUser.Username, "git", fullArgs...).Run())
+		fullArgs = append(cfgCommandArgs, "submodule", "update", "--init")
+		submodCmd := asUser(instUser.Username, "git", fullArgs...)
+		submodCmd.Dir = instUser.HomeDir
+		checkErr(submodCmd.Run())
+	} else {
+		fmt.Println(cfgDir, "already exists, skipping")
+	}
+	mkdirArgs := []string{"-p", fmt.Sprintf("%s/src", instUser.HomeDir)}
+	checkErr(asUser(instUser.Username, "mkdir", mkdirArgs...).Run())
+
+	sandDir := fmt.Sprintf("%s/src/sandbox", instUser.HomeDir)
+	if _, err = os.Stat(sandDir); err != nil {
+		gitArgs := []string{"clone", "--depth", "1",
+			"https://github.com/joebb97/sandbox", sandDir}
+		checkErr(asUser(instUser.Username, "git", gitArgs...).Run())
+	} else {
+		fmt.Println(sandDir, "already exists, skipping")
+	}
+	checkErr(asUser(instUser.Username, "vim", "+PlugInstall", "+qall").Run())
 }
