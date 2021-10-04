@@ -1,6 +1,8 @@
 # Aliases
 alias sbrc='source $HOME/.bashrc'
 alias ebrc='vim $HOME/.bashrc'
+alias efc="vim $HOME/.config/fish/config.fish"
+alias sfc="source $HOME/.config/fish/config.fish"
 alias ebhi='vim $HOME/.bash_history'
 alias evrc='vim $HOME/.vimrc'
 alias egcfg='vim $HOME/.gitconfig'
@@ -153,6 +155,7 @@ fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/share
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/go/bin
+fish_add_path $HOME/bin
 fish_add_path $HOME/Library/Python/2.7/bin
 fish_add_path $HOME/Library/Python/3.7/bin
 fish_add_path /usr/local/bin
