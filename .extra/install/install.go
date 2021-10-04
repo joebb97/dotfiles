@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"os/user"
 	"strings"
 )
 
@@ -33,7 +35,7 @@ func (d *distroGroup) runInstall(packs ...string) error {
 
 var distroGroups = []distroGroup{
 	{
-		names:      []string{"Debian", "Pop", "Ubuntu", "Mint"},
+		names:      []string{"Debian", "Pop", "Ubuntu", "Mint", "debian"},
 		manager:    "apt-get",
 		installCmd: []string{"install", "-y"},
 		updateCmd:  "update",
@@ -47,29 +49,34 @@ var distroGroups = []distroGroup{
 }
 
 const distroFilename = "/etc/lsb-release"
+const osInfoFilename = "/etc/os-release"
 
-func getDistroGroup() *distroGroup {
-	distro := ""
-	if _, err := os.Stat(distroFilename); err == nil {
-		fileBytes, _ := ioutil.ReadFile(distroFilename)
+func parseInfoFile(fname string, key string) string {
+	if _, err := os.Stat(fname); err == nil {
+		fileBytes, _ := ioutil.ReadFile(fname)
 		contents := strings.Split(string(fileBytes), "\n")
 		for _, line := range contents {
 			parts := strings.Split(line, "=")
 			if len(parts) != 2 {
 				continue
 			}
-			if parts[0] == "DISTRIB_ID" {
-				distro = parts[1]
+			if parts[0] == key {
+				return parts[1]
 			}
 		}
 	}
+	return ""
+}
+
+func getDistroGroup() *distroGroup {
+	lsbInfo := parseInfoFile(distroFilename, "DISTRIB_ID")
+	osInfo := parseInfoFile(osInfoFilename, "ID")
 	for _, dg := range distroGroups {
 		for _, name := range dg.names {
-			if name == distro {
+			if name == lsbInfo || name == osInfo {
 				return &dg
 			}
 		}
-
 	}
 	return nil
 }
@@ -81,8 +88,33 @@ func checkErr(err error) {
 	}
 }
 
+func asUser(user string, cmd string, args ...string) *exec.Cmd {
+	fullArgs := []string{"-u", user, cmd}
+	fullArgs = append(fullArgs, args...)
+	return exec.Command("sudo", fullArgs...)
+}
+
+func parseEnvStr(env string) func(string) string {
+	theMap := make(map[string]string)
+	lines := strings.Split(env, "\n")
+	for _, line := range lines {
+		asSplit := strings.Split(line, "=")
+		if len(asSplit) != 2 {
+			continue
+		}
+		theMap[asSplit[0]] = asSplit[1]
+	}
+	return func(envVar string) string {
+		if val, ok := theMap[envVar]; ok {
+			return val
+		}
+		return ""
+	}
+}
+
 func main() {
 	d := getDistroGroup()
+	argc := len(os.Args)
 	if d != nil {
 		fmt.Println("Distro family:", d.names[0])
 		fmt.Println("Distro package manager:", d.manager)
@@ -90,7 +122,39 @@ func main() {
 		fmt.Println("no distro info available")
 		return
 	}
-	checkErr(d.runUpdate())
-	toInstall := []string{"git", "vim"}
-	checkErr(d.runInstall(toInstall...))
+	if argc >= 2 && os.Args[1] == "--skip-packages" {
+		fmt.Println("Skipping installing packages")
+	} else {
+		checkErr(d.runUpdate())
+		// toInstall := []string{"git", "vim", "sudo"}
+		toInstall := []string{"sudo"}
+		checkErr(d.runInstall(toInstall...))
+	}
+	instUser, err := user.Current()
+	if argc >= 2 {
+		newUserName := os.Args[argc-1]
+		instUser, err = user.Lookup(newUserName)
+		if err == nil {
+			if instUser.HomeDir != "" {
+				fmt.Println("home dir already exists for", instUser.Username)
+			}
+		} else {
+			fmt.Println("Adding new user ", newUserName)
+			checkErr(exec.Command("adduser", newUserName).Run())
+			instUser, err = user.Lookup(newUserName)
+			checkErr(err)
+		}
+	} else if err == nil && instUser.HomeDir != "" {
+		fmt.Println("home dir already exists for", instUser.Username,
+			"who is running this script")
+	}
+	if instUser.Username == "root" {
+		stdin := bufio.NewReader(os.Stdin)
+		fmt.Print("Are you sure you want to setup dotfiles for root ? [n/Y]: ")
+		textb, err := stdin.ReadString('\n')
+		text := string(textb)
+		if err != nil || (text != "y" && text != "Y") {
+			return
+		}
+	}
 }
