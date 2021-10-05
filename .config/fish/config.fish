@@ -180,10 +180,13 @@ set -gx EDITOR vim
 
 set -l autojump_path_home $HOME/.autojump/share/autojump/autojump.fish
 set -l autojump_path_pack /usr/share/autojump/autojump.fish
+set -l autojump_local_share /usr/local/share/autojump/autojump.fish
 if test -f $autojump_path_home
     . $autojump_path_home
 else if test -f $autojump_path_pack
     . $autojump_path_pack
+else if test -f $autojump_local_share
+    . $autojump_local_share
 end
 
 set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
