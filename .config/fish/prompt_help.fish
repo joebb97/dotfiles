@@ -50,7 +50,7 @@ function show_host -d "Show host & user name"
   else
     echo -n (set_color blue)
   end
-  echo -n ''$USER@(hostname|cut -d . -f 1)'' (set color normal)
+  echo -n ''$USER@(hostname|cut -d . -f 1)' ' (set color normal)
 end
 
 function show_cwd -d "Function to show the current working directory"
