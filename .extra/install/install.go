@@ -131,7 +131,7 @@ func main() {
 		fmt.Println("Skipping installing packages")
 	} else {
 		checkErr(d.runUpdate())
-		toInstall := []string{"git", "vim", "sudo", "fish"}
+		toInstall := []string{"git", "vim", "sudo", "fish", "universal-ctags"}
 		// toInstall := []string{"git", "sudo"}
 		checkErr(d.runInstall(toInstall...))
 	}
