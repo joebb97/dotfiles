@@ -178,9 +178,12 @@ set -x ELM_HOME $HOME/src/.elm
 set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
 set -gx EDITOR vim
 
-set -l autojump_path $HOME/.autojump/share/autojump/autojump.fish
-if test -f $autojump_path
-    . $autojump_path
+set -l autojump_path_home $HOME/.autojump/share/autojump/autojump.fish
+set -l autojump_path_pack /usr/share/autojump/autojump.fish
+if test -f $autojump_path_home
+    . $autojump_path_home
+else if test -f $autojump_path_pack
+    . $autojump_path_pack
 end
 
 set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
