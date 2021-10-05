@@ -45,14 +45,12 @@ end
 
 function show_host -d "Show host & user name"
   # Display [user & host] info
-  if test "$THEME_EDEN_SHOW_HOST" = 'yes'
-    if [ (id -u) = "0" ]
-      echo -n (set_color red)
-    else
-      echo -n (set_color blue)
-    end
-    echo -n ''(hostname|cut -d . -f 1)ˇ$USER' ' (set color normal)
+  if [ (id -u) = "0" ]
+    echo -n (set_color red)
+  else
+    echo -n (set_color blue)
   end
+  echo -n ''$USER@(hostname|cut -d . -f 1)'' (set color normal)
 end
 
 function show_cwd -d "Function to show the current working directory"
