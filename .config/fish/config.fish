@@ -142,8 +142,10 @@ alias gswt="git switch --track"
 alias arc="duoconnect -arc -relay phab.duosec.org arc"
 alias awk="gawk"
 alias dk="docker"
+alias d="docker"
 alias dkc="docker-compose"
 alias l="ls"
+alias p="podman"
 alias upd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
 alias downd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down"
 alias cycledb="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down; docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
@@ -151,15 +153,24 @@ alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/apertur
 
 # for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
 # Set the path
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.local/share
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/go/bin
-fish_add_path $HOME/bin
-fish_add_path $HOME/Library/Python/2.7/bin
-fish_add_path $HOME/Library/Python/3.7/bin
-fish_add_path /usr/local/bin
-fish_add_path /usr/local/share
+function add_to_path
+    set -l to_add $argv[1]
+    if test -d $to_add
+        if not contains $to_add $PATH
+            set -x PATH $to_add $PATH
+        end
+    end
+end
+
+add_to_path $HOME/.cargo/bin
+add_to_path $HOME/.local/share
+add_to_path $HOME/.local/bin
+add_to_path $HOME/go/bin
+add_to_path $HOME/bin
+add_to_path $HOME/Library/Python/2.7/bin
+add_to_path $HOME/Library/Python/3.7/bin
+add_to_path /usr/local/bin
+add_to_path /usr/local/share
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go:$HOME/src/aperture/go
 set -x TMPDIR /Users/jbuiteweg/src/tmpdir

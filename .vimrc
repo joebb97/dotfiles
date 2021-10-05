@@ -83,7 +83,7 @@ let g:ale_c_parse_makefile=1
 let g:gundo_prefer_python3=1
 
 " NON PLUGIN STUFF BELOW HERE
-" colorscheme onedark "colors!
+colorscheme onedark "colors!
 syntax enable "enable different syntaxes
 
 set autowrite " Enable autowrite

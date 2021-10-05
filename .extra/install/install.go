@@ -192,5 +192,5 @@ func main() {
 	} else {
 		fmt.Println(sandDir, "already exists, skipping")
 	}
-	checkErr(asUser(instUser.Username, "vim", "+PlugInstall", "+qall").Run())
+	fmt.Println("All done, remember to run:", "vim", "+PlugInstall", "!")
 }
