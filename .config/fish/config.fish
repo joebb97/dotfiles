@@ -185,6 +185,5 @@ end
 
 set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
 if test -f $prompt_help_path
-    echo dingus
     . $prompt_help_path
 end
