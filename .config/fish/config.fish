@@ -173,8 +173,18 @@ add_to_path /usr/local/bin
 add_to_path /usr/local/share
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go:$HOME/src/aperture/go
-set -x TMPDIR /Users/jbuiteweg/src/tmpdir
-set -x ELM_HOME /Users/jbuiteweg/src/.elm
-set -x SSH_AUTH_SOCK /Users/jbuiteweg/.ssh/ykpiv-sock
+set -x TMPDIR $HOME/src/tmpdir
+set -x ELM_HOME $HOME/src/.elm
+set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
 set -gx EDITOR vim
-if test -f /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; . /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; end
+
+set -l autojump_path $HOME/.autojump/share/autojump/autojump.fish
+if test -f $autojump_path
+    . $autojump_path
+end
+
+set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
+if test -f $prompt_help_path
+    echo dingus
+    . $prompt_help_path
+end
