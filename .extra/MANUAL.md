@@ -4,6 +4,7 @@
 cd autojump
 ./install.py
 ```
+or  `apt install autojump`
 
 # Installing universal ctags
 
@@ -14,6 +15,7 @@ cd ctags
 make
 make install
 ```
+or `apt install universal-ctags`
 
 # Installing vim
 
@@ -27,19 +29,6 @@ cd vim
             --prefix=<whereyouwant> \
 ```
 
-# Installing pip
-
-```bash
-python $HOME/.tools/get-pip.py
-```
-
-# Enable git aliases for bash-it
-
-```bash
-bash-it enable alias git
-sbrc
-```
-
 # Install silver searcher
 
 ```bash
@@ -47,3 +36,5 @@ cd .tools/the_silver_searcher
 ./build.sh
 <configure if you want to>
 make install
+```
+or `apt install silversearcher-ag`
