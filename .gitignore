@@ -7,7 +7,7 @@
 !.gitconfig
 !.gitignore-global
 !.inputrc
-!.local/bin/ack
+!.local/bin/placeholder.txt
 !.ssh/ssh_config
 !.tmux/plugins/tpm
 !.tmux.conf
