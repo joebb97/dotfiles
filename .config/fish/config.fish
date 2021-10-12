@@ -1,6 +1,8 @@
 # Aliases
 alias sbrc='source $HOME/.bashrc'
 alias ebrc='vim $HOME/.bashrc'
+alias efc="vim $HOME/.config/fish/config.fish"
+alias sfc="source $HOME/.config/fish/config.fish"
 alias ebhi='vim $HOME/.bash_history'
 alias evrc='vim $HOME/.vimrc'
 alias egcfg='vim $HOME/.gitconfig'
@@ -141,8 +143,10 @@ set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths
 alias arc="duoconnect -arc -relay phab.duosec.org arc"
 alias awk="gawk"
 alias dk="docker"
+alias d="docker"
 alias dkc="docker-compose"
 alias l="ls"
+alias p="podman"
 alias upd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
 alias downd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down"
 alias cycledb="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down; docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
@@ -150,18 +154,43 @@ alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/apertur
 
 # for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
 # Set the path
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.local/share
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/go/bin
-fish_add_path $HOME/Library/Python/2.7/bin
-fish_add_path $HOME/Library/Python/3.7/bin
-fish_add_path /usr/local/bin
-fish_add_path /usr/local/share
+function add_to_path
+    set -l to_add $argv[1]
+    if test -d $to_add
+        if not contains $to_add $PATH
+            set -x PATH $to_add $PATH
+        end
+    end
+end
+
+add_to_path $HOME/.cargo/bin
+add_to_path $HOME/.local/share
+add_to_path $HOME/.local/bin
+add_to_path $HOME/go/bin
+add_to_path $HOME/bin
+add_to_path $HOME/Library/Python/2.7/bin
+add_to_path $HOME/Library/Python/3.7/bin
+add_to_path /usr/local/bin
+add_to_path /usr/local/share
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go:$HOME/src/aperture/go
-set -x TMPDIR /Users/jbuiteweg/src/tmpdir
-set -x ELM_HOME /Users/jbuiteweg/src/.elm
-set -x SSH_AUTH_SOCK /Users/jbuiteweg/.ssh/ykpiv-sock
+set -x TMPDIR $HOME/src/tmpdir
+set -x ELM_HOME $HOME/src/.elm
+set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
 set -gx EDITOR vim
-if test -f /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; . /Users/jbuiteweg/.autojump/share/autojump/autojump.fish; end
+
+set -l autojump_path_home $HOME/.autojump/share/autojump/autojump.fish
+set -l autojump_path_pack /usr/share/autojump/autojump.fish
+set -l autojump_local_share /usr/local/share/autojump/autojump.fish
+if test -f $autojump_path_home
+    . $autojump_path_home
+else if test -f $autojump_path_pack
+    . $autojump_path_pack
+else if test -f $autojump_local_share
+    . $autojump_local_share
+end
+
+set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
+if test -f $prompt_help_path
+    . $prompt_help_path
+end
