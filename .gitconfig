@@ -15,3 +15,5 @@
 	UseHttpPath = true
 [bash-it]
 	hide-status = 0
+[pull]
+	rebase = false

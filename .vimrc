@@ -7,8 +7,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/taglist.vim'
-Plug 'mileszs/ack.vim'
+" Plug 'vim-scripts/taglist.vim'
 Plug 'joshdick/onedark.vim'
 " Plug 'jremmen/vim-ripgrep'
 Plug 'maralla/completor.vim'
@@ -18,7 +17,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
 "Plug 'vim-syntastic/syntastic'
@@ -81,6 +80,7 @@ let g:ale_python_pydocstyle_executable='python3'
 let g:ale_python_pydocstyle_options='-m pydocstyle'
 let g:ale_c_parse_makefile=1
 let g:gundo_prefer_python3=1
+let g:gutentags_ctags_exclude=["@.gitignore"]
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme onedark "colors!
@@ -127,6 +127,7 @@ command!  Save :mksession!
 command!  Evrc :e $MYVIMRC
 command!  Ebrc :e $HOME/.bashrc
 command!  Egcfg :e $HOME/.gitconfig
+command!  Efc  :e $HOME/.config/fish/config.fish
 
 "INOREMAP
 inoremap <C-J> <ESC><C-W><C-J>
@@ -151,7 +152,6 @@ nnoremap <C-g>" :term<CR>
 nnoremap <C-g>c :tabe<CR>:term ++curwin<CR>
 nnoremap <C-g>n gt
 nnoremap <C-g>p gT
-nnoremap <C-g>" :term<CR>
 nnoremap <C-g>h <C-W><C-h>
 nnoremap <C-g>j <C-W><C-j>
 nnoremap <C-g>k <C-W><C-k>
@@ -191,6 +191,7 @@ nnoremap <leader>sa :Save<CR>
 nnoremap <leader>sv :Svrc<CR>
 nnoremap <leader>ev :Evrc<CR>
 nnoremap <leader>eb :Ebrc<CR>
+nnoremap <leader>ef :Efc<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>bl $A {<CR>}<ESC>O
 nnoremap <leader>bs $A<CR>{<CR>}<ESC>O
