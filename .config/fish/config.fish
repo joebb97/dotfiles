@@ -1,4 +1,5 @@
 # Aliases
+alias e="nvim"
 alias sbrc='source $HOME/.bashrc'
 alias ebrc='vim $HOME/.bashrc'
 alias efc="vim $HOME/.config/fish/config.fish"
@@ -141,6 +142,8 @@ alias gswc="git switch --create"
 alias gswt="git switch --track"
 set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths
 alias arc="duoconnect -arc -relay phab.duosec.org arc"
+alias loaddc='sudo launchctl load /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl load /Library/LaunchAgents/com.duo.connect.tcp.plist'
+alias unloaddc='sudo launchctl unload /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl unload /Library/LaunchAgents/com.duo.connect.tcp.plist'
 alias awk="gawk"
 alias dk="docker"
 alias d="docker"
@@ -194,3 +197,11 @@ set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
 if test -f $prompt_help_path
     . $prompt_help_path
 end
+which zoxide > /dev/null && zoxide init fish | source
+set -x PAGER "less -XFR"
+set -x GIT_PAGER "less -XFR"
+which bat > /dev/null && \
+    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'" && \
+    set -x PAGER "bat -p"
+
+which delta > /dev/null && set -x GIT_PAGER "delta -s"
