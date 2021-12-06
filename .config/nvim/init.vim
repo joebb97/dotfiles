@@ -1,6 +1,7 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
+autocmd TermOpen * setlocal nonumber norelativenumber
 set clipboard=unnamedplus
 nnoremap <C-g>v :vsp +term<CR>
 nnoremap <C-g>% :vsp +term<CR>
@@ -8,11 +9,13 @@ nnoremap <C-g>s :sp +term<CR>
 nnoremap <C-g>" :sp +term<CR>
 nnoremap <C-g>c :tabe<CR>:term<CR>
 
-tnoremap <C-g>v :vsp +term<CR>
-tnoremap <C-g>% :vsp +term<CR>
-tnoremap <C-g>s :sp +term<CR>
-tnoremap <C-g>" :sp +term<CR>
-tnoremap <C-g>c :tabe<CR>:term<CR>
+tnoremap <C-g>v <C-\><C-N>:vsp +term<CR>
+tnoremap <C-g>% <C-\><C-N>:vsp +term<CR>
+tnoremap <C-g>s <C-\><C-N>:sp +term<CR>
+tnoremap <C-g>" <C-\><C-N>:sp +term<CR>
+tnoremap <C-g>c <C-\><C-N>:tabe<CR>:term<CR>
+tnoremap <C-g>n <C-\><C-N>gt
+tnoremap <C-g>p <C-\><C-N>gT
 
 tnoremap <C-g>h <C-\><C-N><C-w>h
 tnoremap <C-g>j <C-\><C-N><C-w>j
