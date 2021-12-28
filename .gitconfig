@@ -17,3 +17,5 @@
 	hide-status = 0
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
