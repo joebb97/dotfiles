@@ -18,6 +18,7 @@ Plug 'tpope/vim-obsession'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
+Plug 'dag/vim2hs'
 " Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
@@ -63,14 +64,15 @@ let g:ale_fixers = {
 \   'c': ['clang-format'],
 \   'elm': ['elm-format'],
 \   'go': ['gofmt'],
-\   'rust': ['rustfmt']
+\   'rust': ['rustfmt'],
+\   'haskell': ['hindent'],
 \}
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['jshint'],
-\   'rust': ['cargo', 'rls', 'rustc']
+\   'rust': ['cargo', 'rls', 'rustc'],
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_python_flake8_executable='python3'
@@ -125,7 +127,7 @@ let mapleader=","
 "COMMAND
 command!  Svrc :source $MYVIMRC
 command!  Save :mksession!
-command!  Evrc :e $MYVIMRC
+command!  Evrc :e $HOME/.vimrc
 command!  Ebrc :e $HOME/.bashrc
 command!  Egcfg :e $HOME/.gitconfig
 command!  Efc  :e $HOME/.config/fish/config.fish
