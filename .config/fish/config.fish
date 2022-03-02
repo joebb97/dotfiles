@@ -153,6 +153,7 @@ alias upd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker
 alias downd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down"
 alias cycledb="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down; docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
 alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/aperture/go:/src/duoconnect/go:ro" duodev/duoconnect-build bash /src/duoconnect/scripts/run-tests-duoconnect-docker.sh"
+alias refreshdb="docker exec -it portal-dev refresh.sh; docker exec -it admin-dev refresh.sh"
 alias rh="runhaskell"
 
 # for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
@@ -198,6 +199,7 @@ if test -f $prompt_help_path
     . $prompt_help_path
 end
 which zoxide > /dev/null && zoxide init fish | source
+which zoxide > /dev/null && alias cd='z'
 set -x PAGER "less -XFR"
 set -x GIT_PAGER "less -XFR"
 which bat > /dev/null && \

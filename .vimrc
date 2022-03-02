@@ -4,7 +4,7 @@ call plug#begin()
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'vim-scripts/taglist.vim'
@@ -53,9 +53,10 @@ elseif executable('ag')
 elseif executable('ack')
     set grepprg=ack\ --no-color
 endif
+" let g:gitgutter_set_sign_backgrounds = 1
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='onedark'
+let g:airline_theme='papercolor'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
@@ -86,9 +87,19 @@ let g:gundo_prefer_python3=1
 let g:gutentags_ctags_exclude=["@.gitignore"]
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme onedark "colors!
-syntax enable "enable different syntaxes
+colorscheme default "colors!
+syntax enable
+" highlight commands need to go after colorscheme
+highlight link ALEErrorSign Error
+" highlight link ALEError Error
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight GitGutterAdd ctermbg=NONE guibg=NONE
+highlight GitGutterChange ctermbg=NONE guibg=NONE
+highlight GitGutterDelete ctermbg=NONE guibg=NONE
+highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE
+hi clear VertSplit
 
+set signcolumn=number
 set autowrite " Enable autowrite
 set clipboard=unnamed "universal clipboard
 set autoindent
@@ -218,5 +229,6 @@ nnoremap <leader>gr :GoRun<CR>
 nnoremap <leader>gl :GoMetaLinter<CR>
 nnoremap <leader>tl :TlistToggle<CR>
 nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
