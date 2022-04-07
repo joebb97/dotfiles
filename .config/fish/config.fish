@@ -149,24 +149,30 @@ alias d="docker"
 alias dkc="docker-compose"
 alias l="ls"
 alias p="podman"
-alias upd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
-alias downd="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down"
-alias cycledb="docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml down; docker-compose -f ./devboxes/docker-compose.yml -f  ./devboxes/docker-compose.rdp.yml up -d"
-alias dct "docker run --rm -it --network="none" -v "/Users/jbuiteweg/src/aperture/go:/src/duoconnect/go:ro" duodev/duoconnect-build bash /src/duoconnect/scripts/run-tests-duoconnect-docker.sh"
-alias refreshdb="docker exec -it portal-dev refresh.sh; docker exec -it admin-dev refresh.sh"
 alias rh="runhaskell"
 
-# for i in $(redis-cli keys "*"|sort); do echo $i = "$(redis-cli get $i)"; done
 # Set the path
 function add_to_path
     set -l to_add $argv[1]
-    if test -d $to_add
+    set -l override $argv[2]
+    if test -d $to_add; or test $override
         if not contains $to_add $PATH
             set -x PATH $to_add $PATH
         end
     end
 end
 
+# Set the gopath
+function add_to_gopath
+    set -l to_add $argv[1]
+    if test -d $to_add
+        if not contains $to_add $GOPATH
+            set -x GOPATH $GOPATH $to_add
+        end
+    end
+end
+
+add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
@@ -177,11 +183,16 @@ add_to_path $HOME/Library/Python/3.7/bin
 add_to_path /usr/local/bin
 add_to_path /usr/local/share
 
-set -x GOPATH $HOME/go:$HOME/src/sandbox/go:$HOME/src/aperture/go
+set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x TMPDIR $HOME/src/tmpdir
 set -x ELM_HOME $HOME/src/.elm
 set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
+
 set -gx EDITOR vim
+set -gx GIT_EDITOR vim
+which nvim > /dev/null && \
+    set -gx EDITOR nvim
+    set -gx GIT_EDITOR nvim
 
 set -l autojump_path_home $HOME/.autojump/share/autojump/autojump.fish
 set -l autojump_path_pack /usr/share/autojump/autojump.fish
@@ -197,6 +208,10 @@ end
 set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
 if test -f $prompt_help_path
     . $prompt_help_path
+end
+set -l private_path $HOME/.config/fish/private.fish
+if test -f $private_path
+    . $private_path
 end
 which zoxide > /dev/null && zoxide init fish | source
 which zoxide > /dev/null && alias cd='z'
