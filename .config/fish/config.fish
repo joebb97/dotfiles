@@ -215,6 +215,7 @@ if test -f $private_path
 end
 which zoxide > /dev/null && zoxide init fish | source
 which zoxide > /dev/null && alias cd='z'
+which fdfind > /dev/null && alias fd='fdfind'
 set -x PAGER "less -XFR"
 set -x GIT_PAGER "less -XFR"
 which bat > /dev/null && \

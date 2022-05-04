@@ -1,12 +1,13 @@
 "PLUGINS BB
 call plug#begin()
 " Plug 'davidhalter/jedi-vim'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'vim-scripts/taglist.vim'
 Plug 'joshdick/onedark.vim'
 " Plug 'jremmen/vim-ripgrep'
@@ -89,7 +90,7 @@ let g:gundo_prefer_python3=1
 let g:gutentags_ctags_exclude=["@.gitignore"]
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme default "colors!
+colorscheme purify "colors!
 syntax enable
 " highlight commands need to go after colorscheme
 highlight link ALEErrorSign Error
