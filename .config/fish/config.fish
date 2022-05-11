@@ -221,4 +221,5 @@ which bat > /dev/null && \
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'" && \
     set -x PAGER "bat -p"
 
-which delta > /dev/null && set -x GIT_PAGER "delta -s"
+# no. just no. inline is good enough. eff a side by side.
+# which delta > /dev/null && set -x GIT_PAGER "delta -s"

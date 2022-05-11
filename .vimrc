@@ -60,7 +60,7 @@ let g:airline_theme='papercolor'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['eslint', 'prettier'],
 \   'python': ['autopep8', 'isort'],
 \   'cpp': ['clang-format'],
 \   'c': ['clang-format'],
@@ -74,7 +74,7 @@ let g:ale_linters = {
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['jshint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['eslint', 'tsserver'],
 \   'rust': ['cargo', 'rls'],
 \}
 let g:ale_c_parse_compile_commands=1
