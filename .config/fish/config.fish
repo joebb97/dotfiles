@@ -144,8 +144,10 @@ set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths
 alias arc="duoconnect -arc -relay phab.duosec.org arc"
 alias loaddc='sudo launchctl load /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl load /Library/LaunchAgents/com.duo.connect.tcp.plist'
 alias unloaddc='sudo launchctl unload /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl unload /Library/LaunchAgents/com.duo.connect.tcp.plist'
-alias awk="gawk"
+# alias awk="gawk"
 alias dk="docker"
+alias ca="cargo"
+alias car="cargo"
 alias d="docker"
 alias dkc="docker-compose"
 alias l="ls"
@@ -225,3 +227,4 @@ which bat > /dev/null && \
 
 # no. just no. inline is good enough. eff a side by side.
 # which delta > /dev/null && set -x GIT_PAGER "delta -s"
+fish_add_path /usr/local/sbin
