@@ -1,12 +1,13 @@
 "PLUGINS BB
 call plug#begin()
 " Plug 'davidhalter/jedi-vim'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'vim-scripts/taglist.vim'
 Plug 'joshdick/onedark.vim'
 " Plug 'jremmen/vim-ripgrep'
@@ -18,6 +19,7 @@ Plug 'tpope/vim-obsession'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
+Plug 'dag/vim2hs'
 " Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
@@ -52,25 +54,29 @@ elseif executable('ag')
 elseif executable('ack')
     set grepprg=ack\ --no-color
 endif
+" let g:gitgutter_set_sign_backgrounds = 1
 let g:airline#extensions#tabline#enabled=1 
 let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='onedark'
+let g:airline_theme='papercolor'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
+\   'typescript': ['eslint', 'prettier'],
 \   'python': ['autopep8', 'isort'],
 \   'cpp': ['clang-format'],
 \   'c': ['clang-format'],
 \   'elm': ['elm-format'],
 \   'go': ['gofmt'],
-\   'rust': ['rustfmt']
+\   'rust': ['rustfmt'],
+\   'haskell': ['hindent'],
 \}
 let g:ale_linters = {
 \   'python': ['flake8', 'pydocstyle', 'pyflakes'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['jshint'],
-\   'rust': ['cargo', 'rls', 'rustc']
+\   'typescript': ['eslint', 'tsserver'],
+\   'rust': ['cargo', 'rls'],
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_python_flake8_executable='python3'
@@ -84,9 +90,19 @@ let g:gundo_prefer_python3=1
 let g:gutentags_ctags_exclude=["@.gitignore"]
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme onedark "colors!
-syntax enable "enable different syntaxes
+colorscheme purify "colors!
+syntax enable
+" highlight commands need to go after colorscheme
+highlight link ALEErrorSign Error
+" highlight link ALEError Error
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight GitGutterAdd ctermbg=NONE guibg=NONE
+highlight GitGutterChange ctermbg=NONE guibg=NONE
+highlight GitGutterDelete ctermbg=NONE guibg=NONE
+highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE
+hi clear VertSplit
 
+set signcolumn=number
 set autowrite " Enable autowrite
 set clipboard=unnamed "universal clipboard
 set autoindent
@@ -125,7 +141,7 @@ let mapleader=","
 "COMMAND
 command!  Svrc :source $MYVIMRC
 command!  Save :mksession!
-command!  Evrc :e $MYVIMRC
+command!  Evrc :e $HOME/.vimrc
 command!  Ebrc :e $HOME/.bashrc
 command!  Egcfg :e $HOME/.gitconfig
 command!  Efc  :e $HOME/.config/fish/config.fish
@@ -216,5 +232,6 @@ nnoremap <leader>gr :GoRun<CR>
 nnoremap <leader>gl :GoMetaLinter<CR>
 nnoremap <leader>tl :TlistToggle<CR>
 nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>

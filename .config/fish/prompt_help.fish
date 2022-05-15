@@ -93,7 +93,7 @@ function fish_prompt
   echo ''
 
   show_ssh_status
-  show_host
+  # show_host
   show_cwd
   show_git_info
   show_prompt_char
