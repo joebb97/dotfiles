@@ -1,38 +1,19 @@
-"PLUGINS BB
+" PLUGINS BB
 call plug#begin()
-" Plug 'davidhalter/jedi-vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'vim-scripts/taglist.vim'
-Plug 'joshdick/onedark.vim'
-" Plug 'jremmen/vim-ripgrep'
 Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
-" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-"Plug 'vim-syntastic/syntastic'
-"Plug 'nvie/vim-flake8'
-" Plug 'christoomey/vim-tmux-navigator'
-" Auto completion boys
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'keremc/asyncomplete-clang.vim'
-call plug#end()            " DO NOT REMOVE
+call plug#end() " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
 let g:go_fmt_command = "goimports"
