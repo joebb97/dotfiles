@@ -223,3 +223,6 @@ which bat > /dev/null && \
     set -x PAGER "bat -p"
 
 which delta > /dev/null && set -x GIT_PAGER "delta -s"
+
+# opam configuration
+source /home/jbuiteweg/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
