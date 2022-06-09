@@ -19,9 +19,11 @@ make install
 
 * `.ssh/ssh_config` contains some boilerplate. Note that `.ssh` doesn't contain any `id_*` files, as that'd be really really really really bad if it did. Much care was taken with the `.gitignore` so that didn't happen. It also doesn't do anything client side since that normally goes in `.ssh/config`
 * `.extra` contains some well, extra things, including a Dockerfile that recreates this whole shin-dig. Vagrantfile is in progress still. I will also likely explore Ansible as an alternative to some of this craziness.
-* `.custom-bash` contains my own aliases, functions, and path mangling. All of these files are sourced by [bash-it](https://github.com/Bash-it/bash-it)
+* `.config/fish` contains my fish related aliases, functions and path mangling. It's what I currently use
+* `.custom-bash` contains my own bash aliases, functions, and path mangling. All of these files are sourced by [bash-it](https://github.com/Bash-it/bash-it)
 * I don't believe any of this stuff is POSIX compliant, it's all assumed to be run under a `bash` login shell, as that seems to be the lowest common denominator of the places I'm allowed to log into (lookin' at you, `zsh` people).
 
 ## Roadmap
 
-* Finish `entrypoint.sh` script that installs everything in tools that I'd want. The problem here is that so much differs between having root access and not. I'll automate it someday I'm sure.
+* Streamline and document the process of using `.extra/install/*` which can be used to boot strap a new system.
+This can be verified using the content of `.extra/docker` or `.extra/vagrant`
