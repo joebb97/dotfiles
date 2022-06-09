@@ -1,38 +1,19 @@
-"PLUGINS BB
+" PLUGINS BB
 call plug#begin()
-" Plug 'davidhalter/jedi-vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'vim-scripts/taglist.vim'
-Plug 'joshdick/onedark.vim'
-" Plug 'jremmen/vim-ripgrep'
 Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
-" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-"Plug 'vim-syntastic/syntastic'
-"Plug 'nvie/vim-flake8'
-" Plug 'christoomey/vim-tmux-navigator'
-" Auto completion boys
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'keremc/asyncomplete-clang.vim'
-call plug#end()            " DO NOT REMOVE
+call plug#end() " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
 let g:go_fmt_command = "goimports"
@@ -88,6 +69,8 @@ let g:ale_python_pydocstyle_options='-m pydocstyle'
 let g:ale_c_parse_makefile=1
 let g:gundo_prefer_python3=1
 let g:gutentags_ctags_exclude=["@.gitignore"]
+let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme purify "colors!
@@ -235,3 +218,35 @@ nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+for tool in s:opam_packages
+  " Respect package order (merlin should be after ocp-index)
+  if count(s:opam_available_tools, tool) > 0
+    call s:opam_configuration[tool]()
+  endif
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line

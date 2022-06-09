@@ -225,6 +225,8 @@ which bat > /dev/null && \
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'" && \
     set -x PAGER "bat -p"
 
+# opam configuration
+source /home/jbuiteweg/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 # no. just no. inline is good enough. eff a side by side.
 # which delta > /dev/null && set -x GIT_PAGER "delta -s"
 fish_add_path /usr/local/sbin
