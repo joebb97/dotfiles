@@ -16,6 +16,7 @@ The structure follows this [guide](https://www.atlassian.com/git/tutorials/dotfi
 ./configure --prefix=<install path, normally /usr/local/ or ~/.local>
 make install
 ```
+  * There's a script, `.extra/install/compile.sh` that can take care of this kind of thing too.
 
 * `.ssh/ssh_config` contains some boilerplate. Note that `.ssh` doesn't contain any `id_*` files, as that'd be really really really really bad if it did. Much care was taken with the `.gitignore` so that didn't happen. It also doesn't do anything client side since that normally goes in `.ssh/config`
 * `.extra` contains some well, extra things, including a Dockerfile that recreates this whole shin-dig. Vagrantfile is in progress still. I will also likely explore Ansible as an alternative to some of this craziness.
@@ -25,5 +26,5 @@ make install
 
 ## Roadmap
 
-* Streamline and document the process of using `.extra/install/*` which can be used to boot strap a new system.
+* Streamline and document the process of using `.extra/install/*` which can be used to bootstrap a new system.
 This can be verified using the content of `.extra/docker` or `.extra/vagrant`
