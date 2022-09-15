@@ -2,7 +2,6 @@
 call plug#begin()
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'sjl/gundo.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'maralla/completor.vim'
@@ -13,6 +12,7 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
+" Plug 'fatih/vim-go'
 call plug#end() " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
@@ -52,7 +52,7 @@ let g:ale_fixers = {
 \   'haskell': ['hindent'],
 \}
 let g:ale_linters = {
-\   'python': ['flake8', 'pydocstyle', 'pyflakes'],
+\   'python': ['flake8', 'pydocstyle', 'pyflakes', 'pyright'],
 \   'c': ['gcc', 'clang'],
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['jshint'],
@@ -60,14 +60,18 @@ let g:ale_linters = {
 \   'rust': ['cargo', 'rls'],
 \}
 let g:ale_c_parse_compile_commands=1
-let g:ale_python_flake8_executable='python3'
-let g:ale_python_flake8_options='-m flake8'
-let g:ale_python_pyflakes_executable='python3'
-let g:ale_python_pyflakes_options='-m pyflakes'
-let g:ale_python_pydocstyle_executable='python3'
-let g:ale_python_pydocstyle_options='-m pydocstyle'
 let g:ale_c_parse_makefile=1
-let g:gundo_prefer_python3=1
+" let g:ale_python_flake8_executable='python3'
+" let g:ale_python_flake8_options='-m flake8'
+" let g:ale_python_pyflakes_executable='python3'
+" let g:ale_python_pyflakes_options='-m pyflakes'
+" let g:ale_python_pydocstyle_executable='python3'
+" let g:ale_python_pydocstyle_options='-m pydocstyle'
+" let g:ale_python_autopep8_executable='python3'
+" let g:ale_python_autopep8_options='-m autopep8'
+" let g:ale_python_isort_executable='python3'
+" let g:ale_python_isort_options='-m isort'
+
 let g:gutentags_ctags_exclude=["@.gitignore"]
 
 " NON PLUGIN STUFF BELOW HERE
@@ -207,6 +211,9 @@ nnoremap <leader>cp :cp<CR>
 nnoremap <leader>te :tabe<CR>
 nnoremap <leader>af :ALEFix<CR>
 nnoremap <leader>ai :ALEInfo<CR>
+nnoremap <leader>at :ALEToggle<CR>
+nnoremap <leader>ad :ALEGoToDefinition<CR>
+nnoremap <leader>ar :ALEFindReferences<CR>
 nnoremap <leader>gb :GoBuild<CR>
 nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gr :GoRun<CR>

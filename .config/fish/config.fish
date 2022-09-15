@@ -140,12 +140,12 @@ alias gsw="git switch"
 alias gswm="git switch master"
 alias gswc="git switch --create"
 alias gswt="git switch --track"
-set -g fish_user_paths "/usr/local/opt/scala@2.12/bin" $fish_user_paths
 alias arc="duoconnect -arc -relay phab.duosec.org arc"
 alias loaddc='sudo launchctl load /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl load /Library/LaunchAgents/com.duo.connect.tcp.plist'
 alias unloaddc='sudo launchctl unload /Library/LaunchDaemons/com.duo.connect.tun.plist; launchctl unload /Library/LaunchAgents/com.duo.connect.tcp.plist'
 # alias awk="gawk"
 alias dk="docker"
+alias dke="docker exec"
 alias ca="cargo"
 alias car="cargo"
 alias d="docker"
@@ -175,15 +175,18 @@ function add_to_gopath
     end
 end
 
+add_to_path /usr/local/opt/scala@2.12/bin
 add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
 add_to_path $HOME/go/bin
 add_to_path $HOME/bin
-add_to_path $HOME/Library/Python/2.7/bin
 add_to_path $HOME/Library/Python/3.7/bin
+add_to_path $HOME/Library/Python/3.9/bin
+add_to_path $HOME/Library/Python/2.7/bin
 add_to_path /usr/local/bin
+add_to_path /usr/local/sbin
 add_to_path /usr/local/share
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
@@ -206,6 +209,11 @@ else if test -f $autojump_path_pack
     . $autojump_path_pack
 else if test -f $autojump_local_share
     . $autojump_local_share
+end
+
+set -l opam_init $HOME/.opam/opam-init/init.fish
+if test -f $opam_init
+    source $opam_init
 end
 
 set -l prompt_help_path $HOME/.config/fish/prompt_help.fish
