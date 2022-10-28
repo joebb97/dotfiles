@@ -12,7 +12,7 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 call plug#end() " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
@@ -87,6 +87,7 @@ highlight GitGutterDelete ctermbg=NONE guibg=NONE
 highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE
 hi clear VertSplit
 
+set mouse=a
 set signcolumn=number
 set autowrite " Enable autowrite
 set clipboard=unnamed "universal clipboard
@@ -136,7 +137,7 @@ inoremap <C-J> <ESC><C-W><C-J>
 inoremap <C-K> <ESC><C-W><C-K>
 inoremap <C-L> <ESC><C-W><C-L>
 inoremap <C-H> <ESC><C-W><C-H>
-inoremap jj <ESC>
+inoremap hh <ESC>
 
 "NNOREMAP
 nnoremap <C-J> <C-W><C-J>
@@ -217,7 +218,8 @@ nnoremap <leader>ar :ALEFindReferences<CR>
 nnoremap <leader>gb :GoBuild<CR>
 nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gr :GoRun<CR>
-nnoremap <leader>gl :GoMetaLinter<CR>
+nnoremap <leader>gv :GoVet ./...<CR>
+nnoremap <leader>gl :GoLint ./...<CR>
 nnoremap <leader>tl :TlistToggle<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>gg :GitGutterToggle<CR>
