@@ -4,6 +4,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
+Plug 'preservim/tagbar'
 Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
@@ -57,7 +58,7 @@ let g:ale_linters = {
 \   'cpp': ['gcc', 'clang'],
 \   'javascript': ['jshint'],
 \   'typescript': ['eslint', 'tsserver'],
-\   'rust': ['cargo', 'rls'],
+\   'rust': ['cargo', 'rls', 'analyzer'],
 \}
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1
@@ -71,8 +72,11 @@ let g:ale_c_parse_makefile=1
 " let g:ale_python_autopep8_options='-m autopep8'
 " let g:ale_python_isort_executable='python3'
 " let g:ale_python_isort_options='-m isort'
+let g:ale_rust_cargo_check_all_targets=1
+let g:ale_rust_cargo_use_clippy = 1
 
 let g:gutentags_ctags_exclude=["@.gitignore"]
+let g:tagbar_show_linenumbers = 1
 
 " NON PLUGIN STUFF BELOW HERE
 colorscheme purify "colors!
@@ -220,7 +224,8 @@ nnoremap <leader>gf :GoFmt<CR>
 nnoremap <leader>gr :GoRun<CR>
 nnoremap <leader>gv :GoVet ./...<CR>
 nnoremap <leader>gl :GoLint ./...<CR>
-nnoremap <leader>tl :TlistToggle<CR>
+nnoremap <leader>tb :TagbarToggle<CR>
+nnoremap <leader>to :TagbarOpen fj<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <leader>h :bp<CR>
