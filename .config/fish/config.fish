@@ -9,7 +9,7 @@ abbr evrc '$EDITOR $HOME/.vimrc'
 abbr egcfg '$EDITOR $HOME/.gitconfig'
 abbr eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
-alias howbig='du -sh'
+abbr howbig 'du -sh'
 # CONFIG ALIASES
 abbr cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 abbr cfgs "$_fish_abbr_cfg status"
@@ -134,8 +134,8 @@ if test -f $private_path
     . $private_path
 end
 which zoxide > /dev/null && zoxide init fish | source
-which zoxide > /dev/null && alias cd='z'
-which fdfind > /dev/null && alias fd='fdfind'
+which zoxide > /dev/null && abbr cd 'z'
+which fdfind > /dev/null && abbr fd 'fdfind'
 set -x PAGER "less -XFR"
 set -x GIT_PAGER "less -XFR"
 which bat > /dev/null && \
