@@ -69,10 +69,10 @@ function show_git_info -d "Show git branch and dirty state"
     set_color -o
     if [ (_is_git_dirty) ]
       set_color -o red
-      echo -ne "$git_branch× "
+      echo -ne "$git_branch×"
     else
       set_color -o green
-      echo -ne "$git_branch "
+      echo -ne "$git_branch"
     end
     set_color normal
   end
