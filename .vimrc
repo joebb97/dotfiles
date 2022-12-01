@@ -13,6 +13,7 @@ Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
+Plug 'dag/vim-fish'
 Plug 'fatih/vim-go'
 call plug#end() " DO NOT REMOVE
 "
