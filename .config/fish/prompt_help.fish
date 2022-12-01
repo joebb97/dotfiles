@@ -127,5 +127,7 @@ function fish_prompt --description 'Write out the prompt'
     else
         eden_prompt
     end
+end
 
+function fish_right_prompt
 end
