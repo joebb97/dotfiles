@@ -1,46 +1,44 @@
 # function _git_branch_name
-#   echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
+#     echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
 # end
 
 # function _is_git_dirty
-#   echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
+#     echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
 # end
 
 ## Function to show a segment
 function _prompt_segment -d "Function to show a segment"
-  # Get colors
-  set -l bg $argv[1]
-  set -l fg $argv[2]
+    # Get colors
+    set -l bg $argv[1]
+    set -l fg $argv[2]
 
-  # Set 'em
-  set_color -b $bg
-  set_color $fg
+    # Set 'em
+    set_color -b $bg
+    set_color $fg
 
-  # Print text
-  if [ -n "$argv[3]" ]
-    echo -n -s $argv[3]
-  end
+    # Print text
+    if [ -n "$argv[3]" ]
+        echo -n -s $argv[3]
+    end
 
-  # Reset
-  set_color -b normal
-  set_color normal
+    # Reset
+    set_color -b normal
+    set_color normal
 
-  # Print padding
-  if [ (count $argv) = 4 ]
-    echo -n -s $argv[4]
-  end
+    # Print padding
+    if [ (count $argv) = 4 ]
+        echo -n -s $argv[4]
+    end
 end
 
 function show_ssh_status -d "Function to show the ssh tag"
-  if test "$THEME_EDEN_HIDE_SSH_TAG" != 'yes'
     if [ -n "$SSH_CLIENT" ]
-      if [ (id -u) = "0" ]
+        if [ (id -u) = "0" ]
         _prompt_segment red white "-SSH-" ' '
-      else
+        else
         _prompt_segment blue white "-SSH-" ' '
-      end
+        end
     end
-  end
 end
 
 function show_host -d "Show host & user name"
@@ -115,6 +113,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # Color the prompt differently when we're root
     set -l suffix '❯'
+    # set -l suffix '>'
     if functions -q fish_is_root_user; and fish_is_root_user
         if set -q fish_color_cwd_root
             set cwd_color (set_color $fish_color_cwd_root)
@@ -125,9 +124,9 @@ function fish_prompt --description 'Write out the prompt'
     # Color the prompt in red on error
     if test $last_status -ne 0
         set status_color (set_color $fish_color_error)
-        set prompt_status $status_color "[" $last_status "]" $normal
+        set prompt_status $status_color " [" $last_status "]" $normal
     end
 
     show_ssh_status
-    echo -s $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status $status_color $suffix ' ' $normal
+    echo -s $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $prompt_status $status_color $suffix ' ' $normal
 end
