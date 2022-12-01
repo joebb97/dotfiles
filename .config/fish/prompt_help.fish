@@ -129,5 +129,5 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     show_ssh_status
-    echo -s $cwd_color (prompt_pwd -D 1) $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status $status_color $suffix ' ' $normal
+    echo -s $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status $status_color $suffix ' ' $normal
 end
