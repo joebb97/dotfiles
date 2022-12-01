@@ -1,10 +1,10 @@
-# function _git_branch_name
-#     echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
-# end
+function _git_branch_name
+    echo (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
+end
 
-# function _is_git_dirty
-#     echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
-# end
+function _is_git_dirty
+    echo (command git status -s -uno --ignore-submodules=dirty 2> /dev/null)
+end
 
 ## Function to show a segment
 function _prompt_segment -d "Function to show a segment"
@@ -51,52 +51,43 @@ function show_host -d "Show host & user name"
   echo -n ''$USER@(hostname|cut -d . -f 1)' ' (set color normal)
 end
 
-# function show_cwd -d "Function to show the current working directory"
-#   if test "$theme_short_path" != 'yes' -a (prompt_pwd) != '~' -a (prompt_pwd) != '/'
-#     set -l cwd (dirname (prompt_pwd))
-#     test $cwd != '/'; and set cwd $cwd'/'
-#     _prompt_segment normal cyan $cwd
-#   end
-#   set_color -o cyan
-#   echo -n (basename (prompt_pwd))' '
-#   set_color normal
-# end
+function show_cwd -d "Function to show the current working directory"
+  if test "$theme_short_path" != 'yes' -a (prompt_pwd) != '~' -a (prompt_pwd) != '/'
+    set -l cwd (dirname (prompt_pwd))
+    test $cwd != '/'; and set cwd $cwd'/'
+    _prompt_segment normal cyan $cwd
+  end
+  set_color -o cyan
+  echo -n (basename (prompt_pwd))' '
+  set_color normal
+end
 
-# function show_git_info -d "Show git branch and dirty state"
-#   if [ (_git_branch_name) ]
-#     set -l git_branch '['(_git_branch_name)']'
+function show_git_info -d "Show git branch and dirty state"
+  if [ (_git_branch_name) ]
+    set -l git_branch '['(_git_branch_name)']'
 
-#     set_color -o
-#     if [ (_is_git_dirty) ]
-#       set_color -o red
-#       echo -ne "$git_branch× "
-#     else
-#       set_color -o green
-#       echo -ne "$git_branch "
-#     end
-#     set_color normal
-#   end
-# end
+    set_color -o
+    if [ (_is_git_dirty) ]
+      set_color -o red
+      echo -ne "$git_branch× "
+    else
+      set_color -o green
+      echo -ne "$git_branch "
+    end
+    set_color normal
+  end
+end
 
-# function show_prompt_char -d "Terminate with a nice prompt char"
-#   set -q THEME_EDEN_PROMPT_CHAR
-#     or set -U THEME_EDEN_PROMPT_CHAR '»'
-#   echo -n -s $normal $THEME_EDEN_PROMPT_CHAR ' '
-# end
-
-# # Eden prompt
-# function fish_prompt
-#   set fish_greeting
-
-#   # The newline before prompts
-#   # echo ''
-
-#   show_ssh_status
-#   # show_host
-#   show_cwd
-#   show_git_info
-#   show_prompt_char
-# end
+# Eden prompt
+function eden_prompt
+    show_ssh_status
+    if set -q __prompt_show_host
+        show_host
+    end
+    show_cwd
+    show_git_info
+    echo -n -s $normal '>' ' '
+end
 
 # Based off of default prompt
 function fish_prompt --description 'Write out the prompt'
@@ -127,9 +118,14 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $status_color " [" $last_status "]" $normal
     end
 
-    show_ssh_status
-    if set -q __prompt_show_host
-        show_host
+    if type -q fish_vcs_prompt
+        show_ssh_status
+        if set -q __prompt_show_host
+            show_host
+        end
+        echo -s $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $prompt_status $status_color $suffix ' ' $normal
+    else
+        eden_prompt
     end
-    echo -s $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $prompt_status $status_color $suffix ' ' $normal
+
 end
