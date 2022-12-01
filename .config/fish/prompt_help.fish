@@ -6,52 +6,52 @@
 #   echo (command git status -s --ignore-submodules=dirty 2> /dev/null)
 # end
 
-# ## Function to show a segment
-# function _prompt_segment -d "Function to show a segment"
-#   # Get colors
-#   set -l bg $argv[1]
-#   set -l fg $argv[2]
+## Function to show a segment
+function _prompt_segment -d "Function to show a segment"
+  # Get colors
+  set -l bg $argv[1]
+  set -l fg $argv[2]
 
-#   # Set 'em
-#   set_color -b $bg
-#   set_color $fg
+  # Set 'em
+  set_color -b $bg
+  set_color $fg
 
-#   # Print text
-#   if [ -n "$argv[3]" ]
-#     echo -n -s $argv[3]
-#   end
+  # Print text
+  if [ -n "$argv[3]" ]
+    echo -n -s $argv[3]
+  end
 
-#   # Reset
-#   set_color -b normal
-#   set_color normal
+  # Reset
+  set_color -b normal
+  set_color normal
 
-#   # Print padding
-#   if [ (count $argv) = 4 ]
-#     echo -n -s $argv[4]
-#   end
-# end
+  # Print padding
+  if [ (count $argv) = 4 ]
+    echo -n -s $argv[4]
+  end
+end
 
-# function show_ssh_status -d "Function to show the ssh tag"
-#   if test "$THEME_EDEN_HIDE_SSH_TAG" != 'yes'
-#     if [ -n "$SSH_CLIENT" ]
-#       if [ (id -u) = "0" ]
-#         _prompt_segment red white "-SSH-" ' '
-#       else
-#         _prompt_segment blue white "-SSH-" ' '
-#       end
-#     end
-#   end
-# end
+function show_ssh_status -d "Function to show the ssh tag"
+  if test "$THEME_EDEN_HIDE_SSH_TAG" != 'yes'
+    if [ -n "$SSH_CLIENT" ]
+      if [ (id -u) = "0" ]
+        _prompt_segment red white "-SSH-" ' '
+      else
+        _prompt_segment blue white "-SSH-" ' '
+      end
+    end
+  end
+end
 
-# function show_host -d "Show host & user name"
-#   # Display [user & host] info
-#   if [ (id -u) = "0" ]
-#     echo -n (set_color red)
-#   else
-#     echo -n (set_color blue)
-#   end
-#   echo -n ''$USER@(hostname|cut -d . -f 1)' ' (set color normal)
-# end
+function show_host -d "Show host & user name"
+  # Display [user & host] info
+  if [ (id -u) = "0" ]
+    echo -n (set_color red)
+  else
+    echo -n (set_color blue)
+  end
+  echo -n ''$USER@(hostname|cut -d . -f 1)' ' (set color normal)
+end
 
 # function show_cwd -d "Function to show the current working directory"
 #   if test "$theme_short_path" != 'yes' -a (prompt_pwd) != '~' -a (prompt_pwd) != '/'
@@ -128,5 +128,6 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $status_color "[" $last_status "]" $normal
     end
 
+    show_ssh_status
     echo -s $cwd_color (prompt_pwd -D 1) $vcs_color (fish_vcs_prompt) $normal ' ' $prompt_status $status_color $suffix ' ' $normal
 end

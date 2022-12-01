@@ -93,7 +93,9 @@ highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE
 hi clear VertSplit
 
 set mouse=a
-set signcolumn=number
+if has('nvim-0.5') || has('patch-8.1.1565')
+    set signcolumn=number
+endif
 set autowrite " Enable autowrite
 set clipboard=unnamed "universal clipboard
 set autoindent

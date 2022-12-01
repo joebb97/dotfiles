@@ -110,9 +110,14 @@ set -x PAGER "less -XFR"
 set -x GIT_PAGER "less -XFR"
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 set fish_greeting
-# Slows things down a bit, but very worthwhile
+
+# Slows things down a bit
 # set __fish_git_prompt_show_informative_status
+
+# Slows things A LOT
 # set __fish_git_prompt_showuntrackedfiles
+
+# Just right
 set __fish_git_prompt_showdirtystate
 
 set -l opam_init $HOME/.opam/opam-init/init.fish
