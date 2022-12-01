@@ -14,7 +14,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim2hs'
 Plug 'dag/vim-fish'
-Plug 'fatih/vim-go'
+if has('nvim-0.4') || has('patch-8.0.1453')
+    Plug 'fatih/vim-go'
+endif
 call plug#end() " DO NOT REMOVE
 "
 "WEIRD SHIT FOR PLUGINS
