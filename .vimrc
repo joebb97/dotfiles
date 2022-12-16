@@ -5,7 +5,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -51,7 +51,7 @@ let g:ale_fixers = {
 \   'cpp': ['clang-format'],
 \   'c': ['clang-format'],
 \   'elm': ['elm-format'],
-\   'go': ['gofmt'],
+\   'go': ['gofmt', 'goimports', 'golines'],
 \   'rust': ['rustfmt'],
 \   'haskell': ['hindent'],
 \}
@@ -62,7 +62,9 @@ let g:ale_linters = {
 \   'javascript': ['jshint'],
 \   'typescript': ['eslint', 'tsserver'],
 \   'rust': ['cargo', 'rls', 'analyzer'],
+\   'go': ['gobuild', 'gofmt', 'gopls', 'govet', 'golangci-lint']
 \}
+let g:ale_completion_enabled = 1
 let g:ale_c_parse_compile_commands=1
 let g:ale_c_parse_makefile=1
 " let g:ale_python_flake8_executable='python3'
@@ -82,7 +84,7 @@ let g:gutentags_ctags_exclude=["@.gitignore"]
 let g:tagbar_show_linenumbers = 1
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme purify "colors!
+colorscheme sonokai "colors!
 syntax enable
 " highlight commands need to go after colorscheme
 highlight link ALEErrorSign Error
