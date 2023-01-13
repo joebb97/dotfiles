@@ -5,7 +5,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'kien/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
-" Plug 'maralla/completor.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -25,7 +24,6 @@ let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 0
 let NERDTreeShowHidden=1
 let NERDTreeShowLineNumbers=1
-let python_highlight_all=1
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 'ra'
@@ -40,9 +38,6 @@ elseif executable('ack')
     set grepprg=ack\ --no-color
 endif
 " let g:gitgutter_set_sign_backgrounds = 1
-let g:airline#extensions#tabline#enabled=1 
-let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='papercolor'
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
@@ -113,6 +108,7 @@ set expandtab
 
 set nobackup
 set number "shows line numbers
+set relativenumber
 set showcmd "shows last entered command 
 set wildmenu "autocompletes
 set backspace=2
