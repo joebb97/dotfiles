@@ -19,7 +19,7 @@
 !.config/sway/config
 !.config/fish/config.fish
 !.config/fish/prompt_help.fish
-!.config/nvim/init.vim
+!.config/nvim
 !.config/alacritty/alacritty.yml
 !.custom-bash
 .tools/google-cloud-sdk
