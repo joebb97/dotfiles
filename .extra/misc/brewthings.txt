@@ -1,3 +1,5 @@
+# cargo install -f --git https://github.com/jez/as-tree
+# env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 ack
 adns
 ansible
@@ -143,5 +145,3 @@ xh
 xz
 zeromq
 zoxide
-# cargo install -f --git https://github.com/jez/as-tree
-# env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
