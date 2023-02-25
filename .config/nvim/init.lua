@@ -1,8 +1,3 @@
--- Use the following instead of require() if you want things to reload with source $MYVIMRC
--- local function import(module)
---     package.loaded[module] = nil
---     return require(module)
--- end
 require("plugins")
 
 -- [[ Keymap / Remap ]]
@@ -115,22 +110,6 @@ vim.keymap.set('n', '<leader>of', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>sl', vim.diagnostic.setloclist)
 
 -- PLUGIN SPECIFIC LEADERS
--- vim.keymap.set('n', '<leader>nc', ':NERDTreeClose<CR>', opts)
--- vim.keymap.set('n', '<leader>nt', ':NERDTreeToggle<CR>', opts)
--- vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
--- vim.keymap.set('n', '<leader>af', ':ALEFix<CR>', opts)
--- vim.keymap.set('n', '<leader>ai', ':ALEInfo<CR>', opts)
--- vim.keymap.set('n', '<leader>at', ':ALEToggle<CR>', opts)
--- vim.keymap.set('n', '<leader>ad', ':ALEGoToDefinition<CR>', opts)
--- vim.keymap.set('n', '<leader>ar', ':ALEFindReferences<CR>', opts)
--- vim.keymap.set('n', '<leader>gb', ':GoBuild<CR>', opts)
--- vim.keymap.set('n', '<leader>gf', ':GoFmt<CR>', opts)
--- vim.keymap.set('n', '<leader>gr', ':GoRun<CR>', opts)
--- vim.keymap.set('n', '<leader>gv', ':GoVet ./...<CR>', opts)
--- vim.keymap.set('n', '<leader>gl', ':GoLint ./...<CR>', opts)
--- vim.keymap.set('n', '<leader>tb', ':TagbarToggle<CR>', opts)
--- vim.keymap.set('n', '<leader>to', ':TagbarOpen fj<CR>', opts)
--- vim.keymap.set('n', '<leader>pi', ':PlugInstall<CR>', opts)
 vim.keymap.set('n', '<leader>gg', ':Gitsigns toggle_signs<CR>', opts)
 
 -- COMMAND
@@ -219,16 +198,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     group = packer_group,
     pattern = 'plugins.lua',
 })
-
--- This seems pointless but if you want it it's here
--- local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
--- vim.api.nvim_create_autocmd('TextYankPost', {
---     callback = function()
---         vim.highlight.on_yank()
---     end,
---     group = highlight_group,
---     pattern = '*',
--- })
 
 -- [[ LSP settings. ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -336,7 +305,7 @@ if not snip_status_ok then
     vim.notify.Err("Couldn't require luasnip")
     return
 end
--- luasnip.config.setup() -- not sure if needed
+luasnip.config.setup() -- not sure if needed
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -344,36 +313,6 @@ local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
-
--- If you're feeling frisky and have a nerd font
---   פּ ﯟ   some other good icons
--- local kind_icons = {
---     Text = "",
---     Method = "m",
---     Function = "",
---     Constructor = "",
---     Field = "",
---     Variable = "",
---     Class = "",
---     Interface = "",
---     Module = "",
---     Property = "",
---     Unit = "",
---     Value = "",
---     Enum = "",
---     Keyword = "",
---     Snippet = "",
---     Color = "",
---     File = "",
---     Reference = "",
---     Folder = "",
---     EnumMember = "",
---     Constant = "",
---     Struct = "",
---     Event = "",
---     Operator = "",
---     TypeParameter = "",
--- }
 
 cmp.setup({
     snippet = {
@@ -414,22 +353,6 @@ cmp.setup({
             end
         end, { 'i', 's' }),
     }),
-    -- If you have a nerd font
-    -- formatting = {
-    --     fields = { "kind", "abbr", "menu" },
-    --     format = function(entry, vim_item)
-    --         -- Kind icons
-    --         -- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-    --         -- This concatonates the icons with the name of the item kind
-    --         vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
-    --         vim_item.menu = ({
-    --             luasnip = "[Snippet]",
-    --             buffer = "[Buffer]",
-    --             path = "[Path]",
-    --         })[entry.source.name]
-    --         return vim_item
-    --     end,
-    -- },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
@@ -440,7 +363,7 @@ cmp.setup({
     }),
     window = {
         -- completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
     },
 })
 
