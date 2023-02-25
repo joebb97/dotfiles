@@ -11,7 +11,8 @@ abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
 abbr -g howbig 'du -sh'
 # CONFIG ALIASES
-abbr -g cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+set -l _fish_abbr_cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+abbr -g cfg "$_fish_abbr_cfg"
 abbr -g cfgs "$_fish_abbr_cfg status"
 abbr -g cfga "$_fish_abbr_cfg add"
 abbr -g cfgall "$_fish_abbr_cfg add -A"
@@ -48,7 +49,8 @@ abbr -g gbc 'git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(
 abbr -g gco 'git checkout'
 abbr -g gcb 'git checkout -b'
 abbr -g gll 'git log --graph --pretty=oneline --abbrev-commit'
-abbr -g gg "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+set -l _fish_abbr_gg "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+abbr -g gg "$_fish_abbr_gg"
 abbr -g ggf "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'"
 abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
@@ -85,6 +87,7 @@ function add_to_gopath
 end
 
 add_to_path /usr/local/opt/scala@2.12/bin
+add_to_path /usr/local/opt/make/libexec/gnubin
 add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
@@ -154,3 +157,11 @@ if type -q bat
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
 end
+
+# on macOS
+# cd ~/Library/Fonts
+# on Linux
+# cd ~/.local/share/fonts
+# curl -fLo Iosevka Nerd Font Complete.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Nerd%20Font%20Complete.ttf
+# curl -fLo Iosevka Term Nerd Font Complete.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
+# You may or may not want to get the Regular, Bold, Italic, Bold-Italic ones, etc.
