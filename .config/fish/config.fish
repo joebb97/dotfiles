@@ -94,6 +94,7 @@ add_to_path $HOME/bin
 add_to_path $HOME/Library/Python/3.7/bin
 add_to_path $HOME/Library/Python/3.9/bin
 add_to_path $HOME/Library/Python/2.7/bin
+add_to_path $HOME/.gem/ruby/2.6.0/bin
 add_to_path /usr/local/bin
 add_to_path /usr/local/sbin
 add_to_path /usr/local/share

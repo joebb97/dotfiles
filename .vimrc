@@ -8,6 +8,7 @@ Plug 'preservim/tagbar'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'airblade/vim-gitgutter'
 Plug 'elixir-editors/vim-elixir'
@@ -91,45 +92,56 @@ highlight GitGutterDelete ctermbg=NONE guibg=NONE
 highlight GitGutterChangeDelete ctermbg=NONE guibg=NONE
 hi clear VertSplit
 
-set mouse=a
 if has('nvim-0.5') || has('patch-8.1.1565')
     set signcolumn=number
 endif
-set autowrite " Enable autowrite
-set clipboard=unnamed "universal clipboard
+if exists("+colorcolumn")
+    set colorcolumn=100
+endif
 set autoindent
-set tabstop=4 
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-"set noexpandtab "use tabs
-"set list
-"set listchars=tab:>
-
-set nobackup
-set number "shows line numbers
-set relativenumber
-set showcmd "shows last entered command 
-set wildmenu "autocompletes
+set autowrite " Enable autowrite
 set backspace=2
 set backspace=indent,eol,start
-set lazyredraw "redraw only when needed
-set showmatch
-set incsearch "makes searching better
-"set hlsearch
+set clipboard=unnamed "universal clipboard
+set cursorline
+set expandtab
 set foldenable "enable folding
 set foldlevelstart=10
 set foldmethod=indent "sets where folding is determined
-set cursorline
+set incsearch "makes searching better
+set laststatus=2
+set lazyredraw "redraw only when needed
+set linebreak
+"set list
+"set listchars=tab:>
+set mouse=a
+set nobackup
+set noswapfile
+"set noexpandtab "use tabs
+set number "shows line numbers
+set numberwidth=2
+set path+=**
+set relativenumber
+set ruler
+set scrolloff=8
+set shiftwidth=4
+" set shortmess+=c
+set showcmd "shows last entered command 
+set showmatch
+set smartindent
+set softtabstop=4
 set splitbelow
 set splitright
-set laststatus=2
+set tabstop=4
+set termguicolors
 set ttimeoutlen=50
-set path+=**
+set updatetime=50
+set wildmenu "autocompletes
+set wrap
 
 "LET
-let mapleader=","
-
+let mapleader=" "
+let maplocalleader=" "
 
 "COMMAND
 command!  Svrc :source $MYVIMRC
@@ -138,6 +150,7 @@ command!  Evrc :e $HOME/.vimrc
 command!  Ebrc :e $HOME/.bashrc
 command!  Egcfg :e $HOME/.gitconfig
 command!  Efc  :e $HOME/.config/fish/config.fish
+command!  Enc  :e $HOME/.config/nvim/init.lua
 
 "INOREMAP
 inoremap <C-J> <ESC><C-W><C-J>
@@ -151,7 +164,7 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-nnoremap <space> za
+" nnoremap <space> za
 nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
@@ -169,7 +182,17 @@ nnoremap <C-g>l <C-W><C-l>
 nnoremap <C-g><C-H> <C-W><C-h>
 nnoremap <C-g><C-J> <C-W><C-j>
 nnoremap <C-g><C-K> <C-W><C-k>
-nnoremap <C-g><C-l> <C-W><C-l>
+nnoremap <C-g><C-L> <C-W><C-l>
+
+"VNOREMAP
+vnoremap K :m .-2<CR>==
+vnoremap J :m .+1<CR>==
+vnoremap < <gv
+vnoremap > >gv
+
+"XNOREMAP
+xnoremap J :move '>+1<CR>gv-gv
+xnoremap K :move '<-2<CR>gv-gv
 
 "TNOREMAP
 tnoremap <C-g>v <C-W>N:vert term<CR>
@@ -202,6 +225,7 @@ nnoremap <leader>sv :Svrc<CR>
 nnoremap <leader>ev :Evrc<CR>
 nnoremap <leader>eb :Ebrc<CR>
 nnoremap <leader>ef :Efc<CR>
+nnoremap <leader>en :Enc<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>bl $A {<CR>}<ESC>O
 nnoremap <leader>bs $A<CR>{<CR>}<ESC>O
@@ -209,7 +233,6 @@ nnoremap <leader>nill oif err != nil {<CR>return err<CR>}<ESC>
 nnoremap <leader>nili oif err != nil {<CR>}<ESC>O
 nnoremap <leader>nilt oif err != nil {<CR>return nil, err<CR>}<ESC>
 nnoremap <leader>/ :Ack
-nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <leader>nc :NERDTreeClose<CR>

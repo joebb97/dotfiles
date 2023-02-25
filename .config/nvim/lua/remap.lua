@@ -1,5 +1,7 @@
-local opts = { noremap = true }
-vim.g.mapleader = ','
+local opts = { noremap = true, silent = true}
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', opts)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- INOREMAP
 vim.keymap.set('i', '<C-J>', '<ESC><C-W><C-J>', opts)
@@ -13,7 +15,7 @@ vim.keymap.set('n', '<C-J>', '<C-W><C-J>', opts)
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>', opts)
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
 vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
-vim.keymap.set('n', '<space>', 'za', opts)
+-- vim.keymap.set('n', '<space>', 'za', opts)
 vim.keymap.set('n', 'j', 'gj', opts)
 vim.keymap.set('n', 'k', 'gk', opts)
 vim.keymap.set('n', 'gV', '`[v`]', opts)
@@ -32,10 +34,18 @@ vim.keymap.set('n', '<C-g><C-H>', '<C-W><C-h>', opts)
 vim.keymap.set('n', '<C-g><C-J>', '<C-W><C-j>', opts)
 vim.keymap.set('n', '<C-g><C-K>', '<C-W><C-k>', opts)
 vim.keymap.set('n', '<C-g><C-L>', '<C-W><C-l>', opts)
--- nnoremap <C-g>h <C-w>h
--- nnoremap <C-g>j <C-w>j
--- nnoremap <C-g>k <C-w>k
--- nnoremap <C-g>l <C-w>l
+vim.keymap.set('n', '<CS-l>', 'gt', opts)
+vim.keymap.set('n', '<CS-h>', 'gT', opts)
+
+-- VNOREMAP
+vim.keymap.set('v', 'K', ':m .-2<CR>==', opts)
+vim.keymap.set('v', 'J', ':m .+1<CR>==', opts)
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+
+-- XNOREMAP
+vim.keymap.set('x' ,'J', [[:move '>+1<CR>gv-gv]], opts)
+vim.keymap.set('x' ,'K', [[:move '<-2<CR>gv-gv]], opts)
 
 -- TNOREMAP
 vim.keymap.set('t', '<C-g>v', '<C-\\><C-N>:vsp +term<CR>', opts)
@@ -56,7 +66,11 @@ vim.keymap.set('t', '<C-g><C-k>', '<C-\\><C-N><C-w>k', opts)
 vim.keymap.set('t', '<C-g><C-l>', '<C-\\><C-N><C-w>l', opts)
 
 -- LEADER KEY
-vim.keymap.set('n', '<leader>rnw', ":! rscript -e \"library(\'knitr\');knit2pdf(\'$(ls *.Rnw)\')\"<CR>", opts)
+vim.keymap.set('n', '<leader>st', ':sp +term<CR>', opts)
+vim.keymap.set('n', '<leader>sp', ':sp<CR>', opts)
+vim.keymap.set('n', '<leader>vt', ':vsp +term<CR>', opts)
+vim.keymap.set('n', '<leader>vs', ':vs<CR>', opts)
+-- vim.keymap.set('n', '<leader>rnw', ":! rscript -e \"library(\'knitr\');knit2pdf(\'$(ls *.Rnw)\')\"<CR>", opts)
 vim.keymap.set('n', '<leader>w', ':w<CR>', opts)
 vim.keymap.set('n', '<leader>q', ':q<CR>', opts)
 vim.keymap.set('n', '<leader>m', ':make<CR>', opts)
@@ -69,32 +83,53 @@ vim.keymap.set('n', '<leader>sv', ':Svrc<CR>', opts)
 vim.keymap.set('n', '<leader>ev', ':Evrc<CR>', opts)
 vim.keymap.set('n', '<leader>eb', ':Ebrc<CR>', opts)
 vim.keymap.set('n', '<leader>ef', ':Efc<CR>', opts)
+vim.keymap.set('n', '<leader>en', ':Enc<CR>', opts)
+vim.keymap.set('n', '<leader>ex', ':qa<CR>', opts)
 vim.keymap.set('n', '<leader><space>', ':noh<CR>', opts)
 vim.keymap.set('n', '<leader>bl', '$A{<CR>}<ESC>O', opts)
 vim.keymap.set('n', '<leader>bs', '$A<CR>{<CR>}<ESC>O', opts)
 vim.keymap.set('n', '<leader>nill', 'oif err != nil {<CR>return err<CR>}<ESC>', opts)
 vim.keymap.set('n', '<leader>nili', 'oif err != nil {<CR>}<ESC>O', opts)
 vim.keymap.set('n', '<leader>nilt', 'oif err != nil {<CR>return nil, err<CR>}<ESC>', opts)
-vim.keymap.set('n', '<leader>nt', ':NERDTreeToggle<CR>', opts)
-vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
-vim.keymap.set('n', '<leader>nc', ':NERDTreeClose<CR>', opts)
+vim.keymap.set('n', '<leader>pl', ':Vex 30<CR>', opts)
+vim.keymap.set('n', '<leader>pe', ':Ex<CR>', opts)
+vim.keymap.set('n', '<leader>h', ':bp<CR>', opts)
+vim.keymap.set('n', '<leader>l', ':bn<CR>', opts)
 vim.keymap.set('n', '<leader>cc', ':cclose<CR>', opts)
 vim.keymap.set('n', '<leader>cn', ':cn<CR>', opts)
 vim.keymap.set('n', '<leader>cp', ':cp<CR>', opts)
 vim.keymap.set('n', '<leader>te', ':tabe<CR>', opts)
-vim.keymap.set('n', '<leader>af', ':ALEFix<CR>', opts)
-vim.keymap.set('n', '<leader>ai', ':ALEInfo<CR>', opts)
-vim.keymap.set('n', '<leader>at', ':ALEToggle<CR>', opts)
-vim.keymap.set('n', '<leader>ad', ':ALEGoToDefinition<CR>', opts)
-vim.keymap.set('n', '<leader>ar', ':ALEFindReferences<CR>', opts)
-vim.keymap.set('n', '<leader>gb', ':GoBuild<CR>', opts)
-vim.keymap.set('n', '<leader>gf', ':GoFmt<CR>', opts)
-vim.keymap.set('n', '<leader>gr', ':GoRun<CR>', opts)
-vim.keymap.set('n', '<leader>gv', ':GoVet ./...<CR>', opts)
-vim.keymap.set('n', '<leader>gl', ':GoLint ./...<CR>', opts)
-vim.keymap.set('n', '<leader>tb', ':TagbarToggle<CR>', opts)
-vim.keymap.set('n', '<leader>to', ':TagbarOpen fj<CR>', opts)
-vim.keymap.set('n', '<leader>pi', ':PlugInstall<CR>', opts)
-vim.keymap.set('n', '<leader>gg', ':GitGutterToggle<CR>', opts)
-vim.keymap.set('n', '<leader>h', ':bp<CR>', opts)
-vim.keymap.set('n', '<leader>l', ':bn<CR>', opts)
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>of', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>sl', vim.diagnostic.setloclist)
+
+-- PLUGIN SPECIFIC LEADERS
+-- vim.keymap.set('n', '<leader>nc', ':NERDTreeClose<CR>', opts)
+-- vim.keymap.set('n', '<leader>nt', ':NERDTreeToggle<CR>', opts)
+-- vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
+-- vim.keymap.set('n', '<leader>af', ':ALEFix<CR>', opts)
+-- vim.keymap.set('n', '<leader>ai', ':ALEInfo<CR>', opts)
+-- vim.keymap.set('n', '<leader>at', ':ALEToggle<CR>', opts)
+-- vim.keymap.set('n', '<leader>ad', ':ALEGoToDefinition<CR>', opts)
+-- vim.keymap.set('n', '<leader>ar', ':ALEFindReferences<CR>', opts)
+-- vim.keymap.set('n', '<leader>gb', ':GoBuild<CR>', opts)
+-- vim.keymap.set('n', '<leader>gf', ':GoFmt<CR>', opts)
+-- vim.keymap.set('n', '<leader>gr', ':GoRun<CR>', opts)
+-- vim.keymap.set('n', '<leader>gv', ':GoVet ./...<CR>', opts)
+-- vim.keymap.set('n', '<leader>gl', ':GoLint ./...<CR>', opts)
+-- vim.keymap.set('n', '<leader>tb', ':TagbarToggle<CR>', opts)
+-- vim.keymap.set('n', '<leader>to', ':TagbarOpen fj<CR>', opts)
+-- vim.keymap.set('n', '<leader>pi', ':PlugInstall<CR>', opts)
+vim.keymap.set('n', '<leader>gg', ':Gitsigns toggle_signs<CR>', opts)
+
+-- COMMAND
+vim.api.nvim_create_user_command('Svrc', ':source $MYVIMRC', {})
+vim.api.nvim_create_user_command('Save', ':mksession!', {})
+vim.api.nvim_create_user_command('Evrc', ':e $HOME/.vimrc', {})
+vim.api.nvim_create_user_command('Ebrc', ':e $HOME/.bashrc', {})
+vim.api.nvim_create_user_command('Egcfg', ':e $HOME/.gitconfig', {})
+vim.api.nvim_create_user_command('Efc', ':e $HOME/.config/fish/config.fish', {})
+vim.api.nvim_create_user_command('Enc', ':e $HOME/.config/nvim/init.lua', {})
