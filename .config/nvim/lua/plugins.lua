@@ -27,26 +27,26 @@ packer.init {
 
 packer.startup(function(use)
     use {
-        -- TODO: This doesn't do LSP diagnostic colors correctly
-        'rafi/awesome-vim-colorschemes',
-        config = function() vim.cmd [[colorscheme sonokai]] end
+        'sainnhe/sonokai',
+        'sainnhe/gruvbox-material',
+        'sainnhe/everforest',
+        'sainnhe/edge',
+        'theniceboy/nvim-deus',
+        -- These versions of sainnhe's themes have weird treesitter highlights
+        -- 'rafi/awesome-vim-colorschemes'
     }
-    -- use {
-    --     'sainnhe/sonokai',
-    --     config = function() vim.cmd [[colorscheme sonokai]] end
-    -- }
     use { -- Adds git releated signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
         config = function()
             -- See `:help gitsigns.txt`
             require('gitsigns').setup {
-            signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-            }}
+                signs = {
+                    add = { text = '+' },
+                    change = { text = '~' },
+                    delete = { text = '_' },
+                    topdelete = { text = '‾' },
+                    changedelete = { text = '~' },
+                } }
         end
     }
 
@@ -68,7 +68,7 @@ packer.startup(function(use)
             'williamboman/mason-lspconfig.nvim',
 
             -- Useful status updates for LSP
-            {'j-hui/fidget.nvim', config = function() require("fidget").setup() end },
+            { 'j-hui/fidget.nvim', config = function() require("fidget").setup() end },
 
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
@@ -87,6 +87,8 @@ packer.startup(function(use)
             'rafamadriz/friendly-snippets',
         },
     }
+    -- Debugging
+    -- use 'mfussenegger/nvim-dap'
 
     -- Fuzzy Finder (files, lsp, etc)
     use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -94,11 +96,11 @@ packer.startup(function(use)
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
     -- Only load if `make` is available. Make sure you have the system
     -- requirements installed.
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     use { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
-        requirements = {
+        requires = {
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
         config = function()
