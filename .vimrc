@@ -18,7 +18,24 @@ if has('nvim-0.4') || has('patch-8.0.1453')
     Plug 'fatih/vim-go'
 endif
 call plug#end() " DO NOT REMOVE
-"
+
+" Colors schenanigans
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+if &term == "alacritty"
+    " Classic vim stuff
+    let &term = "xterm-256color"
+endif
+
+if has("termguicolors")
+    set termguicolors
+endif
+let g:sonokai_style = 'andromeda'
+colorscheme sonokai "colors!
+
 "WEIRD SHIT FOR PLUGINS
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
@@ -80,7 +97,6 @@ let g:gutentags_ctags_exclude=["@.gitignore"]
 let g:tagbar_show_linenumbers = 1
 
 " NON PLUGIN STUFF BELOW HERE
-colorscheme sonokai "colors!
 syntax enable
 " highlight commands need to go after colorscheme
 highlight link ALEErrorSign Error
@@ -133,7 +149,6 @@ set softtabstop=4
 set splitbelow
 set splitright
 set tabstop=4
-set termguicolors
 set ttimeoutlen=50
 set updatetime=50
 set wildmenu "autocompletes

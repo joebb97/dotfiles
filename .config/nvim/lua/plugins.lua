@@ -49,13 +49,18 @@ packer.startup(function(use)
                 } }
         end
     }
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup { break_undo = false } end
+    }
 
     -- Buddha bless Tim Pope
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive' -- :Git commands
-    use 'tpope/vim-rhubarb' -- github related commands
+    use 'tpope/vim-rhubarb'  -- github related commands
     use 'tpope/vim-surround' -- dealing with quotes and parens
-    use 'tpope/vim-sleuth' -- detect tabs and shiftwidth
+    use 'tpope/vim-sleuth'   -- detect tabs and shiftwidth
+    use 'tpope/vim-vinegar'
 
     use 'wbthomason/packer.nvim'
     use 'nvim-lua/plenary.nvim'
@@ -79,20 +84,32 @@ packer.startup(function(use)
         'hrsh7th/nvim-cmp',
         requires = {
             'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer', -- The completion plugin
-            'hrsh7th/cmp-path', -- buffer completions
-            'hrsh7th/cmp-cmdline', -- path completions
+            'hrsh7th/cmp-buffer',       -- The completion plugin
+            'hrsh7th/cmp-path',         -- buffer completions
+            'hrsh7th/cmp-cmdline',      -- path completions
             'saadparwaiz1/cmp_luasnip', -- snippet completions
-            'L3MON4D3/LuaSnip', -- snippet engine
+            'L3MON4D3/LuaSnip',         -- snippet engine
             'rafamadriz/friendly-snippets',
         },
+    }
+    use {
+        'simrat39/symbols-outline.nvim',
+        config = function()
+            require("symbols-outline").setup({ show_relative_numbers = true })
+        end
+    }
+    use {
+        'folke/zen-mode.nvim',
+        config = function()
+            require("zen-mode").setup {}
+        end
     }
     -- Debugging
     -- use 'mfussenegger/nvim-dap'
 
     -- Fuzzy Finder (files, lsp, etc)
     use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
+    use { "nvim-telescope/telescope-file-browser.nvim" }
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
     -- Only load if `make` is available. Make sure you have the system
     -- requirements installed.

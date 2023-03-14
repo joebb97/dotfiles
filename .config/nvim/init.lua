@@ -94,8 +94,9 @@ local function setup_keymaps()
     vim.keymap.set('n', '<leader>nill', 'oif err != nil {<CR>return err<CR>}<ESC>', opts)
     vim.keymap.set('n', '<leader>nili', 'oif err != nil {<CR>}<ESC>O', opts)
     vim.keymap.set('n', '<leader>nilt', 'oif err != nil {<CR>return nil, err<CR>}<ESC>', opts)
-    vim.keymap.set('n', '<leader>pl', ':Vex 30<CR>', opts)
+    vim.keymap.set('n', '<leader>pv', ':Vex<CR>', opts)
     vim.keymap.set('n', '<leader>pe', ':Ex<CR>', opts)
+    vim.keymap.set('n', '<leader>ps', ':Sex<CR>', opts)
     vim.keymap.set('n', '<leader>h', ':bp<CR>', opts)
     vim.keymap.set('n', '<leader>l', ':bn<CR>', opts)
     vim.keymap.set('n', '<leader>cc', ':cclose<CR>', opts)
@@ -105,6 +106,7 @@ local function setup_keymaps()
 
     -- PLUGIN SPECIFIC LEADERS
     vim.keymap.set('n', '<leader>gg', ':Gitsigns toggle_signs<CR>', opts)
+    vim.keymap.set('n', '<leader>so', ':SymbolsOutline<CR>', opts)
 
     -- COMMAND
     vim.api.nvim_create_user_command('Svrc', ':source $MYVIMRC', {})
@@ -158,13 +160,13 @@ local function setup_options()
         wildmenu = true,
         wrap = true,
     }
-    if vim.fn.has('nvim-0.5') then
+    if vim.fn.has('nvim-0.5') == 1 then
         options.signcolumn = "number"
     else
         options.signcolumn = "auto"
     end
 
-    if vim.fn.exists("+colorcolumn") then
+    if vim.fn.exists("+colorcolumn") == 1 then
         options.colorcolumn = "100"
     end
 
@@ -194,6 +196,7 @@ local function setup_options()
         vim.g[prefix .. '_diagnostic_text_highlight'] = 1
         vim.g[prefix .. '_diagnostic_line_highlight'] = 1
         vim.g[prefix .. '_better_performance'] = 1
+        vim.g[prefix .. '_transparent_background'] = 0
         local style = special_schemes[colorscheme].style
         if style ~= nil then
             vim.g[prefix .. '_style'] = style
@@ -245,7 +248,6 @@ local function setup_lsp()
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         nmap('<leader>WS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-        -- See `:help K` for why this keymap
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<leader>sk', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -445,6 +447,10 @@ local function setup_telescope()
                     ['q'] = actions.close,
                     ['C-c'] = actions.close,
                     ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                    ["<C-u>"] = actions.results_scrolling_up,
+                    ["<C-d>"] = actions.results_scrolling_down,
+                    ['<C-f>'] = actions.preview_scrolling_down,
+                    ['<C-b>'] = actions.preview_scrolling_up,
                 }
             },
         },
@@ -452,12 +458,13 @@ local function setup_telescope()
 
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
+    pcall(require('telescope').load_extension, 'file_browser')
     local builtin = require('telescope.builtin')
     local themes = require('telescope.themes')
 
     -- See `:help telescope.builtin`
     vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-    vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<leader>bu', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(themes.get_dropdown {
@@ -490,8 +497,8 @@ local function setup_treesitter()
             keymaps = {
                 init_selection = '<c-s>',
                 node_incremental = '<c-s>',
-                scope_incremental = '<c-,>',
-                node_decremental = '<CS-s>',
+                scope_incremental = '<c-a>',
+                node_decremental = '<c-o>',
             },
         },
         textobjects = {

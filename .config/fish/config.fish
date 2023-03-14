@@ -64,6 +64,7 @@ abbr -g dkc "docker compose"
 abbr -g l "ls"
 abbr -g pm "podman"
 abbr -g rh "runhaskell"
+abbr -g kc "kubectl"
 
 # Set the path
 function add_to_path
@@ -101,11 +102,10 @@ add_to_path $HOME/.gem/ruby/2.6.0/bin
 add_to_path /usr/local/bin
 add_to_path /usr/local/sbin
 add_to_path /usr/local/share
+add_to_path /usr/local/go/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
-set -x TMPDIR $HOME/src/tmpdir
 set -x ELM_HOME $HOME/src/.elm
-set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
 
 set -gx EDITOR vim
 set -gx GIT_EDITOR vim
@@ -157,11 +157,3 @@ if type -q bat
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
 end
-
-# on macOS
-# cd ~/Library/Fonts
-# on Linux
-# cd ~/.local/share/fonts
-# curl -fLo Iosevka Nerd Font Complete.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Nerd%20Font%20Complete.ttf
-# curl -fLo Iosevka Term Nerd Font Complete.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
-# You may or may not want to get the Regular, Bold, Italic, Bold-Italic ones, etc.
