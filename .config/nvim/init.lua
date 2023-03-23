@@ -1,5 +1,5 @@
 -- [[ Keymap / Remap ]]
-local function setup_keymaps()
+local function configure_keymaps()
     local opts = { noremap = true, silent = true }
     vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', opts)
     vim.g.mapleader = ' '
@@ -119,7 +119,7 @@ local function setup_keymaps()
 end
 
 -- [[ Options ]]
-local function setup_options()
+local function configure_options()
     local options = {
         autoindent = true,
         autowrite = true,
@@ -142,7 +142,7 @@ local function setup_options()
         number = true,
         numberwidth = 2,
         relativenumber = true,
-        scrolloff = 8,
+        scrolloff = 0,
         shiftwidth = 4,
         showcmd = true,
         showmatch = true,
@@ -206,7 +206,7 @@ local function setup_options()
 end
 
 -- [[ Autocmd ]]
-local function setup_autocmds()
+local function configure_autocmds()
     -- No line numbers on term
     vim.api.nvim_create_autocmd('TermOpen', {
         command = 'setlocal nonumber norelativenumber'
@@ -221,7 +221,7 @@ local function setup_autocmds()
 end
 
 -- [[ LSP settings. ]]
-local function setup_lsp()
+local function configure_lsp()
     -- Diagnostic keymaps
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -229,7 +229,7 @@ local function setup_lsp()
     vim.keymap.set('n', '<leader>sl', vim.diagnostic.setloclist)
 
     --  This function gets run when an LSP connects to a particular buffer.
-    local on_attach = function(_, bufnr)
+    local function on_attach(client, bufnr)
         local nmap = function(keys, func, desc)
             if desc then
                 desc = 'LSP: ' .. desc
@@ -264,52 +264,74 @@ local function setup_lsp()
             vim.lsp.buf.format()
         end, { desc = 'Format current buffer with LSP' })
         vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+        require('lsp-inlayhints').on_attach(client, bufnr)
     end
 
-    -- Enable the following language servers
-    --
-    --  Add any additional override configuration in the following tables. They will be passed to
-    --  the `settings` field of the server config. You must look up that documentation yourself.
     local servers = {
         clangd = {},
-        gopls = {},
-        pyright = {},
         rust_analyzer = {
-            diagnostics = {
-                enable = true,
-                disabled = { "unresolved-proc-macro" },
-                enableExperimental = true,
+            ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
+                },
+                diagnostics = {
+                    enable = true,
+                    disabled = { "unresolved-proc-macro" },
+                    enableExperimental = true,
+                },
+                cargo = {
+                    allFeatures = true
+                },
+                -- TODO: Make this use CLIPPY!!!!
+                checkOnSave = {
+                    command = 'clippy'
+                },
+                procMacro = {
+                    enable = true
+                }
             },
-            cargo = {
-                allFeatures = true
-            },
-            -- TODO: Make this use CLIPPY!!!!
-            checkOnSave = {
-                command = 'clippy'
+        },
+        gopls = {
+            gopls = {
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
             }
         },
+        pyright = {},
         -- tsserver = {},
         -- TODO: Make this install linters, and also use linters, null-ls.nvim???
         lua_ls = {
             Lua = {
                 workspace = { checkThirdParty = false },
                 telemetry = { enable = false },
+                hint = {
+                    enable = true
+                }
             },
         },
     }
 
-    -- Setup neovim lua configuration
-    require('neodev').setup()
+    require('neodev').setup({
+        library = { plugins = { 'nvim-dap-ui'}, types = true }
+    })
 
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-    -- Setup mason so it can manage external tooling
     require('mason').setup()
 
-    -- Ensure the servers above are installed
     local mason_lspconfig = require 'mason-lspconfig'
+    local lspconfig = require 'lspconfig'
 
     mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
@@ -317,7 +339,7 @@ local function setup_lsp()
 
     mason_lspconfig.setup_handlers {
         function(server_name)
-            require('lspconfig')[server_name].setup {
+            lspconfig[server_name].setup {
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = servers[server_name],
@@ -327,7 +349,7 @@ local function setup_lsp()
 end
 
 -- [[ Completions ]]
-local function setup_completion()
+local function configure_completion()
     local cmp_status_ok, cmp = pcall(require, "cmp")
     if not cmp_status_ok then
         vim.notify.Err("Couldn't require cmp")
@@ -430,7 +452,7 @@ local function setup_completion()
 end
 
 -- [[ Configure Telescope ]]
-local function setup_telescope()
+local function configure_telescope()
     -- See `:help telescope` and `:help telescope.setup()`
     local actions = require "telescope.actions"
     require('telescope').setup {
@@ -481,7 +503,7 @@ local function setup_telescope()
 end
 
 -- [[ Configure Treesitter ]]
-local function setup_treesitter()
+local function configure_treesitter()
     -- See `:help nvim-treesitter`
     require('nvim-treesitter.configs').setup {
         -- Add languages to be installed here that you want installed for treesitter
@@ -548,14 +570,14 @@ local function setup_treesitter()
     }
 end
 
-setup_keymaps()
+configure_keymaps()
 require("plugins")
-setup_options()
-setup_autocmds()
-setup_lsp()
-setup_completion()
-setup_telescope()
-setup_treesitter()
+configure_options()
+configure_autocmds()
+configure_lsp()
+configure_completion()
+configure_telescope()
+configure_treesitter()
 
 -- Followed a mixture of:
 -- https://github.com/nvim-lua/kickstart.nvim/tree/master

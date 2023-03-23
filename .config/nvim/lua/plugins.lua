@@ -95,7 +95,16 @@ packer.startup(function(use)
     use {
         'simrat39/symbols-outline.nvim',
         config = function()
-            require("symbols-outline").setup({ show_relative_numbers = true })
+            require("symbols-outline").setup({
+                width = 15,
+                position = 'top'
+            })
+        end
+    }
+    use {
+        'lvimuser/lsp-inlayhints.nvim',
+        config = function ()
+            require("lsp-inlayhints").setup()
         end
     }
     use {
@@ -105,7 +114,10 @@ packer.startup(function(use)
         end
     }
     -- Debugging
-    -- use 'mfussenegger/nvim-dap'
+    use {
+        'rcarriga/nvim-dap-ui',
+        'mfussenegger/nvim-dap',
+    }
 
     -- Fuzzy Finder (files, lsp, etc)
     use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
