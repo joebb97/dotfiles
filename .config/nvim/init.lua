@@ -5,6 +5,9 @@ local function configure_keymaps()
     vim.g.mapleader = ' '
     vim.g.maplocalleader = ' '
 
+    -- Use these if using nvim-tree
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
     -- INOREMAP
     vim.keymap.set('i', '<C-J>', '<ESC><C-W><C-J>', opts)
     vim.keymap.set('i', '<C-K>', '<ESC><C-W><C-K>', opts)
@@ -18,8 +21,8 @@ local function configure_keymaps()
     vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
     vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
     -- vim.keymap.set('n', '<space>', 'za', opts)
-    vim.keymap.set('n', 'j', 'gj', opts)
-    vim.keymap.set('n', 'k', 'gk', opts)
+    -- vim.keymap.set('n', 'j', 'gj', opts)
+    -- vim.keymap.set('n', 'k', 'gk', opts)
     vim.keymap.set('n', 'gV', '`[v`]', opts)
     vim.keymap.set('n', ',', 'za', opts)
     vim.keymap.set('n', '<C-g>v', ':vsp +term<CR>', opts)
@@ -77,8 +80,6 @@ local function configure_keymaps()
     vim.keymap.set('n', '<leader>w', ':w<CR>', opts)
     vim.keymap.set('n', '<leader>q', ':q<CR>', opts)
     vim.keymap.set('n', '<leader>m', ':make<CR>', opts)
-    vim.keymap.set('n', '<leader>j', 'Lzt', opts)
-    vim.keymap.set('n', '<leader>k', 'Hzb', opts)
     vim.keymap.set('n', '<leader>z', '<C-w>\\|<C-w>_', opts)
     vim.keymap.set('n', '<leader>x', '<C-w>=', opts)
     vim.keymap.set('n', '<leader>sa', ':Save<CR>', opts)
@@ -94,9 +95,10 @@ local function configure_keymaps()
     vim.keymap.set('n', '<leader>nill', 'oif err != nil {<CR>return err<CR>}<ESC>', opts)
     vim.keymap.set('n', '<leader>nili', 'oif err != nil {<CR>}<ESC>O', opts)
     vim.keymap.set('n', '<leader>nilt', 'oif err != nil {<CR>return nil, err<CR>}<ESC>', opts)
-    vim.keymap.set('n', '<leader>pv', ':Vex<CR>', opts)
-    vim.keymap.set('n', '<leader>pe', ':Ex<CR>', opts)
-    vim.keymap.set('n', '<leader>ps', ':Sex<CR>', opts)
+    -- Netrw shortcuts
+    -- vim.keymap.set('n', '<leader>pv', ':Vex<CR>', opts)
+    -- vim.keymap.set('n', '<leader>pe', ':Ex<CR>', opts)
+    -- vim.keymap.set('n', '<leader>ps', ':Sex<CR>', opts)
     vim.keymap.set('n', '<leader>h', ':bp<CR>', opts)
     vim.keymap.set('n', '<leader>l', ':bn<CR>', opts)
     vim.keymap.set('n', '<leader>cc', ':cclose<CR>', opts)
@@ -106,7 +108,10 @@ local function configure_keymaps()
 
     -- PLUGIN SPECIFIC LEADERS
     vim.keymap.set('n', '<leader>gg', ':Gitsigns toggle_signs<CR>', opts)
+    vim.keymap.set('n', '<leader>gb', ':Git blame<CR>', opts)
     vim.keymap.set('n', '<leader>so', ':SymbolsOutline<CR>', opts)
+    vim.keymap.set('n', '<leader>nt', ':NvimTreeToggle<CR>', opts)
+    vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
 
     -- COMMAND
     vim.api.nvim_create_user_command('Svrc', ':source $MYVIMRC', {})
@@ -183,12 +188,26 @@ local function configure_options()
     -- vim.cmd "set whichwrap+=<,>,[,],h,l"
     -- vim.cmd [[set iskeyword+=-]]
     -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
     local colorscheme = 'sonokai'
     local special_schemes = {
-        sonokai = { style = 'andromeda' },
-        edge = { style = 'aura' },
-        everforest = {},
-        ['gruvbox-material'] = {}
+        -- style can be default, atlantis, andromeda, shusia, maia
+        -- no scheme_background or sys_background for sonokai
+        sonokai = { style = 'default' },
+        -- style can be default, aura and neon
+        -- no scheme_background for edge, but has sys_background
+        edge = { style = 'neon' },
+        -- no style for everforest
+        -- scheme_background can be hard, medium, soft
+        -- sys_background can be light or dark
+        everforest = { scheme_background = 'hard', sys_background = 'dark' },
+        -- style can be default, mix, or original
+        -- scheme_background and sys_background are same as everforest
+        ['gruvbox-material'] = {
+            style = 'original',
+            scheme_background = 'hard',
+            sys_background = 'dark'
+        }
     }
     if special_schemes[colorscheme] ~= nil then
         local prefix = colorscheme:gsub("-", "_")
@@ -198,11 +217,21 @@ local function configure_options()
         vim.g[prefix .. '_better_performance'] = 1
         vim.g[prefix .. '_transparent_background'] = 0
         local style = special_schemes[colorscheme].style
+        local scheme_background = special_schemes[colorscheme].scheme_background
+        local sys_background = special_schemes[colorscheme].sys_background
         if style ~= nil then
             vim.g[prefix .. '_style'] = style
         end
+        if scheme_background ~= nil then
+            vim.g[prefix .. '_background'] = scheme_background
+        end
+        if sys_background ~= nil then
+            vim.opt['background'] = sys_background
+        end
     end
     vim.cmd("colorscheme " .. colorscheme)
+    vim.cmd [[setlocal spell spelllang=en_us]]
+    vim.cmd [[ set nospell ]]
 end
 
 -- [[ Autocmd ]]
@@ -218,6 +247,13 @@ local function configure_autocmds()
         group = packer_group,
         pattern = 'plugins.lua',
     })
+
+    local salt_group = vim.api.nvim_create_augroup('Salt', { clear = true })
+    vim.api.nvim_create_autocmd('BufRead,BufNewFile', {
+        command = 'set syntax=yaml',
+        group = salt_group,
+        pattern = '*.sls'
+    })
 end
 
 -- [[ LSP settings. ]]
@@ -227,6 +263,7 @@ local function configure_lsp()
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
     vim.keymap.set('n', '<leader>of', vim.diagnostic.open_float)
     vim.keymap.set('n', '<leader>sl', vim.diagnostic.setloclist)
+    vim.keymap.set('n', '<leader>sq', vim.diagnostic.setqflist)
 
     --  This function gets run when an LSP connects to a particular buffer.
     local function on_attach(client, bufnr)
@@ -277,17 +314,19 @@ local function configure_lsp()
                     },
                     prefix = "self",
                 },
-                diagnostics = {
-                    enable = true,
-                    disabled = { "unresolved-proc-macro" },
-                    enableExperimental = true,
-                },
-                cargo = {
-                    allFeatures = true
-                },
-                -- TODO: Make this use CLIPPY!!!!
-                checkOnSave = {
-                    command = 'clippy'
+                -- diagnostics = {
+                --     enable = true,
+                --     disabled = { "unresolved-proc-macro" },
+                --     experimental = {
+                --         enable = true
+                --     }
+                -- },
+                -- cargo = {
+                -- -- sometimes causes build scripts to fail, but might be useful ?
+                -- features = "all"
+                -- },
+                check = {
+                    command = "clippy"
                 },
                 procMacro = {
                     enable = true
@@ -322,7 +361,7 @@ local function configure_lsp()
     }
 
     require('neodev').setup({
-        library = { plugins = { 'nvim-dap-ui'}, types = true }
+        library = { plugins = { 'nvim-dap-ui' }, types = true }
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -377,7 +416,7 @@ local function configure_completion()
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs( -4), -- {"i", "c"} are omitted here, dunno why
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- {"i", "c"} are omitted here, dunno why
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-s>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
@@ -390,8 +429,8 @@ local function configure_completion()
             ['<Tab>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
+                    -- elseif luasnip.expand_or_jumpable() then
+                    --     luasnip.expand_or_jump()
                     -- Added in lunar vim tutorial, maybe delete later
                 elseif check_backspace() then
                     fallback()
@@ -402,8 +441,8 @@ local function configure_completion()
             ['<S-Tab>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif luasnip.jumpable( -1) then
-                    luasnip.jump( -1)
+                    -- elseif luasnip.jumpable(-1) then
+                    --     luasnip.jump(-1)
                 else
                     fallback()
                 end
@@ -475,6 +514,7 @@ local function configure_telescope()
                     ['<C-b>'] = actions.preview_scrolling_up,
                 }
             },
+            file_ignore_patterns = { "^vendor/" }
         },
     }
 

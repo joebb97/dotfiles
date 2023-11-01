@@ -32,6 +32,8 @@ packer.startup(function(use)
         'sainnhe/everforest',
         'sainnhe/edge',
         'theniceboy/nvim-deus',
+        'Mofiqul/dracula.nvim',
+        'folke/tokyonight.nvim'
         -- These versions of sainnhe's themes have weird treesitter highlights
         -- 'rafi/awesome-vim-colorschemes'
     }
@@ -60,7 +62,7 @@ packer.startup(function(use)
     use 'tpope/vim-rhubarb'  -- github related commands
     use 'tpope/vim-surround' -- dealing with quotes and parens
     use 'tpope/vim-sleuth'   -- detect tabs and shiftwidth
-    use 'tpope/vim-vinegar'
+    -- use 'tpope/vim-vinegar'
 
     use 'wbthomason/packer.nvim'
     use 'nvim-lua/plenary.nvim'
@@ -73,7 +75,7 @@ packer.startup(function(use)
             'williamboman/mason-lspconfig.nvim',
 
             -- Useful status updates for LSP
-            { 'j-hui/fidget.nvim', config = function() require("fidget").setup() end },
+            { 'j-hui/fidget.nvim', tag = 'legacy', config = function() require("fidget").setup() end },
 
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
@@ -103,14 +105,14 @@ packer.startup(function(use)
     }
     use {
         'lvimuser/lsp-inlayhints.nvim',
-        config = function ()
+        config = function()
             require("lsp-inlayhints").setup()
         end
     }
     use {
         'folke/zen-mode.nvim',
         config = function()
-            require("zen-mode").setup {}
+            require("zen-mode").setup()
         end
     }
     -- Debugging
@@ -136,6 +138,17 @@ packer.startup(function(use)
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
     }
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+        config = function()
+            require("nvim-tree").setup({view = {relativenumber = true}})
+        end
+    }
+
+    use 'mbbill/undotree'
     -- -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
     -- local has_plugins, plugins = pcall(require, 'custom.plugins')
     -- if has_plugins then

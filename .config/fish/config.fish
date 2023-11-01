@@ -3,9 +3,12 @@ abbr -g e '$EDITOR'
 abbr -g sbrc 'source $HOME/.bashrc'
 abbr -g ebrc '$EDITOR $HOME/.bashrc'
 abbr -g efc '$EDITOR $HOME/.config/fish/config.fish'
+abbr -g ei3 '$EDITOR $HOME/.config/i3/config'
+abbr -g esway '$EDITOR $HOME/.config/sway/config'
 abbr -g sfc 'source $HOME/.config/fish/config.fish'
 abbr -g ebhi '$EDITOR $HOME/.bash_history'
 abbr -g evrc '$EDITOR $HOME/.vimrc'
+abbr -g envim '$EDITOR $HOME/.config/nvim/init.lua'
 abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
@@ -55,6 +58,7 @@ abbr -g ggf "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an
 abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
 abbr -g gwc "git whatchanged"
+abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
 # alias awk="gawk"
 abbr -g dk "docker"
 abbr -g dke "docker exec"
@@ -65,6 +69,8 @@ abbr -g l "ls"
 abbr -g pm "podman"
 abbr -g rh "runhaskell"
 abbr -g kc "kubectl"
+abbr -g sai "sudo apt install"
+abbr -g lg 'lazygit'
 
 # Set the path
 function add_to_path
@@ -87,12 +93,14 @@ function add_to_gopath
     end
 end
 
+add_to_path /usr/share/bcc/tools
 add_to_path /usr/local/opt/scala@2.12/bin
 add_to_path /usr/local/opt/make/libexec/gnubin
 add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
+add_to_path $HOME/.pyenv/bin
 add_to_path $HOME/go/bin
 add_to_path $HOME/bin
 add_to_path $HOME/Library/Python/3.7/bin
@@ -106,6 +114,7 @@ add_to_path /usr/local/go/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm
+set -x PYENV_ROOT $HOME/.pyenv
 
 set -gx EDITOR vim
 set -gx GIT_EDITOR vim
@@ -156,4 +165,8 @@ end
 if type -q bat
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
+end
+
+if type -q pyenv
+    pyenv init - | source
 end

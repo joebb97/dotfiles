@@ -1,0 +1,13 @@
+[Unit]
+Description=Private Cargo Registry Forwarder
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sh -c 'until systemctl --user show-environment | grep -q DISPLAY; do sleep 1; done'
+ExecStart=/usr/local/bin/cloudflared access tcp --hostname registry.rust.cfdata.org --url localhost:57909
+TimeoutStartSec=0
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
