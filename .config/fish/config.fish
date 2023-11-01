@@ -3,15 +3,19 @@ abbr -g e '$EDITOR'
 abbr -g sbrc 'source $HOME/.bashrc'
 abbr -g ebrc '$EDITOR $HOME/.bashrc'
 abbr -g efc '$EDITOR $HOME/.config/fish/config.fish'
+abbr -g ei3 '$EDITOR $HOME/.config/i3/config'
+abbr -g esway '$EDITOR $HOME/.config/sway/config'
 abbr -g sfc 'source $HOME/.config/fish/config.fish'
 abbr -g ebhi '$EDITOR $HOME/.bash_history'
 abbr -g evrc '$EDITOR $HOME/.vimrc'
+abbr -g envim '$EDITOR $HOME/.config/nvim/init.lua'
 abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
 abbr -g howbig 'du -sh'
 # CONFIG ALIASES
-abbr -g cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+set -l _fish_abbr_cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+abbr -g cfg "$_fish_abbr_cfg"
 abbr -g cfgs "$_fish_abbr_cfg status"
 abbr -g cfga "$_fish_abbr_cfg add"
 abbr -g cfgall "$_fish_abbr_cfg add -A"
@@ -48,11 +52,13 @@ abbr -g gbc 'git for-each-ref --format="%(authorname) %09 %(if)%(HEAD)%(then)*%(
 abbr -g gco 'git checkout'
 abbr -g gcb 'git checkout -b'
 abbr -g gll 'git log --graph --pretty=oneline --abbrev-commit'
-abbr -g gg "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+set -l _fish_abbr_gg "git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+abbr -g gg "$_fish_abbr_gg"
 abbr -g ggf "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'"
 abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
 abbr -g gwc "git whatchanged"
+abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
 # alias awk="gawk"
 abbr -g dk "docker"
 abbr -g dke "docker exec"
@@ -62,6 +68,9 @@ abbr -g dkc "docker compose"
 abbr -g l "ls"
 abbr -g pm "podman"
 abbr -g rh "runhaskell"
+abbr -g kc "kubectl"
+abbr -g sai "sudo apt install"
+abbr -g lg 'lazygit'
 
 # Set the path
 function add_to_path
@@ -84,24 +93,28 @@ function add_to_gopath
     end
 end
 
+add_to_path /usr/share/bcc/tools
 add_to_path /usr/local/opt/scala@2.12/bin
+add_to_path /usr/local/opt/make/libexec/gnubin
 add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
+add_to_path $HOME/.pyenv/bin
 add_to_path $HOME/go/bin
 add_to_path $HOME/bin
 add_to_path $HOME/Library/Python/3.7/bin
 add_to_path $HOME/Library/Python/3.9/bin
 add_to_path $HOME/Library/Python/2.7/bin
+add_to_path $HOME/.gem/ruby/2.6.0/bin
 add_to_path /usr/local/bin
 add_to_path /usr/local/sbin
 add_to_path /usr/local/share
+add_to_path /usr/local/go/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
-set -x TMPDIR $HOME/src/tmpdir
 set -x ELM_HOME $HOME/src/.elm
-set -x SSH_AUTH_SOCK $HOME/.ssh/ykpiv-sock
+set -x PYENV_ROOT $HOME/.pyenv
 
 set -gx EDITOR vim
 set -gx GIT_EDITOR vim
@@ -152,4 +165,8 @@ end
 if type -q bat
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
+end
+
+if type -q pyenv
+    pyenv init - | source
 end

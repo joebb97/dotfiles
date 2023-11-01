@@ -1,3 +1,4 @@
+# Remember to run `cfg config status.showUntrackedFiles no` otherwise status will show 2many files
 /*
 !.bashrc
 !.bash_profile
@@ -16,10 +17,12 @@
 !.vim/colors
 !.vimrc
 !README.md
+!.config/
+# Pretty sure the rest of these .config rules do nothing, but I see no harm in deleting them lol.
 !.config/sway/config
 !.config/fish/config.fish
-!.config/fish/prompt_help.fish
-!.config/nvim/init.vim
+!.config/nvim
+!.config/nvim/lua/*.lua
 !.config/alacritty/alacritty.yml
 !.custom-bash
 .tools/google-cloud-sdk
