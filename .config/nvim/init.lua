@@ -330,6 +330,9 @@ local function configure_lsp()
                 },
                 procMacro = {
                     enable = true
+                },
+                files = {
+                    excludeDirs = {"~/.cargo/git"},
                 }
             },
         },
