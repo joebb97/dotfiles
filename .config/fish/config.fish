@@ -71,6 +71,8 @@ abbr -g rh "runhaskell"
 abbr -g kc "kubectl"
 abbr -g sai "sudo apt install"
 abbr -g lg 'lazygit'
+abbr -g docker-ip "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+abbr -g sys 'systemctl'
 
 # Set the path
 function add_to_path
@@ -156,10 +158,16 @@ end
 if type -q zoxide
     zoxide init fish | source
     abbr -g cd 'z'
+    abbr -g j 'z'
+    abbr -g c 'z'
 end
 
 if type -q fdfind
     abbr -g fd 'fdfind'
+end
+
+if type -q eza
+    abbr -g ls 'eza'
 end
 
 if type -q bat

@@ -14,6 +14,7 @@ local function configure_keymaps()
     vim.keymap.set('i', '<C-L>', '<ESC><C-W><C-L>', opts)
     vim.keymap.set('i', '<C-H>', '<ESC><C-W><C-H>', opts)
     vim.keymap.set('i', 'hh', '<ESC>', opts)
+    vim.keymap.set('i', 'jj', '<ESC>', opts)
 
     -- NNOREMAP
     vim.keymap.set('n', '<C-J>', '<C-W><C-J>', opts)
@@ -189,7 +190,7 @@ local function configure_options()
     -- vim.cmd [[set iskeyword+=-]]
     -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
-    local colorscheme = 'sonokai'
+    local colorscheme = 'edge'
     local special_schemes = {
         -- style can be default, atlantis, andromeda, shusia, maia
         -- no scheme_background or sys_background for sonokai
@@ -267,6 +268,16 @@ local function configure_lsp()
 
     --  This function gets run when an LSP connects to a particular buffer.
     local function on_attach(client, bufnr)
+        -- vim.notify(client, bufnr)
+        -- local bname = vim.api.nvim_buf_get_name(bufnr)
+        -- local is_cargo_git = bname:find(".cargo/git") ~= nil
+        -- local is_cargo_reg = bname:find(".cargo/registry") ~= nil
+        -- vim.notify(bname, is_cargo_git, is_cargo_reg, is_cargo_git or is_cargo_reg)
+        -- if is_cargo_reg or is_cargo_git then
+        --     print("detaching cargo thingy")
+        --     -- vim.lsp.buf_detach_client(bufnr, client)
+        --     return
+        -- end
         local nmap = function(keys, func, desc)
             if desc then
                 desc = 'LSP: ' .. desc

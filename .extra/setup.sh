@@ -189,3 +189,7 @@ install_k9s() {
 install_btop() {
 
 }
+
+install_applets() {
+    sudo apt install nm-applet redshift-gtk pasystray blueman
+}

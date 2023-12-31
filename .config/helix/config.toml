@@ -1,0 +1,11 @@
+theme = "dracula_at_night"
+
+[editor]
+line-number = "relative"
+
+[keys.normal.space]
+w = ":w"
+q = ":q"
+
+[keys.insert]
+j = { j = "normal_mode" }
