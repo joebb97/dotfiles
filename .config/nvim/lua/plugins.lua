@@ -33,7 +33,8 @@ packer.startup(function(use)
         'sainnhe/edge',
         'theniceboy/nvim-deus',
         'Mofiqul/dracula.nvim',
-        'folke/tokyonight.nvim'
+        -- 'dracula/vim',
+        'folke/tokyonight.nvim',
         -- These versions of sainnhe's themes have weird treesitter highlights
         -- 'rafi/awesome-vim-colorschemes'
     }
@@ -59,9 +60,9 @@ packer.startup(function(use)
     -- Buddha bless Tim Pope
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive' -- :Git commands
-    use 'tpope/vim-rhubarb'  -- github related commands
+    use 'tpope/vim-rhubarb' -- github related commands
     use 'tpope/vim-surround' -- dealing with quotes and parens
-    use 'tpope/vim-sleuth'   -- detect tabs and shiftwidth
+    use 'tpope/vim-sleuth' -- detect tabs and shiftwidth
     -- use 'tpope/vim-vinegar'
 
     use 'wbthomason/packer.nvim'
@@ -86,11 +87,11 @@ packer.startup(function(use)
         'hrsh7th/nvim-cmp',
         requires = {
             'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',       -- The completion plugin
-            'hrsh7th/cmp-path',         -- buffer completions
-            'hrsh7th/cmp-cmdline',      -- path completions
+            'hrsh7th/cmp-buffer', -- The completion plugin
+            'hrsh7th/cmp-path', -- buffer completions
+            'hrsh7th/cmp-cmdline', -- path completions
             'saadparwaiz1/cmp_luasnip', -- snippet completions
-            'L3MON4D3/LuaSnip',         -- snippet engine
+            'L3MON4D3/LuaSnip', -- snippet engine
             'rafamadriz/friendly-snippets',
         },
     }
@@ -144,7 +145,7 @@ packer.startup(function(use)
             'nvim-tree/nvim-web-devicons', -- optional
         },
         config = function()
-            require("nvim-tree").setup({view = {relativenumber = true}})
+            require("nvim-tree").setup({ view = { relativenumber = true } })
         end
     }
 
@@ -154,7 +155,10 @@ packer.startup(function(use)
     -- if has_plugins then
     --     plugins(use)
     -- end
-
+    use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end }
+    use 'khaveesh/vim-fish-syntax'
     if is_bootstrap then
         packer.sync()
     end

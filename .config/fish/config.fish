@@ -171,10 +171,11 @@ if type -q eza
 end
 
 if type -q bat
+    set -x BAT_THEME 'Dracula'
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
 end
 
-if type -q pyenv
-    pyenv init - | source
-end
+# if type -q pyenv
+#     pyenv init - | source
+# end

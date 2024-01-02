@@ -13,7 +13,6 @@ local function configure_keymaps()
     vim.keymap.set('i', '<C-K>', '<ESC><C-W><C-K>', opts)
     vim.keymap.set('i', '<C-L>', '<ESC><C-W><C-L>', opts)
     vim.keymap.set('i', '<C-H>', '<ESC><C-W><C-H>', opts)
-    vim.keymap.set('i', 'hh', '<ESC>', opts)
     vim.keymap.set('i', 'jj', '<ESC>', opts)
 
     -- NNOREMAP
@@ -21,6 +20,7 @@ local function configure_keymaps()
     vim.keymap.set('n', '<C-K>', '<C-W><C-K>', opts)
     vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
     vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
+    -- vim.keymap.set('n', '<C-s>', ':w', opts)
     -- vim.keymap.set('n', '<space>', 'za', opts)
     -- vim.keymap.set('n', 'j', 'gj', opts)
     -- vim.keymap.set('n', 'k', 'gk', opts)
@@ -113,6 +113,10 @@ local function configure_keymaps()
     vim.keymap.set('n', '<leader>so', ':SymbolsOutline<CR>', opts)
     vim.keymap.set('n', '<leader>nt', ':NvimTreeToggle<CR>', opts)
     vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
+    vim.keymap.set('n', '<leader>tt', ':ToggleTerm direction=float<CR>', opts)
+    vim.keymap.set('n', '<leader>th', ':ToggleTerm direction=horizontal<CR>', opts)
+    vim.keymap.set('n', '<leader>ta', ':ToggleTerm direction=tab<CR>', opts)
+    vim.keymap.set('n', '<leader>tv', ':ToggleTerm direction=vertical<CR>', opts)
 
     -- COMMAND
     vim.api.nvim_create_user_command('Svrc', ':source $MYVIMRC', {})
@@ -343,7 +347,7 @@ local function configure_lsp()
                     enable = true
                 },
                 files = {
-                    excludeDirs = {"~/.cargo/git"},
+                    excludeDirs = { "~/.cargo/git" },
                 }
             },
         },
@@ -430,7 +434,7 @@ local function configure_completion()
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- {"i", "c"} are omitted here, dunno why
+            ['<C-b>'] = cmp.mapping.scroll_docs( -4), -- {"i", "c"} are omitted here, dunno why
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-s>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
@@ -556,14 +560,9 @@ local function configure_telescope()
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 end
 
--- [[ Configure Treesitter ]]
 local function configure_treesitter()
-    -- See `:help nvim-treesitter`
     require('nvim-treesitter.configs').setup {
-        -- Add languages to be installed here that you want installed for treesitter
-        ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
-
-        -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+        ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
         auto_install = false,
         autopairs = { enable = true },
         highlight = { enable = true },

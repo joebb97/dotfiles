@@ -1,4 +1,4 @@
-theme = "dracula_at_night"
+theme = "dracula"
 
 [editor]
 line-number = "relative"
@@ -7,5 +7,6 @@ line-number = "relative"
 w = ":w"
 q = ":q"
 
-[keys.insert]
-j = { j = "normal_mode" }
+[keys.normal]
+C-s = ":w"
+A-t = "save_selection"
