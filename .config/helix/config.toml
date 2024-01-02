@@ -10,3 +10,6 @@ q = ":q"
 [keys.normal]
 C-s = ":w"
 A-t = "save_selection"
+
+[keys.insert]
+C-c = "normal_mode"

@@ -2,7 +2,7 @@
 	path = .bash_it
 	url = https://github.com/Bash-it/bash-it
 [submodule ".tmux/plugins/tpm"]
-	path = .tmux/plugins/tpm
+	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule ".tools/ctags"]
 	path = .tools/ctags
@@ -22,3 +22,6 @@
 [submodule ".tools/neovim"]
 	path = .tools/neovim
 	url = https://github.com/neovim/neovim
+[submodule ".tools/alacritty"]
+	path = .tools/alacritty
+	url = https://github.com/alacritty/alacritty

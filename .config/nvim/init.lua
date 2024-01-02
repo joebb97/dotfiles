@@ -20,7 +20,7 @@ local function configure_keymaps()
     vim.keymap.set('n', '<C-K>', '<C-W><C-K>', opts)
     vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
     vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
-    -- vim.keymap.set('n', '<C-s>', ':w', opts)
+    vim.keymap.set('n', '<C-s>', ':w<CR>', opts)
     -- vim.keymap.set('n', '<space>', 'za', opts)
     -- vim.keymap.set('n', 'j', 'gj', opts)
     -- vim.keymap.set('n', 'k', 'gk', opts)
@@ -43,6 +43,9 @@ local function configure_keymaps()
     vim.keymap.set('n', '<C-g><C-L>', '<C-W><C-l>', opts)
     vim.keymap.set('n', '<CS-l>', 'gt', opts)
     vim.keymap.set('n', '<CS-h>', 'gT', opts)
+    vim.keymap.set('n', 'q:', '<Nop>', opts)
+    vim.keymap.set('n', '<C-g>t', ':ToggleTerm<CR>', opts)
+    vim.keymap.set('n', '<C-g><C-t>', ':ToggleTerm<CR>', opts)
 
     -- VNOREMAP
     vim.keymap.set('v', 'K', ':m .-2<CR>==', opts)
@@ -62,6 +65,8 @@ local function configure_keymaps()
     vim.keymap.set('t', '<C-g>c', '<C-\\><C-N>:tabe<CR>:term<CR>', opts)
     vim.keymap.set('t', '<C-g>n', '<C-\\><C-N>gt', opts)
     vim.keymap.set('t', '<C-g>p', '<C-\\><C-N>gT', opts)
+    vim.keymap.set('t', '<C-g>t', '<C-\\><C-N>:ToggleTerm<CR>', opts)
+    vim.keymap.set('t', '<C-g><C-t>', '<C-\\><C-N>:ToggleTerm<CR>', opts)
 
     vim.keymap.set('t', '<C-g>h', '<C-\\><C-N><C-w>h', opts)
     vim.keymap.set('t', '<C-g>j', '<C-\\><C-N><C-w>j', opts)
@@ -316,6 +321,17 @@ local function configure_lsp()
             vim.lsp.buf.format()
         end, { desc = 'Format current buffer with LSP' })
         vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.format()
+                end,
+            })
+        end
         require('lsp-inlayhints').on_attach(client, bufnr)
     end
 
@@ -434,7 +450,7 @@ local function configure_completion()
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs( -4), -- {"i", "c"} are omitted here, dunno why
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- {"i", "c"} are omitted here, dunno why
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-s>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.abort(),
@@ -570,10 +586,10 @@ local function configure_treesitter()
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = '<c-s>',
-                node_incremental = '<c-s>',
-                scope_incremental = '<c-a>',
-                node_decremental = '<c-o>',
+                init_selection = '<A-o>',
+                node_incremental = '<A-o>',
+                scope_incremental = '<A-a>',
+                node_decremental = '<A-i>',
             },
         },
         textobjects = {

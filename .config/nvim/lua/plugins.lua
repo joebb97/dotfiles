@@ -54,15 +54,15 @@ packer.startup(function(use)
     }
     use {
         "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup { break_undo = false } end
+        -- config = function() require("nvim-autopairs").setup { break_undo = false } end
     }
 
     -- Buddha bless Tim Pope
     use 'tpope/vim-commentary'
     use 'tpope/vim-fugitive' -- :Git commands
-    use 'tpope/vim-rhubarb' -- github related commands
+    use 'tpope/vim-rhubarb'  -- github related commands
     use 'tpope/vim-surround' -- dealing with quotes and parens
-    use 'tpope/vim-sleuth' -- detect tabs and shiftwidth
+    use 'tpope/vim-sleuth'   -- detect tabs and shiftwidth
     -- use 'tpope/vim-vinegar'
 
     use 'wbthomason/packer.nvim'
@@ -87,11 +87,11 @@ packer.startup(function(use)
         'hrsh7th/nvim-cmp',
         requires = {
             'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer', -- The completion plugin
-            'hrsh7th/cmp-path', -- buffer completions
-            'hrsh7th/cmp-cmdline', -- path completions
+            'hrsh7th/cmp-buffer',       -- The completion plugin
+            'hrsh7th/cmp-path',         -- buffer completions
+            'hrsh7th/cmp-cmdline',      -- path completions
             'saadparwaiz1/cmp_luasnip', -- snippet completions
-            'L3MON4D3/LuaSnip', -- snippet engine
+            'L3MON4D3/LuaSnip',         -- snippet engine
             'rafamadriz/friendly-snippets',
         },
     }
@@ -130,7 +130,7 @@ packer.startup(function(use)
     -- requirements installed.
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-    use { -- Highlight, edit, and navigate code
+    use {
         'nvim-treesitter/nvim-treesitter',
         requires = {
             'nvim-treesitter/nvim-treesitter-textobjects',
@@ -150,11 +150,6 @@ packer.startup(function(use)
     }
 
     use 'mbbill/undotree'
-    -- -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-    -- local has_plugins, plugins = pcall(require, 'custom.plugins')
-    -- if has_plugins then
-    --     plugins(use)
-    -- end
     use { "akinsho/toggleterm.nvim", tag = '*', config = function()
         require("toggleterm").setup()
     end }
