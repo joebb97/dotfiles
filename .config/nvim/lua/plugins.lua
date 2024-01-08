@@ -32,12 +32,14 @@ packer.startup(function(use)
         'sainnhe/everforest',
         'sainnhe/edge',
         'theniceboy/nvim-deus',
-        'Mofiqul/dracula.nvim',
+        -- 'Mofiqul/dracula.nvim',
         -- 'dracula/vim',
         'folke/tokyonight.nvim',
         -- These versions of sainnhe's themes have weird treesitter highlights
         -- 'rafi/awesome-vim-colorschemes'
     }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
+    use { 'dracula/vim', as = 'dracula' }
     use { -- Adds git releated signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
         config = function()

@@ -69,12 +69,10 @@ install_nerd_font(){
     cd ~/Library/Fonts
     # on Linux
     cd ~/.local/share/fonts
-    curl -fLo "Iosevka Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Nerd%20Font%20Complete.ttf
-    curl -fLo "Iosevka Nerd Font Complete Bold.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/complete/Iosevka%20Nerd%20Font%20Complete%20Bold.ttf
-    curl -fLo "Iosevka Nerd Font Complete Italic.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Italic/complete/Iosevka%20Nerd%20Font%20Complete%20Italic.ttf
-    curl -fLo "Iosevka Nerd Font Complete Bold Italic.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold-Italic/complete/Iosevka%20Nerd%20Font%20Complete%20Bold%20Italic.ttf
-    # curl -fLo "Iosevka Term Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
-    # You may or may not want to get the Regular, Bold, Italic, Bold-Italic ones, etc.
+    curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/IosevkaNerdFont-Regular.ttf
+    curl -fLO  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/IosevkaNerdFont-Bold.ttf
+    curl -fLO  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Italic/IosevkaNerdFont-Italic.ttf
+    curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold-Italic/IosevkaNerdFont-BoldItalic.ttf
 }
 
 install_alacritty() {
