@@ -56,7 +56,7 @@ packer.startup(function(use)
     }
     use {
         "windwp/nvim-autopairs",
-        -- config = function() require("nvim-autopairs").setup { break_undo = false } end
+        config = function() require("nvim-autopairs").setup { break_undo = false } end
     }
 
     -- Buddha bless Tim Pope

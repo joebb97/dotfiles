@@ -10,6 +10,14 @@
 	; process = git-lfs filter-process
 [core]
 	excludesfile = ~/.extra/git-files/global-gitignore.txt
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
 [credential]
 	helper = !aws codecommit credential-helper $@
 	UseHttpPath = true

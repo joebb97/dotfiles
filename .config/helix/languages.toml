@@ -1,5 +1,5 @@
 [[language]]
 name = "rust"
 
-[language.config.checkOnSave]
+[language-server.rust-analyzer.config.checkOnSave]
 command = "clippy"

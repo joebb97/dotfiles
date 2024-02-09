@@ -202,3 +202,7 @@ install_btop() {
 install_applets() {
     sudo apt install nm-applet redshift-gtk pasystray blueman
 }
+
+install_sway() {
+    sudo apt install sway swayidle swaylock
+}

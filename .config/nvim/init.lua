@@ -9,22 +9,25 @@ local function configure_keymaps()
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
     -- INOREMAP
-    vim.keymap.set('i', '<C-J>', '<ESC><C-W><C-J>', opts)
-    vim.keymap.set('i', '<C-K>', '<ESC><C-W><C-K>', opts)
-    vim.keymap.set('i', '<C-L>', '<ESC><C-W><C-L>', opts)
-    vim.keymap.set('i', '<C-H>', '<ESC><C-W><C-H>', opts)
+    -- vim.keymap.set('i', '<C-J>', '<ESC><C-W><C-J>', opts)
+    -- vim.keymap.set('i', '<C-K>', '<ESC><C-W><C-K>', opts)
+    -- vim.keymap.set('i', '<C-L>', '<ESC><C-W><C-L>', opts)
+    -- vim.keymap.set('i', '<C-H>', '<ESC><C-W><C-H>', opts)
     vim.keymap.set('i', 'jj', '<ESC>', opts)
 
     -- NNOREMAP
-    vim.keymap.set('n', '<C-J>', '<C-W><C-J>', opts)
-    vim.keymap.set('n', '<C-K>', '<C-W><C-K>', opts)
-    vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
-    vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
+    -- vim.keymap.set('n', '<C-J>', '<C-W><C-J>', opts)
+    -- vim.keymap.set('n', '<C-K>', '<C-W><C-K>', opts)
+    -- vim.keymap.set('n', '<C-L>', '<C-W><C-L>', opts)
+    -- vim.keymap.set('n', '<C-H>', '<C-W><C-H>', opts)
     vim.keymap.set('n', '<C-s>', ':w<CR>', opts)
     -- vim.keymap.set('n', '<space>', 'za', opts)
     -- vim.keymap.set('n', 'j', 'gj', opts)
     -- vim.keymap.set('n', 'k', 'gk', opts)
     vim.keymap.set('n', 'gV', '`[v`]', opts)
+    vim.keymap.set({ 'v', 'n' }, 'gh', '0', opts)
+    vim.keymap.set({ 'v', 'n' }, 'gl', '$', opts)
+    vim.keymap.set({ 'v', 'n' }, 'gs', '^', opts)
     vim.keymap.set('n', ',', 'za', opts)
     vim.keymap.set('n', '<C-g>v', ':vsp +term<CR>', opts)
     vim.keymap.set('n', '<C-g>%', ':vsp +term<CR>', opts)
@@ -105,11 +108,12 @@ local function configure_keymaps()
     -- vim.keymap.set('n', '<leader>pv', ':Vex<CR>', opts)
     -- vim.keymap.set('n', '<leader>pe', ':Ex<CR>', opts)
     -- vim.keymap.set('n', '<leader>ps', ':Sex<CR>', opts)
-    vim.keymap.set('n', '<leader>h', ':bp<CR>', opts)
-    vim.keymap.set('n', '<leader>l', ':bn<CR>', opts)
+    vim.keymap.set('n', '<C-h>', ':bp<CR>', opts)
+    vim.keymap.set('n', '<C-l>', ':bn<CR>', opts)
     vim.keymap.set('n', '<leader>cc', ':cclose<CR>', opts)
-    vim.keymap.set('n', '<leader>cn', ':cn<CR>', opts)
-    vim.keymap.set('n', '<leader>cp', ':cp<CR>', opts)
+    vim.keymap.set('n', '<leader>co', ':copen<CR>', opts)
+    vim.keymap.set('n', '<C-Right>', ':cn<CR>', opts)
+    vim.keymap.set('n', '<C-Left>', ':cp<CR>', opts)
     vim.keymap.set('n', '<leader>te', ':tabe<CR>', opts)
 
     -- PLUGIN SPECIFIC LEADERS
@@ -175,11 +179,12 @@ local function configure_options()
         wildmenu = true,
         wrap = true,
     }
-    if vim.fn.has('nvim-0.5') == 1 then
-        options.signcolumn = "number"
-    else
-        options.signcolumn = "auto"
-    end
+    options.signcolumn = 'yes'
+    -- if vim.fn.has('nvim-0.5') == 1 then
+    --     options.signcolumn = "number"
+    -- else
+    --     options.signcolumn = "auto"
+    -- end
 
     if vim.fn.exists("+colorcolumn") == 1 then
         options.colorcolumn = "100"
@@ -199,7 +204,7 @@ local function configure_options()
     -- vim.cmd [[set iskeyword+=-]]
     -- vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
-    local colorscheme = 'edge'
+    local colorscheme = 'dracula'
     local special_schemes = {
         -- style can be default, atlantis, andromeda, shusia, maia
         -- no scheme_background or sys_background for sonokai
@@ -259,7 +264,7 @@ local function configure_autocmds()
     })
 
     local salt_group = vim.api.nvim_create_augroup('Salt', { clear = true })
-    vim.api.nvim_create_autocmd('BufRead,BufNewFile', {
+    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
         command = 'set syntax=yaml',
         group = salt_group,
         pattern = '*.sls'
@@ -303,7 +308,7 @@ local function configure_lsp()
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-        nmap('<leader>WS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        nmap('<leader>dw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<leader>sk', vim.lsp.buf.signature_help, 'Signature Documentation')
@@ -494,6 +499,14 @@ local function configure_completion()
             -- completion = cmp.config.window.bordered(),
             -- documentation = cmp.config.window.bordered(),
         },
+        enabled = function()
+            local in_prompt = vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt'
+            if in_prompt then -- this will disable cmp in the Telescope window (taken from the default config)
+                return false
+            end
+            local context = require("cmp.config.context")
+            return not (context.in_treesitter_capture("comment") == true or context.in_syntax_group("Comment"))
+        end
     })
 
     -- Set configuration for specific filetype.
@@ -537,6 +550,7 @@ local function configure_telescope()
                     ['<C-f>'] = actions.preview_scrolling_down,
                     ['<C-b>'] = actions.preview_scrolling_up,
                     ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                    ["<C-q>"] = actions.send_to_qflist,
                 },
                 n = {
                     ['q'] = actions.close,
@@ -546,6 +560,7 @@ local function configure_telescope()
                     ["<C-d>"] = actions.results_scrolling_down,
                     ['<C-f>'] = actions.preview_scrolling_down,
                     ['<C-b>'] = actions.preview_scrolling_up,
+                    ["<C-q>"] = actions.send_to_qflist,
                 }
             },
             file_ignore_patterns = { "^vendor/" }

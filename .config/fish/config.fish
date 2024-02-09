@@ -5,12 +5,14 @@ abbr -g ebrc '$EDITOR $HOME/.bashrc'
 abbr -g efc '$EDITOR $HOME/.config/fish/config.fish'
 abbr -g ei3 '$EDITOR $HOME/.config/i3/config'
 abbr -g esway '$EDITOR $HOME/.config/sway/config'
+abbr -g ekansh '$EDITOR $HOME/.config/kanshi/config'
 abbr -g sfc 'source $HOME/.config/fish/config.fish'
 abbr -g ebhi '$EDITOR $HOME/.bash_history'
 abbr -g evrc '$EDITOR $HOME/.vimrc'
 abbr -g envim '$EDITOR $HOME/.config/nvim/init.lua'
 abbr -g etm '$EDITOR $HOME/.config/tmux/tmux.conf'
 abbr -g ehx '$EDITOR $HOME/.config/helix/config.toml'
+abbr -g eala '$EDITOR $HOME/.config/alacritty/alacritty.toml'
 abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
@@ -30,7 +32,7 @@ abbr -g sshnc 'ssh -F /dev/null'
 abbr -g m 'make -j5'
 abbr -g make 'make -j5'
 abbr -g ag "ag --pager='less -XFR"
-abbr -g weather 'curl wttr.in/ann_arbor'
+abbr -g weather 'curl wttr.in/austin'
 abbr -g dkc 'docker container'
 abbr -g tm 'tmux'
 abbr -g tma 'tmux attach'
@@ -65,6 +67,7 @@ abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref H
 # alias awk="gawk"
 abbr -g dk "docker"
 abbr -g dke "docker exec"
+abbr -g c 'cargo'
 abbr -g ca "cargo"
 abbr -g car "cargo"
 abbr -g dkc "docker compose"
@@ -76,6 +79,13 @@ abbr -g sai "sudo apt install"
 abbr -g lg 'lazygit'
 abbr -g docker-ip "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 abbr -g sys 'systemctl'
+abbr -g check-font 'echo -e "\e[1mbold\e[0m"
+   echo -e "\e[3mitalic\e[0m"
+   echo -e "\e[3m\e[1mbold italic\e[0m"
+   echo -e "\e[4munderline\e[0m"
+   echo -e "\e[9mstrikethrough\e[0m"
+   echo -e "\e[31mHello World\e[0m"
+   echo -e "\x1B[31mHello World\e[0m"'
 
 # Set the path
 function add_to_path
@@ -116,6 +126,7 @@ add_to_path /usr/local/bin
 add_to_path /usr/local/sbin
 add_to_path /usr/local/share
 add_to_path /usr/local/go/bin
+add_to_path ~/.nimble/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm
@@ -162,7 +173,7 @@ if type -q zoxide
     zoxide init fish | source
     abbr -g cd 'z'
     abbr -g j 'z'
-    abbr -g c 'z'
+    abbr -g a 'z'
 end
 
 if type -q fdfind
@@ -182,3 +193,5 @@ end
 # if type -q pyenv
 #     pyenv init - | source
 # end
+
+bind \b backward-kill-bigword
