@@ -167,6 +167,7 @@ local function configure_options()
         showmatch = true,
         -- sidescrolloff = 8 -- when wrap is false, horiz version of scrolloff
         smartindent = true,
+        signcolumn = 'yes',
         softtabstop = 4,
         splitbelow = true,
         splitright = true,
@@ -179,12 +180,6 @@ local function configure_options()
         wildmenu = true,
         wrap = true,
     }
-    options.signcolumn = 'yes'
-    -- if vim.fn.has('nvim-0.5') == 1 then
-    --     options.signcolumn = "number"
-    -- else
-    --     options.signcolumn = "auto"
-    -- end
 
     if vim.fn.exists("+colorcolumn") == 1 then
         options.colorcolumn = "100"
