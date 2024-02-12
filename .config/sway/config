@@ -135,6 +135,8 @@ set $urgent-bg-color     #FF5555
 set $indicator-color     #50FA7B
 set $separator-color     #8BE9FD
 
+set $resize-mode-bg-color #FFB86C
+
 # window colors
 #                       border              background         text                 indicator
 client.focused          $bg-color           $bg-color          $text-color          $indicator-color
@@ -155,8 +157,8 @@ bar {
         focused_workspace  $bg-color $bg-color $text-color
         active_workspace   $indicator-color $indicator-color $text-color
         inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        urgent_workspace   #2f343a #900000 $text-color
-        binding_mode       #2f343a #900000 #ffffff
+        urgent_workspace   $urgent-bg-color $urgent-bg-color $text-color
+        binding_mode       $resize-mode-bg-color $resize-mode-bg-color $text-color
     }
 }
 
