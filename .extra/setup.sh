@@ -196,7 +196,7 @@ install_k9s() {
 }
 
 install_btop() {
-
+    sudo apt install btop
 }
 
 install_applets() {

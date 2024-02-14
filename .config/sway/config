@@ -4,17 +4,25 @@ set $down j
 set $up k
 set $right l
 
-input * {
-    xkb_layout "us(dvorak),us"
-    xkb_options "altwin:swap_alt_win,caps:escape"
+input "type:keyboard" {
+    xkb_layout us(dvorak),us
+    # xkb_options altwin:swap_alt_win,caps:escape
 }
+
+input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
+}
+
+output 'Unknown U34G2G4R3 0x0000A12A' {
+    mode 3440x1440@144hz
+}
+
+set $background-image ~/Pictures/desktop-backgrounds/all-pictures/blond.png
+exec_always '[ -e $background-image ] && swaymsg "output * bg $background-image fill"'
 
 set $term alacritty
 gaps inner 5
 gaps outer 5
 font pango:Iosevka NF bold 10
-# font pango:DejaVu Sans Mono bold 9
-# default_border normal 4
 
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \

@@ -292,7 +292,7 @@ local function configure_lsp()
                 desc = 'LSP: ' .. desc
             end
 
-            vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+            vim.keymap.set({ 'n', 'v' }, keys, func, { buffer = bufnr, desc = desc })
         end
 
         nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -570,7 +570,8 @@ local function configure_telescope()
 
     -- See `:help telescope.builtin`
     vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-    vim.keymap.set('n', '<leader>bu', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    vim.keymap.set('n', '<leader>bu', function() builtin.buffers({ sort_lastused = true }) end,
+        { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(themes.get_dropdown {
