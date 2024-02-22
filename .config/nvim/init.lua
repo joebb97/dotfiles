@@ -546,6 +546,7 @@ local function configure_telescope()
                     ['<C-b>'] = actions.preview_scrolling_up,
                     ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     ["<C-q>"] = actions.send_to_qflist,
+                    ["<C-l>"] = actions.delete_buffer
                 },
                 n = {
                     ['q'] = actions.close,
@@ -556,6 +557,7 @@ local function configure_telescope()
                     ['<C-f>'] = actions.preview_scrolling_down,
                     ['<C-b>'] = actions.preview_scrolling_up,
                     ["<C-q>"] = actions.send_to_qflist,
+                    ["<C-l>"] = actions.delete_buffer
                 }
             },
             file_ignore_patterns = { "^vendor/" }

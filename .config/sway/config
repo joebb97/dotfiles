@@ -6,10 +6,14 @@ set $right l
 
 input "type:keyboard" {
     xkb_layout us(dvorak),us
-    # xkb_options altwin:swap_alt_win,caps:escape
+    xkb_options caps:escape
 }
 
 input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
+}
+
+input 7847:2311:SEMITEK_USB-HID_Gaming_Keyboard {
+    xkb_options caps:escape,altwin:swap_alt_win
 }
 
 output 'Unknown U34G2G4R3 0x0000A12A' {
@@ -182,6 +186,11 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+bindsym $mod+Print exec grimshot save area "$HOME/Pictures/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
+bindsym Shift+Print exec grimshot save window "$HOME/Pictures/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png"
+bindsym $mod+Ctrl+Print exec grimshot save output "$HOME/Pictures/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png" && notify-send "saved output sceenshot"
+bindsym $mod+Shift+Print exec grimshot save active "$HOME/Pictures/screenshots/$(date +'%Y-%m-%dT%H:%M:%S%z').png" && notify-send "saved active sceenshot"
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec mako
