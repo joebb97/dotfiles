@@ -147,7 +147,7 @@ set fish_greeting
 # set __fish_git_prompt_showuntrackedfiles
 
 # Just right
-set __fish_git_prompt_showdirtystate
+set __fish_git_prompt_showdirtystate 1
 
 set -l opam_init $HOME/.opam/opam-init/init.fish
 if test -f $opam_init
@@ -195,3 +195,20 @@ end
 # end
 
 bind \b backward-kill-bigword
+bind \ev backward-kill-bigword
+bind \eV kill-bigword
+bind \cB backward-bigword
+bind \cF forward-bigword
+
+# pnpm
+set -gx PNPM_HOME "/Users/Joey/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+# tabtab source for packages
+# uninstall by removing these lines
+[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true
