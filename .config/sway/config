@@ -16,6 +16,10 @@ input 7847:2311:SEMITEK_USB-HID_Gaming_Keyboard {
     xkb_options caps:escape,altwin:swap_alt_win
 }
 
+input 1:1:AT_Translated_Set_2_keyboard {
+    xkb_options caps:escape,altwin:swap_alt_win
+}
+
 output 'Unknown U34G2G4R3 0x0000A12A' {
     mode 3440x1440@144hz
 }
@@ -100,7 +104,7 @@ bindsym $mod+bracketright workspace next
 bindsym $mod+p move workspace to output right
 bindsym $mod+Shift+p move workspace to output left
 
-bindsym $mod+Escape exec swaylock
+bindsym $mod+Shift+Escape exec swaylock
 
 bindsym $mod+z split v
 bindsym $mod+v split h

@@ -243,7 +243,12 @@ local function configure_autocmds()
 
     local salt_group = vim.api.nvim_create_augroup('Salt', { clear = true })
     vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-        command = 'set syntax=yaml',
+        callback = function()
+            vim.cmd [[ set syntax=yaml ]]
+            vim.cmd [[ set softtabstop=2 ]]
+            vim.cmd [[ set tabstop=2 ]]
+            vim.cmd [[ set shiftwidth=2 ]]
+        end,
         group = salt_group,
         pattern = '*.sls'
     })

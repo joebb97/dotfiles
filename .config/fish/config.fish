@@ -29,8 +29,8 @@ abbr -g cfgl "$_fish_abbr_cfg pull"
 abbr -g cfgll "$_fish_abbr_cfg log --graph --pretty=oneline --abbrev-commit"
 abbr -g cfgd "$_fish_abbr_cfg diff"
 abbr -g sshnc 'ssh -F /dev/null'
-abbr -g m 'make -j5'
-abbr -g make 'make -j5'
+abbr -g m 'make -j(nproc)'
+abbr -g make 'make -j(nproc)'
 abbr -g ag "ag --pager='less -XFR"
 abbr -g weather 'curl wttr.in/austin'
 abbr -g dkc 'docker container'
