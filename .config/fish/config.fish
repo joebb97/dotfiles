@@ -64,6 +64,7 @@ abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
 abbr -g gwc "git whatchanged"
 abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
+abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD)"
 # alias awk="gawk"
 abbr -g dk "docker"
 abbr -g dke "docker exec"
@@ -188,6 +189,10 @@ if type -q bat
     set -x BAT_THEME 'Dracula'
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
+end
+
+if type -q nproc
+    set -x NUMCPUS (nproc)
 end
 
 # if type -q pyenv
