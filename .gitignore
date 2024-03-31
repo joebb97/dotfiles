@@ -1,5 +1,6 @@
 # Remember to run `cfg config status.showUntrackedFiles no` otherwise status will show 2many files
 /*
+!dot_*
 !.bashrc
 !.bash_profile
 !.bash_it

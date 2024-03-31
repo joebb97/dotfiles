@@ -1,0 +1,19 @@
+--- ALWAYS FORGET ---
+# Don't need to retype the password on your private key
+ssh-add ~/.ssh/id_rsa
+
+tar -tf filename.tar.gz
+vim wow.tar.gz # VIM CAN PREVIEW IT BY ITSELF WOAHH
+
+# Get highlighting for ssh config file if vim can't detect it
+set syntax=sshconfig
+
+.ssh needs to be 700 in order for public key auth and agent forwarding to work
+ssh-copy-id is useful
+
+## FUN THINGS
+ascii/utf-8 art
+brew tap jmhobbs/parrot
+brew install terminal-parrot
+brew install asciiquarium
+see awdeorio's always_forget at the bottom for more

@@ -1,0 +1,11 @@
+MARKERS
+MACROS
+SEARCH AND REPLACE/COLON COMMANDS
+HML
+zz,zt,zb
+folding
+! runs command on the shell
+shell gives you a shell to use
+:r puts text from file or command into current buffer
+: and ctrl p and ctrl n give you the previous : commands
+leader commands

@@ -1,0 +1,34 @@
+# NOTE: Helix will do its best to merge the defaults it uses for keys that you don't define
+# For keys you do define helix will use entirely what you've written here.
+# i.e if you define a language server's `config` key it will not preserve the helix defaults.
+# If you want to preserve the defaults, copy them from the languages.toml in the helix repo.
+[[language]]
+name = "rust"
+
+[language-server.rust-analyzer.config]
+# helix defaults
+inlayHints.bindingModeHints.enable = false
+inlayHints.closingBraceHints.minLines = 10
+inlayHints.closureReturnTypeHints.enable = "with_block"
+inlayHints.discriminantHints.enable = "fieldless"
+inlayHints.lifetimeElisionHints.enable = "skip_trivial"
+inlayHints.typeHints.hideClosureInitialization = false
+# my config
+check.command = "clippy"
+
+[[language]]
+name = "lua"
+auto-format = true
+
+[language-server.lua-language-server.config.Lua]
+# my addition
+diagnostics = { disable = ["lowercase-global"], globals = ["vim"]}
+
+[language-server.lua-language-server.config.Lua.format.defaultConfig]
+max_line_length = "100"
+
+[language-server.lua-language-server.config.Lua.hint]
+enable = true
+# all the other keys for hint in helix's languages.toml are the defaults
+# except for arrayIndex = "Enable", which is omitted here because I prefer
+# it to be "Auto"
