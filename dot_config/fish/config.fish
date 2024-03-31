@@ -18,17 +18,6 @@ abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
 abbr -g howbig 'du -sh'
-# CONFIG ALIASES
-set -l _fish_abbr_cfg 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-abbr -g cfg "$_fish_abbr_cfg"
-abbr -g cfgs "$_fish_abbr_cfg status"
-abbr -g cfga "$_fish_abbr_cfg add"
-abbr -g cfgall "$_fish_abbr_cfg add -A"
-abbr -g cfgcm "$_fish_abbr_cfg commit -m"
-abbr -g cfgp "$_fish_abbr_cfg push"
-abbr -g cfgl "$_fish_abbr_cfg pull"
-abbr -g cfgll "$_fish_abbr_cfg log --graph --pretty=oneline --abbrev-commit"
-abbr -g cfgd "$_fish_abbr_cfg diff"
 abbr -g sshnc 'ssh -F /dev/null'
 abbr -g m 'make -j(nproc)'
 abbr -g make 'make -j(nproc)'
