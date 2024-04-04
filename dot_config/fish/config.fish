@@ -28,6 +28,7 @@ abbr -g tm 'tmux'
 abbr -g tma 'tmux attach'
 # Aliases
 abbr -g ga 'git add'
+abbr -g gap 'git add -p'
 abbr -g gall 'git add -A'
 abbr -g g 'git'
 abbr -g gs 'git status'
