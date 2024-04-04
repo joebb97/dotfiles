@@ -26,6 +26,7 @@ abbr -g weather 'curl wttr.in/austin'
 abbr -g dkc 'docker container'
 abbr -g tm 'tmux'
 abbr -g tma 'tmux attach'
+abbr -g cm 'chezmoi'
 # Aliases
 abbr -g ga 'git add'
 abbr -g gap 'git add -p'
