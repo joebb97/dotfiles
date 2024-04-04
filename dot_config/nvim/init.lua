@@ -611,8 +611,9 @@ function configure_lsp()
                     hint = {
                         enable = true,
                     },
-                    defaultConfig = {
-                        max_line_length = "100",
+                    format = {
+                        -- use stylua for formatting
+                        enable = false,
                     },
                 },
             },
