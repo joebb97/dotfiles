@@ -26,6 +26,22 @@ local function install_plugins()
         { "tpope/vim-surround" }, -- dealing with quotes and parens
         { "tpope/vim-sleuth" }, -- detect tabs and shiftwidth
         {
+            "folke/which-key.nvim",
+            event = "VimEnter",
+            opts = {
+                presets = {
+                    operators = false,
+                },
+            },
+        },
+        {
+            "folke/todo-comments.nvim",
+            event = "VimEnter",
+            dependencies = { "nvim-lua/plenary.nvim" },
+            opts = { signs = false },
+        },
+        { "chentoast/marks.nvim", opts = {} },
+        {
             "lewis6991/gitsigns.nvim",
             opts = {
                 signs = {
@@ -66,12 +82,25 @@ local function install_plugins()
                 { "j-hui/fidget.nvim", opts = {} },
                 { "folke/neodev.nvim", opts = {} },
                 { "lvimuser/lsp-inlayhints.nvim", opts = {} },
+                { "SmiteshP/nvim-navic", opts = {} },
             },
             config = configure_lsp,
             -- default priority is 50
             -- this needs to load before mason-nvim-dap, because it runs require('mason').setup()
             -- so set it to something higher than 50
             priority = 53,
+        },
+        {
+            "utilyre/barbecue.nvim",
+            name = "barbecue",
+            version = "*",
+            dependencies = {
+                "SmiteshP/nvim-navic",
+                "nvim-tree/nvim-web-devicons", -- optional dependency
+            },
+            opts = {
+                -- configurations go here
+            },
         },
         {
             "mfussenegger/nvim-lint",
@@ -479,7 +508,7 @@ function configure_telescope()
     local builtin = require("telescope.builtin")
 
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-    vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+    vim.keymap.set("n", "<leader>km", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
     vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
     vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
@@ -493,12 +522,13 @@ function configure_telescope()
         { desc = '[S]earch Recent Files ("." for repeat)' }
     )
     vim.keymap.set("n", "<leader>bu", builtin.buffers, { desc = "[ ] Find existing buffers" })
-    vim.keymap.set(
-        "n",
-        "<leader>/",
-        builtin.current_buffer_fuzzy_find,
-        { desc = "[/] Fuzzily search in current buffer" }
-    )
+    vim.keymap.set("n", "<leader>sm", builtin.marks, { desc = "[ ] Find marks" })
+    vim.keymap.set("n", "<leader>/", function()
+        builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+            winblend = 10,
+            previewer = false,
+        }))
+    end, { desc = "[/] Fuzzily search in current buffer" })
 
     vim.keymap.set("n", "<leader>s/", function()
         builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" })
@@ -535,20 +565,22 @@ function configure_lsp()
         map("<leader>vwl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, "[W]orkspace [L]ist Folders")
+        map("<leader>lre", ":LspRestart<CR>", "Restart LSP")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                buffer = event.buf,
-                callback = vim.lsp.buf.document_highlight,
-            })
+            -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            --     buffer = event.buf,
+            --     callback = vim.lsp.buf.document_highlight,
+            -- })
 
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                buffer = event.buf,
-                callback = vim.lsp.buf.clear_references,
-            })
+            -- vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            --     buffer = event.buf,
+            --     callback = vim.lsp.buf.clear_references,
+            -- })
         end
         require("lsp-inlayhints").on_attach(client, event.buf)
+        require("nvim-navic").attach(client, event.buf)
     end
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -618,6 +650,7 @@ function configure_lsp()
                 },
             },
         },
+        ["typescript-language-server"] = {},
     }
 
     require("mason").setup()
@@ -627,6 +660,7 @@ function configure_lsp()
         "stylua", -- Used to format Lua code
         -- linters,
         "markdownlint",
+        "jsonlint",
     })
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -652,6 +686,7 @@ function configure_lint()
     -- instead set linters_by_ft like this:
     lint.linters_by_ft = lint.linters_by_ft or {}
     lint.linters_by_ft["markdown"] = { "markdownlint" }
+    lint.linters_by_ft["json"] = { "jsonlint" }
     --
     -- However, note that this will enable a set of default linters,
     -- which will cause errors unless these tools are available:
@@ -697,18 +732,9 @@ function configure_dap()
 
     require("mason-nvim-dap").setup({
         automatic_installation = false,
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
         automatic_setup = true,
-
-        -- You can provide additional configuration to the handlers,
-        -- see mason-nvim-dap README for more information
         handlers = {},
-
-        -- You'll need to check that you have the required things installed
-        -- online, please don't ask me how to install them :)
         ensure_installed = {
-            -- Update this to ensure that you have the debuggers for the langs you want
             "delve",
             "python",
             "codelldb",

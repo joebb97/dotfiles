@@ -1,44 +1,16 @@
+include devices.sway
+
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
 
-input "type:keyboard" {
-    xkb_layout us(dvorak),us
-    xkb_options caps:escape
-}
-
-# moonlander, obviously
-input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
-}
-
-# gk61 boards
-input 7847:2311:SEMITEK_USB-HID_Gaming_Keyboard {
-    xkb_options caps:escape,altwin:swap_alt_win
-}
-
-# builtin work laptop keyboard
-input 1:1:AT_Translated_Set_2_keyboard {
-    xkb_options caps:escape,altwin:swap_alt_win
-}
-
-# gmmk61 boards, no caps escape since arrow keys
-# rely on swapping fn with caps
-input 3141:25903:SONiX_USB_DEVICE {
-    xkb_options altwin:swap_alt_win
-}
-
-output 'Unknown U34G2G4R3 0x0000A12A' {
-    mode 3440x1440@144hz
-}
-
 set $background-image ~/Pictures/desktop-backgrounds/all-pictures/blond.png
 exec_always '[ -e $background-image ] && swaymsg "output * bg $background-image fill"'
 
-set $term alacritty
+set $term ~/.local/bin/kitty
 gaps inner 5
-gaps outer 5
 font pango:Iosevka NF bold 10
 
 exec swayidle -w \
