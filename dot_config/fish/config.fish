@@ -3,8 +3,10 @@ abbr -g e '$EDITOR'
 abbr -g sbrc 'source $HOME/.bashrc'
 abbr -g ebrc '$EDITOR $HOME/.bashrc'
 abbr -g efc '$EDITOR $HOME/.config/fish/config.fish'
+abbr -g epriv '$EDITOR $HOME/.config/fish/private.fish'
 abbr -g ei3 '$EDITOR $HOME/.config/i3/config'
 abbr -g esway '$EDITOR $HOME/.config/sway/config'
+abbr -g eswayd '$EDITOR $HOME/.config/sway/devices.sway'
 abbr -g ekansh '$EDITOR $HOME/.config/kanshi/config'
 abbr -g sfc 'source $HOME/.config/fish/config.fish'
 abbr -g ebhi '$EDITOR $HOME/.bash_history'
@@ -15,6 +17,7 @@ abbr -g ehx '$EDITOR $HOME/.config/helix/config.toml'
 abbr -g ehxl '$EDITOR $HOME/.config/helix/languages.toml'
 abbr -g eala '$EDITOR $HOME/.config/alacritty/alacritty.toml'
 abbr -g ekit '$EDITOR $HOME/.config/kitty/kitty.conf'
+abbr -g essh '$EDITOR $HOME/.ssh/config'
 abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
@@ -71,6 +74,7 @@ abbr -g rh "runhaskell"
 abbr -g kc "kubectl"
 abbr -g sai "sudo apt install"
 abbr -g lg 'lazygit'
+abbr -g lad 'lazydocker'
 abbr -g docker-ip "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 abbr -g sys 'systemctl'
 abbr -g check-font 'echo -e "\e[1mbold\e[0m"
@@ -206,7 +210,3 @@ end
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
-
-# tabtab source for packages
-# uninstall by removing these lines
-[ -f ~/.config/tabtab/fish/__tabtab.fish ]; and . ~/.config/tabtab/fish/__tabtab.fish; or true

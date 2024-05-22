@@ -151,6 +151,7 @@ local function install_plugins()
                     -- You can use a sub-list to tell conform to run *until* a formatter
                     -- is found.
                     -- javascript = { { "prettierd", "prettier" } },
+                    json = { "prettier" },
                 },
             },
             init = function()
@@ -166,12 +167,14 @@ local function install_plugins()
                     end
                     require("conform").format({ async = true, lsp_fallback = true, range = range })
                 end, { range = true })
-                vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+                vim.keymap.set("n", "<leader>f", function()
+                    require("conform").format({ async = true, lsp_fallback = true })
+                end)
             end,
         },
         {
             "hrsh7th/nvim-cmp",
-            event = "InsertEnter",
+            -- event = "InsertEnter",
             dependencies = {
                 {
                     "L3MON4D3/LuaSnip",
@@ -289,8 +292,8 @@ local function configure_keymaps()
     vim.keymap.set("n", "<CS-l>", "gt", opts)
     vim.keymap.set("n", "<CS-h>", "gT", opts)
     vim.keymap.set("n", "q:", "<Nop>", opts)
-    vim.keymap.set("n", "<C-g>t", ":ToggleTerm<CR>", opts)
-    vim.keymap.set("n", "<C-g><C-t>", ":ToggleTerm<CR>", opts)
+    vim.keymap.set("n", "<C-g>t", ":ToggleTerm direction=float<CR>", opts)
+    vim.keymap.set("n", "<C-g><C-t>", ":ToggleTerm direction=float<CR>", opts)
 
     -- vim.keymap.set({ "n", "i" }, "<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>")
     -- vim.keymap.set("n", "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>")
@@ -395,7 +398,7 @@ local function configure_options()
         backup = false,
         backspace = "indent,eol,start",
         clipboard = "unnamedplus",
-        completeopt = { "menuone", "noselect" }, -- mostly just for cmp
+        -- completeopt = { "menuone", "noselect" }, -- mostly just for cmp
         cursorline = true,
         expandtab = true,
         foldenable = true,
@@ -661,6 +664,9 @@ function configure_lsp()
         -- linters,
         "markdownlint",
         "jsonlint",
+        "hadolint",
+        -- formatters,
+        "prettier",
     })
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -793,7 +799,7 @@ function configure_nvim_cmp()
                 luasnip.lsp_expand(args.body)
             end,
         },
-        completion = { completeopt = "menu,menuone,noinsert" },
+        completion = { completeopt = "menu,menuone" },
         mapping = cmp.mapping.preset.insert({
             ["<C-n>"] = cmp.mapping.select_next_item(),
             ["<Tab>"] = cmp.mapping.select_next_item(),
