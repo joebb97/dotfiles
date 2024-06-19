@@ -72,7 +72,7 @@ local function install_plugins()
             },
             config = configure_telescope,
         },
-        { "windwp/nvim-autopairs", opts = { break_undo = false } },
+        -- { "windwp/nvim-autopairs", opts = { break_undo = false } },
         {
             "neovim/nvim-lspconfig",
             dependencies = {
@@ -719,7 +719,7 @@ function configure_lint()
     -- lint.linters_by_ft['rst'] = nil
     -- lint.linters_by_ft['ruby'] = nil
     -- lint.linters_by_ft['terraform'] = nil
-    -- lint.linters_by_ft['text'] = nil
+    lint.linters_by_ft["text"] = nil
 
     -- Create autocommand which carries out the actual linting
     -- on the specified events.
@@ -807,7 +807,7 @@ function configure_nvim_cmp()
             ["<S-Tab>"] = cmp.mapping.select_next_item(),
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
+            ["<CR>"] = cmp.mapping.confirm(),
             ["<C-s>"] = cmp.mapping.complete({}),
             ["<C-l>"] = cmp.mapping(function()
                 if luasnip.expand_or_locally_jumpable() then

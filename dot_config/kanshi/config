@@ -1,6 +1,11 @@
+profile monitorOld {
+    output eDP-1 disable
+    output "Unknown U34G2G4R3 0x0000A12A" mode 3440x1440@144Hz
+}
+
 profile monitor {
     output eDP-1 disable
-    output "Unknown U34G2G4R3 0x0000A12A" mode 3440x1440@144Hz pos 0 0
+    output "Goldstar Company Ltd LG ULTRAGEAR 312NTZNBX629" mode 3440x1440@85z
 }
 
 profile laptop {

@@ -3,6 +3,12 @@ input "type:keyboard" {
     xkb_options caps:escape
 }
 
+input "5426:67:Razer_Razer_DeathAdder_Chroma" {
+    accel_profile "flat"
+    pointer_accel 1
+    calibration_matrix 2 0 0 0 2 0
+}
+
 # moonlander, obviously
 input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
     xkb_options compose:ralt
@@ -10,18 +16,17 @@ input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
 
 # gk61 boards
 input 7847:2311:SEMITEK_USB-HID_Gaming_Keyboard {
-    xkb_options caps:escape,altwin:swap_alt_win
+    xkb_options caps:escape
 }
 
 # builtin work laptop keyboard
 input 1:1:AT_Translated_Set_2_keyboard {
-    xkb_options caps:escape,altwin:swap_alt_win
+    xkb_options caps:escape
 }
 
 # gmmk61 boards, no caps escape since arrow keys
 # rely on swapping fn with caps
 input 3141:25903:SONiX_USB_DEVICE {
-    xkb_options altwin:swap_alt_win
 }
 
 # dell internal trackpad
@@ -32,10 +37,28 @@ input 1267:12572:DLL0945:00_04F3:311C_Touchpad {
     calibration_matrix 2 0 0 0 2 0
 }
 
+input 1133:45105:LIFT_Mouse {
+    accel_profile "flat"
+    pointer_accel .4
+}
+
+# g pro x superlight
+input 1133:50503:Logitech_USB_Receiver {
+    accel_profile "flat"
+    pointer_accel .4
+}
+
 # aoc monitor
 output 'Unknown U34G2G4R3 0x0000A12A' {
     mode 3440x1440@144hz
     pos 0 0
+}
+
+# lg gn850b
+output 'Goldstar Company Ltd LG ULTRAGEAR 312NTZNBX629' {
+    mode 3440x1440@85hz
+    pos 0 0
+    adaptive_sync on
 }
 
 # office monitor

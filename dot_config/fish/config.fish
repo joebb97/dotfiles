@@ -170,8 +170,11 @@ end
 if type -q zoxide
     zoxide init fish | source
     abbr -g cd 'z'
-    abbr -g j 'z'
     abbr -g a 'z'
+end
+
+if type -q just
+    abbr -g j 'just'
 end
 
 if type -q fdfind
