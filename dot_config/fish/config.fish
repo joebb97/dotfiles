@@ -195,6 +195,10 @@ if type -q nproc
     set -x NUMCPUS (nproc)
 end
 
+if type -q gotestsum
+    abbr -g gts gotestsum
+end
+
 # if type -q pyenv
 #     pyenv init - | source
 # end
