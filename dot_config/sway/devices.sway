@@ -39,13 +39,13 @@ input 1267:12572:DLL0945:00_04F3:311C_Touchpad {
 
 input 1133:45105:LIFT_Mouse {
     accel_profile "flat"
-    pointer_accel .5
+    pointer_accel .25
 }
 
 # g pro x superlight
 input 1133:50503:Logitech_USB_Receiver {
     accel_profile "flat"
-    pointer_accel .5
+    pointer_accel .25
 }
 
 # aoc monitor
