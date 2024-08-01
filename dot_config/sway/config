@@ -142,7 +142,7 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 bar {
     status_command $HOME/.local/bin/bumblebee-status \
-     -m cpu memory battery disk nic datetime pasink pasource \
+     -m cpu memory battery disk nic datetime playerctl pasink pasource \
      -p datetime.format="%a %Y-%d-%m %H:%M" \
      -t dracula-powerline
 }
