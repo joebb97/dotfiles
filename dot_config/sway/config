@@ -11,7 +11,7 @@ exec_always '[ -e $background-image ] && swaymsg "output * bg $background-image 
 
 set $term ~/.local/bin/kitty
 gaps inner 5
-font pango:Iosevka NF bold 10
+font pango:Iosevka NF Bold 10
 
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
@@ -141,21 +141,10 @@ client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-co
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color
 
 bar {
-    position bottom
-    status_command i3status
-
-    colors {
-        background $inactive-bg-color
-        statusline $inactive-text-color
-        separator  $separator-color
-
-        # <colorclass> <border> <background> <text>
-        focused_workspace  $bg-color $bg-color $text-color
-        active_workspace   $indicator-color $indicator-color $text-color
-        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-        urgent_workspace   $urgent-bg-color $urgent-bg-color $text-color
-        binding_mode       $resize-mode-bg-color $resize-mode-bg-color $text-color
-    }
+    status_command $HOME/.local/bin/bumblebee-status \
+     -m cpu memory battery disk nic datetime pasink pasource \
+     -p datetime.format="%a %Y-%d-%m %H:%M" \
+     -t dracula-powerline
 }
 
 # Use pactl to adjust volume in PulseAudio.

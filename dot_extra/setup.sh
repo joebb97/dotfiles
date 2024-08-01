@@ -61,18 +61,17 @@ install_rust_and_tools() {
     ln -s "$(which fdfind)" ~/.local/bin/fd
 
     git clone https://github.com/Canop/broot
+    cd broot
     cargo install --locked --path .
 }
 
-install_nerd_font(){
+install_nerd_font() {
     # on macOS
-    cd ~/Library/Fonts
+    # cd ~/Library/Fonts
     # on Linux
     cd ~/.local/share/fonts
-    curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/IosevkaNerdFont-Regular.ttf
-    curl -fLO  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold/IosevkaNerdFont-Bold.ttf
-    curl -fLO  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Italic/IosevkaNerdFont-Italic.ttf
-    curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Bold-Italic/IosevkaNerdFont-BoldItalic.ttf
+    curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Iosevka.zip
+    unzip Iosevka.zip
 }
 
 install_alacritty() {
@@ -136,7 +135,8 @@ install_go_and_tools() {
     sudo tar -C /usr/local -xzf go1.20.1.linux-amd64.tar.gz
     # add /usr/local/go/bin to PATH
     env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
-    sudo apt install fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
 }
 
 install_lazy_things() {
