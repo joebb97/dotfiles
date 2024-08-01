@@ -1,6 +1,0 @@
-tags
-tags.lock
-tags.temp
-*.swp
-Session.vim
-.DS_Store

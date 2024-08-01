@@ -1,27 +1,6 @@
-[submodule ".bash_it"]
-	path = .bash_it
-	url = https://github.com/Bash-it/bash-it
-[submodule ".tmux/plugins/tpm"]
-	path = .config/tmux/plugins/tpm
+[submodule "tools/tmux/plugins/tpm"]
+	path = tools/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule ".tools/ctags"]
-	path = .tools/ctags
-	url = https://github.com/universal-ctags/ctags
-[submodule ".tools/autojump"]
-	path = .tools/autojump
-	url = https://github.com/wting/autojump
-[submodule ".tools/vim"]
-	path = .tools/vim
-	url = https://github.com/vim/vim
-[submodule ".tools/tmux"]
-	path = .tools/tmux
-	url = https://github.com/tmux/tmux
-[submodule ".tools/iterm-one-dark-theme"]
-	path = .tools/iterm-one-dark-theme
-	url = https://github.com/one-dark/iterm-one-dark-theme.git
-[submodule ".tools/neovim"]
-	path = .tools/neovim
+[submodule "tools/neovim"]
+	path = tools/neovim
 	url = https://github.com/neovim/neovim
-[submodule ".tools/alacritty"]
-	path = .tools/alacritty
-	url = https://github.com/alacritty/alacritty
