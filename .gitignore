@@ -13,7 +13,7 @@
 !.ssh/ssh_config
 !.tmux/plugins/tpm
 !.tmux.conf
-!.tools
+!tools
 !.vim/autoload
 !.vim/colors
 !.vimrc

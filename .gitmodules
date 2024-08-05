@@ -1,6 +1,6 @@
-[submodule "tools/tmux/plugins/tpm"]
-	path = tools/tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
 [submodule "tools/neovim"]
 	path = tools/neovim
 	url = https://github.com/neovim/neovim
+[submodule "tools/tpm"]
+	path = tools/tpm
+	url = https://github.com/tmux-plugins/tpm
