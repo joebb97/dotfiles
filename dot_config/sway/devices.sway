@@ -1,6 +1,5 @@
 input "type:keyboard" {
     xkb_layout us(dvorak)
-    xkb_options caps:escape
 }
 
 input "5426:67:Razer_Razer_DeathAdder_Chroma" {
@@ -43,14 +42,47 @@ input 1267:12572:DLL0945:00_04F3:311C_Touchpad {
 
 input 1133:45105:LIFT_Mouse {
     accel_profile "flat"
-    pointer_accel .25
+    pointer_accel .125
 }
 
 # g pro x superlight
 input 1133:50503:Logitech_USB_Receiver {
     accel_profile "flat"
-    pointer_accel .25
+    pointer_accel .125
 }
+
+# pulsar xlite v3es
+input 18509:4098:HeatMoving_Pulsar_Dongle {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# pulsar xlite v3es wired
+input 18509:4097:HeatMoving_Pulsar_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# vaxee e1
+input 12375:5:VAXEE_Technology_Co.,_Ltd._VAXEE_4K_Wireless_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+
+# vaxee e1 wired
+input 12375:8:PIXART_VAXEE_WIRED_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+
+# zowie u2
+input 1189:32776:BenQ_ZOWIE_BenQ_ZOWIE_Gaming_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
 
 # aoc monitor
 output 'Unknown U34G2G4R3 0x0000A12A' {

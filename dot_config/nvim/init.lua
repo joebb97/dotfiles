@@ -21,6 +21,7 @@ local function install_plugins()
             end,
         },
         { "tpope/vim-commentary" },
+        { "tpope/vim-abolish" },
         { "tpope/vim-fugitive" }, -- :Git commands
         { "tpope/vim-rhubarb" }, -- github related commands
         { "tpope/vim-surround" }, -- dealing with quotes and parens
@@ -237,13 +238,19 @@ local function install_plugins()
         },
         { "mbbill/undotree" },
         { "hashivim/vim-terraform" },
-        -- { 'brenton-leighton/multiple-cursors.nvim', version = "*", opts = {} },
         {
             "mg979/vim-visual-multi",
             branch = "master",
             config = function()
                 vim.g.VM_theme = "neon"
             end,
+        },
+        {
+            "m4xshen/hardtime.nvim",
+            dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+            opts = {
+                disable_mouse = false,
+            },
         },
     }
     local lazy_opts = {

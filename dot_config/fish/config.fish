@@ -28,14 +28,14 @@ abbr -g make 'make -j(nproc)'
 abbr -g ag "ag --pager='less -XFR"
 abbr -g weather 'curl wttr.in/austin'
 abbr -g dkc 'docker container'
-abbr -g tm 'tmux'
+abbr -g tm tmux
 abbr -g tma 'tmux attach'
-abbr -g cm 'chezmoi'
+abbr -g cm chezmoi
 # Aliases
 abbr -g ga 'git add'
 abbr -g gap 'git add -p'
 abbr -g gall 'git add -A'
-abbr -g g 'git'
+abbr -g g git
 abbr -g gs 'git status'
 abbr -g gsubu 'git submodule update --init --recursive'
 abbr -g gl 'git pull'
@@ -62,21 +62,21 @@ abbr -g gwc "git whatchanged"
 abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
 abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD)"
 # alias awk="gawk"
-abbr -g dk "docker"
+abbr -g dk docker
 abbr -g dke "docker exec"
-abbr -g c 'cargo'
-abbr -g ca "cargo"
-abbr -g car "cargo"
+abbr -g c cargo
+abbr -g ca cargo
+abbr -g car cargo
 abbr -g dkc "docker compose"
-abbr -g l "ls"
-abbr -g pm "podman"
-abbr -g rh "runhaskell"
-abbr -g kc "kubectl"
+abbr -g l ls
+abbr -g pm podman
+abbr -g rh runhaskell
+abbr -g kc kubectl
 abbr -g sai "sudo apt install"
-abbr -g lg 'lazygit'
-abbr -g lad 'lazydocker'
+abbr -g lg lazygit
+abbr -g lad lazydocker
 abbr -g docker-ip "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
-abbr -g sys 'systemctl'
+abbr -g sys systemctl
 abbr -g check-font 'echo -e "\e[1mbold\e[0m"
    echo -e "\e[3mitalic\e[0m"
    echo -e "\e[3m\e[1mbold italic\e[0m"
@@ -210,9 +210,9 @@ bind \cB backward-bigword
 bind \cF forward-bigword
 
 # pnpm
-set -gx PNPM_HOME "/Users/Joey/Library/pnpm"
+set -gx PNPM_HOME /Users/Joey/Library/pnpm
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
