@@ -1,0 +1,8 @@
+# Nuphy Halo75v2
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f5", ATTRS{idProduct}=="32f5", MODE="0660", GROUP="1000", TAG+="uaccess", TAG+="udev-acl"
+
+# Nuphy Air75v2
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f5", ATTRS{idProduct}=="3246", MODE="0660", GROUP="1000", TAG+="uaccess", TAG+="udev-acl"
+
+# ZSA Moonlander
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3297", ATTRS{idProduct}=="1969", MODE="0660", GROUP="1000", TAG+="uaccess", TAG+="udev-acl"
