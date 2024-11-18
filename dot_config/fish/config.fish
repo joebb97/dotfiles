@@ -169,24 +169,24 @@ end
 
 if type -q zoxide
     zoxide init fish | source
-    abbr -g cd 'z'
-    abbr -g a 'z'
+    abbr -g cd z
+    abbr -g a z
 end
 
 if type -q just
-    abbr -g j 'just'
+    abbr -g j just
 end
 
 if type -q fdfind
-    abbr -g fd 'fdfind'
+    abbr -g fd fdfind
 end
 
 if type -q eza
-    abbr -g ls 'eza'
+    abbr -g ls eza
 end
 
 if type -q bat
-    set -x BAT_THEME 'Dracula'
+    set -x BAT_THEME Dracula
     set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -x PAGER "bat -p"
 end
@@ -203,6 +203,21 @@ end
 #     pyenv init - | source
 # end
 
+function save_kitty_session
+    if not test -f $HOME/.local/bin/kitty-convert-dump.py
+        git clone git@github.com:dflock/kitty-save-session.git /tmp/kitty-save-session.git
+        cp /tmp/kitty-save-session.git/kitty-convert-dump.py $HOME/.local/bin/
+    end
+    kitty @ ls >/tmp/kitty-dump.json
+    cat /tmp/kitty-dump.json | python3 $HOME/.local/bin/kitty-convert-dump.py >$HOME/.local/kitty-session.kitty
+end
+
+function add_keyboard_udev_rules
+    sudo cp $HOME/.config/etc/99-my-keebs.rules /etc/udev/rules.d/
+end
+
+abbr -g restore_kitty_session 'kitty --session $HOME/.local/kitty-session.kitty'
+
 bind \b backward-kill-bigword
 bind \ev backward-kill-bigword
 bind \eV kill-bigword
@@ -216,4 +231,4 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
+add_to_path "$VOLTA_HOME/bin"
