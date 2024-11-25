@@ -6,3 +6,8 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="19f5", ATTRS{idProduct
 
 # ZSA Moonlander
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3297", ATTRS{idProduct}=="1969", MODE="0660", GROUP="1000", TAG+="uaccess", TAG+="udev-acl"
+
+# Wooting 80he
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", TAG+="uaccess", GROUP="1000"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="31e3", TAG+="uaccess", GROUP="1000"
+
