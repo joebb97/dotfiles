@@ -4,6 +4,16 @@ profile homeMonitors {
     output "Dell Inc. DELL P2421D 4D2SS03" position 3440,1440
 }
 
+profile homeMonitors2 {
+    output "Unknown 0x4F9B 0x00000000" disable
+    output "Goldstar Company Ltd LG ULTRAGEAR 312NTZNBX629" position 0,0
+}
+
+profile homeMonitors3 {
+    output "Unknown 0x4F9B 0x00000000" disable
+    output "Dell Inc. DELL P2421D 4D2SS03" position 0,0
+}
+
 profile laptop {
     output "Unknown 0x4F9B 0x00000000" enable
 }
