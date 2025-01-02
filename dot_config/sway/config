@@ -170,7 +170,10 @@ bindsym $mod+Shift+Print exec grimshot save active "$HOME/Pictures/screenshots/$
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-# exec lxpolkit
-exec mako
+exec_always systemctl --user start sway-session.target
+# Remember to systemctl --user enable kanshi.service
+exec_always systemctl --user restart kanshi.service
+# Remember to systemctl --user enable mako.service
+# mako.service not listed here since it usually doesn't need to be restarted
 
 include @sysconfdir@/sway/config.d/*

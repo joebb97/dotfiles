@@ -60,6 +60,7 @@ abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
 abbr -g gwc "git whatchanged"
 abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
+abbr -g gu "git push -u origin (git rev-parse --abbrev-ref HEAD)"
 abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD)"
 # alias awk="gawk"
 abbr -g dk docker
@@ -84,6 +85,8 @@ abbr -g check-font 'echo -e "\e[1mbold\e[0m"
    echo -e "\e[9mstrikethrough\e[0m"
    echo -e "\e[31mHello World\e[0m"
    echo -e "\x1B[31mHello World\e[0m"'
+abbr -g sus systemctl suspend
+abbr -g br broot
 
 # Set the path
 function add_to_path
@@ -199,9 +202,11 @@ if type -q gotestsum
     abbr -g gts gotestsum
 end
 
-# if type -q pyenv
-#     pyenv init - | source
-# end
+if type -q pyenv
+    set -x PYENV_ROOT $HOME/.pyenv
+    add_to_path $PYENV_ROOT/bin
+    pyenv init - | source
+end
 
 function save_kitty_session
     if not test -f $HOME/.local/bin/kitty-convert-dump.py
@@ -213,7 +218,7 @@ function save_kitty_session
 end
 
 function add_keyboard_udev_rules
-    sudo cp $HOME/.config/etc/99-my-keebs.rules /etc/udev/rules.d/
+    sudo cp $HOME/.config/etc/70-my-keebs.rules /etc/udev/rules.d/
 end
 
 abbr -g restore_kitty_session 'kitty --session $HOME/.local/kitty-session.kitty'

@@ -18,12 +18,23 @@
 ###############################################################
 # Default flags
 # You can set up flags you want broot to start with by
-# default, for example `default_flags="ihp"` if you usually want
+# default, for example `default_flags="-ihp"` if you usually want
 # to see hidden and gitignored files and the permissions (then
-# if you don't want the hidden files you can launch `br -H`)
+# if you don't want the hidden files at a specific launch,
+# you can launch broot with `br -H`).
 # A popular flag is the `g` one which displays git related info.
 #
 # default_flags:
+
+###############################################################
+# Terminal's title
+# If you want the terminal's title to be updated when you change
+# directory, set a terminal_title pattern by uncommenting one of
+# the examples below and tuning it to your taste.
+#
+# terminal_title: "[broot] {git-name}"
+# terminal_title: "{file} 🐄"
+# terminal_title: "-= {file-name} =-"
 
 ###############################################################
 # Date/Time format
@@ -39,7 +50,10 @@
 # (you really should read https://dystroy.org/broot/modal/
 # before as it may not suit everybody even among vim users)
 #
+# You may start either in 'command' mode, or in 'input' mode
+#
 # modal: true
+# initial_mode: command
 
 ###############################################################
 # Whether to mark the selected line with a triangle
@@ -85,12 +99,28 @@ show_selection_mark: true
 # Special paths
 # If some paths must be handled specially, uncomment (and change
 # this section as per the examples)
+# Setting "list":"never" on a dir prevents broot from looking at its 
+#  children when searching, unless the dir is the selected root.
+# Setting "sum":"never" on a dir prevents broot from looking at its
+#  children when computing the total size and count of files.
+# Setting "show":"always" makes a file visible even if its name
+#  starts with a dot.
+# Setting "list":"always" may be useful on a link to a directory
+#  (they're otherwise not entered by broot unless selected)
 #
 special_paths: {
-    "/media" : "no-enter" // comment it if desired
-    # "/media/slow-backup-disk"    : no-enter
-    # "/home/dys/useless"    : hide
-    # "/home/dys/my-link-I-want-to-explore"    : enter
+    "/media" : {
+        list: "never"
+        sum: "never"
+    }
+    "~/.config": { "show": "always" }
+    "trav": {
+        show: always
+        list: "always",
+        sum: "never"
+    }
+    # "~/useless": { "show": "never" }
+    # "~/my-link-I-want-to-explore": { "list": "always" }
 }
 
 ###############################################################
@@ -157,6 +187,78 @@ content_search_max_file_size: 10MB
 # max_panels_count: 2
 
 ###############################################################
+# Update work dir
+#
+# By default, broot process' work dir is kept in sync with the
+# current's panel root. If you want to keep it unchanged,
+# uncomment this setting
+#
+# update_work_dir: false
+
+###############################################################
+# Kitty Keyboard extension
+#
+# If you want to use advanced keyboard shortcuts in Kitty
+# compatible terminals (Kitty, Wezterm), set this to true.
+# 
+# This makes it possible to use shortcuts like 'space-n', 
+# 'ctrl-alt-a-b', 'shift-space', etc.
+#
+enable_kitty_keyboard: false
+
+###############################################################
+# lines around matching line in filtered preview
+#
+# When searching the content of a file, you can have either
+# only the matching lines displayed, or some of the surrounding
+# ones too.
+#
+lines_before_match_in_preview: 1
+lines_after_match_in_preview: 1
+
+###############################################################
+# transformations before preview
+#
+# It's possible to define transformations to apply to some files
+# before calling one of the default preview renderers in broot.
+# Below are two examples that you may uncomment and adapt:
+#
+preview_transformers: [
+    // # Use mutool to render any PDF file as an image
+    // # In this example we use placeholders for the input and output files
+    // {
+    //     input_extensions: [ "pdf" ] // case doesn't matter
+    //     output_extension: png
+    //     mode: image
+    //     command: [ "mutool", "draw", "-w", "1000", "-o", "{output-path}", "{input-path}" ]
+    // }
+
+    // # Use LibreOffice to render Office files as images
+    // # In this example, {output-dir} is used to specify where LibreOffice must write the result
+    // {
+    //     input_extensions: [ "xls", "xlsx", "doc", "docx", "ppt", "pptx", "ods", "odt", "odp" ]
+    //     output_extension: png
+    //     mode: image
+    //     command: [
+    //         "libreoffice", "--headless",
+    //         "--convert-to", "png",
+    //         "--outdir", "{output-dir}",
+    //         "{input-path}"
+    //     ]
+    // }
+
+    // # Use jq to beautify JSON
+    // # In this example, the command refers to neither the input nor the output,
+    // # so broot pipes them to the stdin and stdout of the jq process
+    // {
+    //     input_extensions: [ "json" ] 
+    //     output_extension: json
+    //     mode: text
+    //     command: [ "jq" ]
+    // }
+]
+
+###############################################################
 # Imports
 #
 # While it's possible to have all configuration in one file,
@@ -178,12 +280,20 @@ imports: [
             dark
             unknown
         ]
-        file: dark-blue-skin.hjson
+        # (un)comment to choose your preferred skin
+        file: skins/dark-blue.hjson
+        //file: skins/catppuccin-macchiato.hjson
+        //file: skins/catppuccin-mocha.hjson
+        //file: skins/dark-gruvbox.hjson
+        //file: skins/dark-orange.hjson
+        //file: skins/solarized-dark.hjson
     }
 
     # This skin is imported when your terminal is light
     {
         luma: light
-        file: white-skin.hjson
+        # (un)comment to choose your preferred skin
+        //file: skins/solarized-light.hjson
+        file: skins/white.hjson
     }
 ]
