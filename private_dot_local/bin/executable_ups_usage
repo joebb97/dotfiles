@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+#Created by Timothy GFO at March 10, 2023, improved on December 1, 2023
+PERCENT=$(apcaccess -pLOADPCT | sed 's/Percent//')
+PERCENTINT=$(bc <<< "$PERCENT/1")
+UPSMAXWATTS=$(apcaccess -pNOMPOWER | sed 's/Watts//')
+UPSMAXWATTSINT=$(bc <<< "$UPSMAXWATTS/1")
+watts=$(($PERCENTINT * $UPSMAXWATTSINT / 100))
+echo $watts watts
+
