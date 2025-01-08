@@ -20,6 +20,7 @@
 !.vimrc
 !README.md
 !.config/
+!.chezmoiignore
 # Pretty sure the rest of these .config rules do nothing, but I see no harm in deleting them lol.
 !.config/sway/config
 !.config/fish/config.fish

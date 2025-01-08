@@ -128,6 +128,7 @@ add_to_path /usr/local/sbin
 add_to_path /usr/local/share
 add_to_path /usr/local/go/bin
 add_to_path ~/.nimble/bin
+add_to_path /opt/homebrew/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm
