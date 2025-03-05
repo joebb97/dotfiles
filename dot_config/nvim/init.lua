@@ -410,7 +410,7 @@ local function configure_options()
         cursorline = true,
         expandtab = true,
         foldenable = true,
-        foldlevelstart = 10,
+        foldlevelstart = 100,
         foldmethod = "indent",
         hlsearch = false,
         incsearch = true,
