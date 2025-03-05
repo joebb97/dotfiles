@@ -1,5 +1,5 @@
 profile homeMonitors {
-    output "Unknown 0x4F9B 0x00000000" disable
+    output "Unknown 0x4F9B 0x00000000" position 3440,1152
     output "Goldstar Company Ltd LG ULTRAGEAR 312NTZNBX629" position 0,0
     output "Dell Inc. DELL P2421D 4D2SS03" position 3440,0
 }

@@ -87,6 +87,7 @@ abbr -g check-font 'echo -e "\e[1mbold\e[0m"
    echo -e "\x1B[31mHello World\e[0m"'
 abbr -g sus systemctl suspend
 abbr -g br broot
+abbr -g rep 'systemctl --user restart pipewire pipewire-pulse wireplumber; sleep 1; systemctl --user restart xdg-desktop-portal-wlr'
 
 # Set the path
 function add_to_path
@@ -128,7 +129,6 @@ add_to_path /usr/local/sbin
 add_to_path /usr/local/share
 add_to_path /usr/local/go/bin
 add_to_path ~/.nimble/bin
-add_to_path /opt/homebrew/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm

@@ -82,7 +82,7 @@ local function install_plugins()
                 "WhoIsSethDaniel/mason-tool-installer.nvim",
                 { "j-hui/fidget.nvim", opts = {} },
                 { "folke/neodev.nvim", opts = {} },
-                { "lvimuser/lsp-inlayhints.nvim", opts = {} },
+                -- { "lvimuser/lsp-inlayhints.nvim", opts = {} },
                 { "SmiteshP/nvim-navic", opts = {} },
             },
             config = configure_lsp,
@@ -134,16 +134,17 @@ local function install_plugins()
             "stevearc/conform.nvim",
             opts = {
                 notify_on_error = true,
-                format_on_save = function(bufnr)
-                    -- Disable "format_on_save lsp_fallback" for languages that don't
-                    -- have a well standardized coding style. You can add additional
-                    -- languages here or re-enable it for the disabled ones.
-                    local disable_filetypes = { c = true, cpp = true }
-                    return {
-                        timeout_ms = 500,
-                        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-                    }
-                end,
+                format_on_save = nil,
+                -- format_on_save = function(bufnr)
+                --     -- Disable "format_on_save lsp_fallback" for languages that don't
+                --     -- have a well standardized coding style. You can add additional
+                --     -- languages here or re-enable it for the disabled ones.
+                --     local disable_filetypes = { c = true, cpp = true }
+                --     return {
+                --         timeout_ms = 500,
+                --         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+                --     }
+                -- end,
                 formatters_by_ft = {
                     lua = { "stylua" },
                     -- Conform can also run multiple formatters sequentially
@@ -245,13 +246,13 @@ local function install_plugins()
                 vim.g.VM_theme = "neon"
             end,
         },
-        {
-            "m4xshen/hardtime.nvim",
-            dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-            opts = {
-                disable_mouse = false,
-            },
-        },
+        -- {
+        --     "m4xshen/hardtime.nvim",
+        --     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+        --     opts = {
+        --         disable_mouse = false,
+        --     },
+        -- },
     }
     local lazy_opts = {
         install = {
@@ -589,7 +590,7 @@ function configure_lsp()
             --     callback = vim.lsp.buf.clear_references,
             -- })
         end
-        require("lsp-inlayhints").on_attach(client, event.buf)
+        -- require("lsp-inlayhints").on_attach(client, event.buf)
         require("nvim-navic").attach(client, event.buf)
     end
 
@@ -608,6 +609,9 @@ function configure_lsp()
             -- equivalent of config key in helix languages.toml
             settings = {
                 ["rust-analyzer"] = {
+                    rustfmt = {
+                        extraArgs = { "+nightly" },
+                    },
                     imports = {
                         granularity = {
                             group = "module",
@@ -618,7 +622,18 @@ function configure_lsp()
                         command = "clippy",
                     },
                     procMacro = {
+                        enable = false,
+                    },
+                    diagnostics = {
                         enable = true,
+                        disabled = {
+                            "unresolved-proc-macro",
+                            "proc-macro-disabled",
+                            "inactive-code",
+                            "attribute-expansion-disabled",
+                            "macro-error",
+                            "macro-def-error",
+                        },
                     },
                     files = {
                         excludeDirs = { "~/.cargo/git" },
@@ -669,11 +684,12 @@ function configure_lsp()
     vim.list_extend(ensure_installed, {
         "stylua", -- Used to format Lua code
         -- linters,
-        "markdownlint",
+        -- "markdownlint",
         "jsonlint",
         "hadolint",
         -- formatters,
         "prettier",
+        "shellcheck",
     })
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -691,15 +707,18 @@ end
 
 function configure_lint()
     local lint = require("lint")
-    -- lint.linters_by_ft = {
-    -- 	markdown = { 'markdownlint' },
-    -- }
+    lint.linters_by_ft = {
+        json = { "jsonlint" },
+        dockerfile = { "hadolint" },
+        sh = { "shellcheck" },
+        markdown = nil,
+    }
 
     -- To allow other plugins to add linters to require('lint').linters_by_ft,
     -- instead set linters_by_ft like this:
-    lint.linters_by_ft = lint.linters_by_ft or {}
-    lint.linters_by_ft["markdown"] = { "markdownlint" }
-    lint.linters_by_ft["json"] = { "jsonlint" }
+    -- lint.linters_by_ft = lint.linters_by_ft or {}
+    -- lint.linters_by_ft["markdown"] = nil
+    -- lint.linters_by_ft["json"] = { "jsonlint" }
     --
     -- However, note that this will enable a set of default linters,
     -- which will cause errors unless these tools are available:
@@ -726,8 +745,8 @@ function configure_lint()
     -- lint.linters_by_ft['rst'] = nil
     -- lint.linters_by_ft['ruby'] = nil
     -- lint.linters_by_ft['terraform'] = nil
-    lint.linters_by_ft["text"] = nil
-    lint.linters_by_ft["terraform"] = nil
+    -- lint.linters_by_ft["text"] = nil
+    -- lint.linters_by_ft["terraform"] = nil
 
     -- Create autocommand which carries out the actual linting
     -- on the specified events.
