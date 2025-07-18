@@ -23,6 +23,7 @@ abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
 abbr -g howbig 'du -sh'
 abbr -g sshnc 'ssh -F /dev/null'
+abbr -g ssh 'TERM=xterm-256color ssh'
 abbr -g m 'make -j(nproc)'
 abbr -g make 'make -j(nproc)'
 abbr -g ag "ag --pager='less -XFR"
@@ -66,6 +67,8 @@ abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD
 abbr -g dk docker
 abbr -g dke "docker exec"
 abbr -g c cargo
+abbr -g cb cargo build
+abbr -g ct cargo test
 abbr -g ca cargo
 abbr -g car cargo
 abbr -g dkc "docker compose"
@@ -88,6 +91,8 @@ abbr -g check-font 'echo -e "\e[1mbold\e[0m"
 abbr -g sus systemctl suspend
 abbr -g br broot
 abbr -g rep 'systemctl --user restart pipewire pipewire-pulse wireplumber; sleep 1; systemctl --user restart xdg-desktop-portal-wlr'
+abbr -g swout 'swaymsg -t get_outputs'
+abbr -g swin 'swaymsg -t get_inputs'
 
 # Set the path
 function add_to_path

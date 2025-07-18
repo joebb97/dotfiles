@@ -134,17 +134,17 @@ local function install_plugins()
             "stevearc/conform.nvim",
             opts = {
                 notify_on_error = true,
-                format_on_save = nil,
-                -- format_on_save = function(bufnr)
-                --     -- Disable "format_on_save lsp_fallback" for languages that don't
-                --     -- have a well standardized coding style. You can add additional
-                --     -- languages here or re-enable it for the disabled ones.
-                --     local disable_filetypes = { c = true, cpp = true }
-                --     return {
-                --         timeout_ms = 500,
-                --         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-                --     }
-                -- end,
+                -- format_on_save = nil,
+                format_on_save = function(bufnr)
+                    -- Disable "format_on_save lsp_fallback" for languages that don't
+                    -- have a well standardized coding style. You can add additional
+                    -- languages here or re-enable it for the disabled ones.
+                    local disable_filetypes = { c = true, cpp = true }
+                    return {
+                        timeout_ms = 500,
+                        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+                    }
+                end,
                 formatters_by_ft = {
                     lua = { "stylua" },
                     -- Conform can also run multiple formatters sequentially
@@ -318,7 +318,9 @@ local function configure_keymaps()
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
     vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float)
     vim.keymap.set("n", "<leader>sl", vim.diagnostic.setloclist)
-    vim.keymap.set("n", "<leader>sq", vim.diagnostic.setqflist)
+    vim.keymap.set("n", "<leader>sq", function()
+        vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+    end)
 
     -- VNOREMAP
     vim.keymap.set("v", "K", ":m .-2<CR>==", opts)
@@ -517,6 +519,7 @@ function configure_telescope()
     pcall(require("telescope").load_extension, "ui-select")
     pcall(require("telescope").load_extension, "file_browser")
     local builtin = require("telescope.builtin")
+    local tutils = require("telescope.utils")
 
     vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
     vim.keymap.set("n", "<leader>km", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -524,6 +527,41 @@ function configure_telescope()
     vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
     vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
     vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+
+    -- NOTE: COPY PASTED FROM GEMINI
+    function get_unix_path_first_component(path)
+        -- Input validation
+        if type(path) ~= "string" or path == "" then
+            return nil
+        end
+
+        -- Handle absolute Unix paths
+        if path:sub(1, 1) == "/" then
+            return "/" -- For any absolute path, the root is always '/'
+        end
+
+        -- Handle relative paths
+        local first_slash_pos = path:find("/")
+
+        if first_slash_pos then
+            -- If a slash is found, the first component is everything before it
+            return path:sub(1, first_slash_pos - 1)
+        else
+            -- If no slash is found, the whole path is the first component
+            -- (e.g., "filename.txt" or "folder_name")
+            return path
+        end
+    end
+    -- vim.keymap.set("n", "<leader>sb", function()
+    --     print(get_unix_path_first_component(vim.fn.expand("%")))
+    -- end)
+    vim.keymap.set("n", "<leader>sb", function()
+        builtin.live_grep({
+            cwd = (function()
+                return get_unix_path_first_component(vim.fn.expand("%"))
+            end)(),
+        })
+    end, { desc = "[S]earch by [B]uffer dir" })
     vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
     vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
     vim.keymap.set(
@@ -620,9 +658,18 @@ function configure_lsp()
                     },
                     check = {
                         command = "clippy",
+                        -- allTargets = true,
+                        -- features = "all",
+                    },
+                    cargo = {
+                        -- allTargets = true,
+                        -- features = "all",
+                        buildScripts = {
+                            enable = true,
+                        },
                     },
                     procMacro = {
-                        enable = false,
+                        enable = true,
                     },
                     diagnostics = {
                         enable = true,
