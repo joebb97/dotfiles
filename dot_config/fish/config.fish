@@ -23,7 +23,7 @@ abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
 abbr -g howbig 'du -sh'
 abbr -g sshnc 'ssh -F /dev/null'
-abbr -g ssh 'TERM=xterm-256color ssh'
+# abbr -g ssh 'TERM=xterm-256color ssh'
 abbr -g m 'make -j(nproc)'
 abbr -g make 'make -j(nproc)'
 abbr -g ag "ag --pager='less -XFR"
@@ -146,6 +146,7 @@ set -x PAGER "less -XFR"
 set -x GIT_PAGER "less -XFR"
 set -x HOMEBREW_NO_AUTO_UPDATE 1
 set fish_greeting
+set -x TERM xterm-256color
 
 # Slows things down a bit
 # set __fish_git_prompt_show_informative_status
@@ -226,6 +227,7 @@ end
 function add_keyboard_udev_rules
     sudo cp $HOME/.config/etc/70-my-keebs.rules /etc/udev/rules.d/
 end
+
 
 abbr -g restore_kitty_session 'kitty --session $HOME/.local/kitty-session.kitty'
 
