@@ -90,6 +90,7 @@ abbr -g check-font 'echo -e "\e[1mbold\e[0m"
    echo -e "\x1B[31mHello World\e[0m"'
 abbr -g sus systemctl suspend
 abbr -g br broot
+abbr -g check-color 'printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"'
 abbr -g rep 'systemctl --user restart pipewire pipewire-pulse wireplumber; sleep 1; systemctl --user restart xdg-desktop-portal-wlr'
 abbr -g swout 'swaymsg -t get_outputs'
 abbr -g swin 'swaymsg -t get_inputs'
