@@ -246,3 +246,7 @@ end
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
 add_to_path "$VOLTA_HOME/bin"
+
+set -x PASSAGE_DIR $HOME/.config/passage/store
+set -x PASSAGE_IDENTITIES_FILE $HOME/.config/passage/identities
+set -x PASSAGE_RECIPIENTS_FILE $HOME/.config/passage/store/.age-recipients
