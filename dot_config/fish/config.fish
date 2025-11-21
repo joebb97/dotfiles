@@ -96,6 +96,7 @@ abbr -g swout 'swaymsg -t get_outputs'
 abbr -g swin 'swaymsg -t get_inputs'
 abbr -g ansible 'uv run ansible'
 abbr -g ansible-playbook 'uv run ansible-playbook'
+abbr -g ewez '$EDITOR ~/.config/wezterm/wezterm.lua'
 
 # Set the path
 function add_to_path
@@ -125,7 +126,7 @@ add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
-add_to_path $HOME/.pyenv/bin
+# add_to_path $HOME/.pyenv/bin
 add_to_path $HOME/go/bin
 add_to_path $HOME/bin
 add_to_path $HOME/Library/Python/3.7/bin
@@ -200,9 +201,9 @@ if type -q eza
 end
 
 if type -q bat
-    set -x BAT_THEME Dracula
-    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-    set -x PAGER "bat -p"
+    # set -x BAT_THEME Dracula
+    # set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    # set -x PAGER "bat -p"
 end
 
 if type -q nproc
@@ -211,12 +212,6 @@ end
 
 if type -q gotestsum
     abbr -g gts gotestsum
-end
-
-if type -q pyenv
-    set -x PYENV_ROOT $HOME/.pyenv
-    add_to_path $PYENV_ROOT/bin
-    pyenv init - | source
 end
 
 function save_kitty_session

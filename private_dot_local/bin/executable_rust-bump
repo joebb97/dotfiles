@@ -7,7 +7,7 @@ if [[ $VERSION == --* ]]; then
     VERSION=$2
 fi
 if [[ $OPTS == "--minor" ]]; then
-    VERSION=$(awk '/^version = .*/ { print $NF }' Cargo.toml | awk -F '.' '{gsub(/"/, ""); minor=$NF; for (i = 1; i < NF; i++) printf("%s.", $i); printf("%s\n", $NF + 1)}') 
+    VERSION=$(awk '/^version = .*/ { print $NF }' Cargo.toml | awk 'NR == 1' | awk -F '.' '{gsub(/"/, ""); minor=$NF; for (i = 1; i < NF; i++) printf("%s.", $i); printf("%s\n", $NF + 1)}') 
 fi
 tmpfile=$(mktemp)
 awk -v VERSION=\"$VERSION\" "{ gsub(/^version = .*/,\"version = \" VERSION); print }" Cargo.toml > $tmpfile

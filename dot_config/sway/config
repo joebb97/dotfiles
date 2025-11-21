@@ -6,7 +6,7 @@ set $down j
 set $up k
 set $right l
 
-set $background-image ~/Pictures/desktop-backgrounds/all-pictures/blond.png
+set $background-image ~/Pictures/desktop-backgrounds/all-pictures/low-contrast1.jpg
 exec_always '[ -e $background-image ] && swaymsg "output * bg $background-image fill"'
 
 set $term ~/.local/bin/kitty
@@ -34,6 +34,9 @@ floating_modifier $mod normal
 
 bindsym $mod+Shift+c reload
 bindsym $mod+c exec makoctl dismiss -a
+# TODO Can't notify about going into do not disturb because it clears all existing notifications
+bindsym $mod+Shift+s exec makoctl mode -s do-not-disturb
+bindsym $mod+Shift+r exec makoctl mode -r do-not-disturb && notify-send "do-not-disturb off"
 
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
@@ -124,16 +127,17 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-set $bg-color            #FF79C6
+set $bg-color            #CC8BC9
 set $border-color        #90EE90
-set $inactive-bg-color   #44475A
-set $text-color          #282A36
-set $inactive-text-color #F8F8F2
-set $urgent-bg-color     #FF5555
-set $indicator-color     #50FA7B
+set $inactive-bg-color   #0E1415
+set $text-color          #333333
+set $inactive-text-color #CECECE
+set $urgent-bg-color     #C33C33
+# shows where next split will go
+set $indicator-color     #95CB82
+# only relevant for swaybar, bumblebee status not using it
 set $separator-color     #8BE9FD
-
-set $resize-mode-bg-color #FFB86C
+set $resize-mode-bg-color #C33C33
 
 # window colors
 #                       border              background         text                 indicator
@@ -146,7 +150,13 @@ bar {
     status_command $HOME/.local/bin/bumblebee-status \
      -m cpu memory battery disk nic datetime playerctl pasink pasource \
      -p datetime.format="%a %Y-%m-%d %H:%M" \
-     -t dracula-powerline
+     -t iceberg-contrast
+
+     colors {
+                            # border background text
+         focused_workspace  $bg-color          $bg-color          $text-color
+         inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+     }
 }
 
 # Use pactl to adjust volume in PulseAudio.
