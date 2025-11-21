@@ -12,12 +12,20 @@ local function install_plugins()
     end
     vim.opt.rtp:prepend(lazypath)
     local plugins = {
+        -- {
+        --     "dracula/vim",
+        --     name = "dracula",
+        --     priority = 1000,
+        --     init = function()
+        --         vim.cmd.colorscheme("dracula")
+        --     end,
+        -- },
         {
-            "dracula/vim",
-            name = "dracula",
+            "p00f/alabaster.nvim",
             priority = 1000,
             init = function()
-                vim.cmd.colorscheme("dracula")
+                vim.g.alabaster_dim_comments = true
+                vim.cmd.colorscheme("alabaster")
             end,
         },
         { "tpope/vim-commentary" },
@@ -26,15 +34,15 @@ local function install_plugins()
         { "tpope/vim-rhubarb" }, -- github related commands
         { "tpope/vim-surround" }, -- dealing with quotes and parens
         { "tpope/vim-sleuth" }, -- detect tabs and shiftwidth
-        {
-            "folke/which-key.nvim",
-            event = "VimEnter",
-            opts = {
-                presets = {
-                    operators = false,
-                },
-            },
-        },
+        -- {
+        --     "folke/which-key.nvim",
+        --     event = "VimEnter",
+        --     opts = {
+        --         presets = {
+        --             operators = false,
+        --         },
+        --     },
+        -- },
         {
             "folke/todo-comments.nvim",
             event = "VimEnter",
@@ -134,17 +142,17 @@ local function install_plugins()
             "stevearc/conform.nvim",
             opts = {
                 notify_on_error = true,
-                -- format_on_save = nil,
-                format_on_save = function(bufnr)
-                    -- Disable "format_on_save lsp_fallback" for languages that don't
-                    -- have a well standardized coding style. You can add additional
-                    -- languages here or re-enable it for the disabled ones.
-                    local disable_filetypes = { c = true, cpp = true }
-                    return {
-                        timeout_ms = 500,
-                        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-                    }
-                end,
+                format_on_save = nil,
+                -- format_on_save = function(bufnr)
+                --     -- Disable "format_on_save lsp_fallback" for languages that don't
+                --     -- have a well standardized coding style. You can add additional
+                --     -- languages here or re-enable it for the disabled ones.
+                --     local disable_filetypes = { c = true, cpp = true }
+                --     return {
+                --         timeout_ms = 500,
+                --         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+                --     }
+                -- end,
                 formatters_by_ft = {
                     lua = { "stylua" },
                     -- Conform can also run multiple formatters sequentially
@@ -212,13 +220,14 @@ local function install_plugins()
             build = ":TSUpdate",
             config = configure_treesitter,
         },
-        {
-            "simrat39/symbols-outline.nvim",
-            opts = {
-                width = 15,
-                position = "top",
-            },
-        },
+        -- disabled for vim deprecated warning
+        -- {
+        --     "simrat39/symbols-outline.nvim",
+        --     opts = {
+        --         width = 15,
+        --         position = "top",
+        --     },
+        -- },
         {
             "nvim-tree/nvim-tree.lua",
             dependencies = {
@@ -254,12 +263,7 @@ local function install_plugins()
         --     },
         -- },
     }
-    local lazy_opts = {
-        install = {
-            colorscheme = { "dracula" },
-        },
-    }
-    require("lazy").setup(plugins, lazy_opts)
+    require("lazy").setup(plugins)
 end
 
 local function configure_keymaps()
@@ -629,7 +633,15 @@ function configure_lsp()
             -- })
         end
         -- require("lsp-inlayhints").on_attach(client, event.buf)
-        require("nvim-navic").attach(client, event.buf)
+        if client and client.server_capabilities and client.server_capabilities.documentSymbolProvider then
+            require("nvim-navic").attach(client, event.buf)
+        end
+
+
+        -- needed for alabaster colors to not disappear
+        if client and client.server_capabilities and client.server_capabilities.semanticTokensProvider then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
     end
 
     vim.api.nvim_create_autocmd("LspAttach", {

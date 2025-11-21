@@ -93,6 +93,7 @@ abbr -g br broot
 abbr -g rep 'systemctl --user restart pipewire pipewire-pulse wireplumber; sleep 1; systemctl --user restart xdg-desktop-portal-wlr'
 abbr -g swout 'swaymsg -t get_outputs'
 abbr -g swin 'swaymsg -t get_inputs'
+abbr -g ewez '$EDITOR ~/.config/wezterm/wezterm.lua'
 
 # Set the path
 function add_to_path
@@ -122,7 +123,7 @@ add_to_path node_modules/.bin override
 add_to_path $HOME/.cargo/bin
 add_to_path $HOME/.local/share
 add_to_path $HOME/.local/bin
-add_to_path $HOME/.pyenv/bin
+# add_to_path $HOME/.pyenv/bin
 add_to_path $HOME/go/bin
 add_to_path $HOME/bin
 add_to_path $HOME/Library/Python/3.7/bin
@@ -196,9 +197,9 @@ if type -q eza
 end
 
 if type -q bat
-    set -x BAT_THEME Dracula
-    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-    set -x PAGER "bat -p"
+    # set -x BAT_THEME Dracula
+    # set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    # set -x PAGER "bat -p"
 end
 
 if type -q nproc
@@ -207,12 +208,6 @@ end
 
 if type -q gotestsum
     abbr -g gts gotestsum
-end
-
-if type -q pyenv
-    set -x PYENV_ROOT $HOME/.pyenv
-    add_to_path $PYENV_ROOT/bin
-    pyenv init - | source
 end
 
 function save_kitty_session
@@ -245,3 +240,9 @@ end
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
 add_to_path "$VOLTA_HOME/bin"
+
+# set -x SSH_AUTH_SOCK (find /tmp/ssh-* -type s -name "*agent*")
+# set -x SSH_AGENT_PID (echo $SSH_AUTH_SOCK | awk -F'.' '{print $NF + 1}')
+
+# opencode
+fish_add_path /home/jbuiteweg/.opencode/bin

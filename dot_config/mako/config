@@ -1,1 +1,4 @@
 icons=0
+
+[mode=do-not-disturb]
+invisible=1

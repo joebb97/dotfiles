@@ -47,7 +47,7 @@ input 1267:12572:DLL0945:00_04F3:311C_Touchpad {
 
 input 1133:45105:LIFT_Mouse {
     accel_profile "flat"
-    pointer_accel .125
+    pointer_accel .250
 }
 
 # g pro x superlight
@@ -127,6 +127,12 @@ output 'Dell Inc. DELL P2723QE' {
 
 # Dell Precision Work Laptop
 output 'Unknown 0x4F9B 0x00000000' {
+    mode 2560x1600
+    scale 1.25
+}
+
+# Dell Precision Work Laptop
+output 'AU Optronics 0x4F9B Unknown' {
     mode 2560x1600
     scale 1.25
 }
