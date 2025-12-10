@@ -99,8 +99,6 @@ abbr -g swin 'swaymsg -t get_inputs'
 abbr -g ansible 'uv run ansible'
 abbr -g ansible-playbook 'uv run ansible-playbook'
 abbr -g ewez '$EDITOR ~/.config/wezterm/wezterm.lua'
-abbr -g ansible 'uv run ansible'
-abbr -g ansible-playbook 'uv run ansible-playbook'
 abbr -g eaf '$EDITOR ~/.config/alwaysforget/alwaysforget.txt'
 
 # Set the path
