@@ -94,6 +94,8 @@ abbr -g check-color 'printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"'
 abbr -g rep 'systemctl --user restart pipewire pipewire-pulse wireplumber; sleep 1; systemctl --user restart xdg-desktop-portal-wlr'
 abbr -g swout 'swaymsg -t get_outputs'
 abbr -g swin 'swaymsg -t get_inputs'
+abbr -g ansible 'uv run ansible'
+abbr -g ansible-playbook 'uv run ansible-playbook'
 
 # Set the path
 function add_to_path
@@ -135,6 +137,7 @@ add_to_path /usr/local/sbin
 add_to_path /usr/local/share
 add_to_path /usr/local/go/bin
 add_to_path ~/.nimble/bin
+add_to_path /opt/homebrew/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm
