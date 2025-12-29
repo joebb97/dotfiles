@@ -18,9 +18,9 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
-[credential]
-	helper = !aws codecommit credential-helper $@
-	UseHttpPath = true
+; [credential]
+; 	helper = !aws codecommit credential-helper $@
+; 	UseHttpPath = true
 [bash-it]
 	hide-status = 0
 [pull]
