@@ -21,6 +21,7 @@ abbr -g essh '$EDITOR $HOME/.ssh/config'
 abbr -g egcfg '$EDITOR $HOME/.gitconfig'
 abbr -g eggig '$EDITOR $HOME/.extra/git-files/global-gitignore.txt'
 abbr -g ealias '$EDITOR $HOME/.custom-bash/aliases/base.aliases.bash'
+abbr -g enotes '$EDITOR $HOME/Documents/notes/notes.txt'
 abbr -g howbig 'du -sh'
 abbr -g sshnc 'ssh -F /dev/null'
 # abbr -g ssh 'TERM=xterm-256color ssh'
@@ -99,6 +100,7 @@ abbr -g ansible-playbook 'uv run ansible-playbook'
 abbr -g ewez '$EDITOR ~/.config/wezterm/wezterm.lua'
 abbr -g ansible 'uv run ansible'
 abbr -g ansible-playbook 'uv run ansible-playbook'
+abbr -g eaf '$EDITOR ~/.config/alwaysforget/alwaysforget.txt'
 
 # Set the path
 function add_to_path

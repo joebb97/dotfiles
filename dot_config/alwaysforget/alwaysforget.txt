@@ -1,0 +1,130 @@
+# RUST SEMVER
+thing = "1.2.3" is actually "^1.2.3"
+1.2.3  :=  >=1.2.3, <2.0.0
+1.2    :=  >=1.2.0, <2.0.0
+1      :=  >=1.0.0, <2.0.0
+0.2.3  :=  >=0.2.3, <0.3.0
+0.2    :=  >=0.2.0, <0.3.0
+0.0.3  :=  >=0.0.3, <0.0.4
+0.0    :=  >=0.0.0, <0.1.0
+0      :=  >=0.0.0, <1.0.0
+
+# SSH
+## Order Precedence
+SSH takes the first specified value for an option.
+
+That is if multiple Host groups specify the same option, the first one takes precedence, with
+some exceptions (like IdentityFile, which appends to the files SSH will try)
+
+If an option is specified outside of a Host group, then it will always be evaluated,
+but it won't necessarily be applied. Some examples
+
+```ssh
+ServerAliveInterval 30
+
+Host staging-web1
+    User deploy
+Host staging-*
+    User admin
+    IdentityFile file1
+Host *
+    User default
+```
+
+A connection to `staging-web1` uses `deploy`, not `admin` or `default`.
+
+SSH processes top to bottom, one line at time.
+
+Host <patterns> are like `if` statements. They are not `else if`s.
+
+SSH goes through Host <pattern> patterns in order and applies as many options as possible.
+They fall through so to speak.
+
+In the above example, although the `deploy` user takes precedence, SSH will still
+apply the `IdentityFile thing` option specified in the second Host pattern block.
+
+If we were to add `ServerAliveInterval 50` to `Host *`, it would have no affect,
+since the `ServerAliveInterval 30` at the top of the file would take precdence.
+
+If we were to move `ServerAliveInterval 30` to the bottom of the SSH file, and then
+add `ServerAliveInterval50` to `Host *`, `ServerAliveInterval 50` would take precedence
+
+translating that ssh config to python
+
+```python
+def update(option, value):
+    if option == None:
+        return value
+    return option
+
+# host is supplied as an argument to this program
+# options is the SSH options SSH will use after evaluating this config file
+options.ServerAliveInterval = update(options.ServerAliveInterval, 30)
+if host == 'staging':
+    options.User = update(options.User, 'deploy')
+if host.startswith('staging-'):
+    options.User = update(options.User, 'admin')
+    options.IdentityFilesToTry.append('file')
+# always true
+if host is not None:
+    options.User = update(options.User, 'default')
+```
+
+
+## Match
+Match blocks lets you match on things other than just Host
+They are applied in order just like Host blocks
+
+## ControlMaster
+If you have ControlMaster=auto then your ssh session will be kept alive
+making any changes you make to your ssh config that affect that host null until the
+controlmaster socket is removed
+
+To be safe remove all ControlMaster sockets before re-testing
+
+## Commandline flags
+For OpenSSH and Tectia clients, the order of precedence is, from strongest to weakest:
+
+1. Command-line options
+2. The user’s local client configuration file
+3. The global client configuration file
+
+This goes for even if you specify -F <file>
+
+If you look at the example ssh file above again and then specified
+ssh -o User=other -F ssh-config staging-web1
+It would use ssh as the `other` user 
+
+Same is true for
+ssh -F ssh-config -o User=other staging-web1
+
+## LOL, lmao even
+
+~> ssh -T git@github.com -o User=poop
+Hi joebb97! You've successfully authenticated, but GitHub does not provide shell access.
+~ [1]> ssh -o User=poop -T git@github.com
+poop@github.com: Permission denied (publickey).
+
+So it looks like SSH just considers git@ to be syntactic sugar for -o User=git
+which is why the first username specified here wins!
+
+# DOCKER
+
+## CMD VS ENTRYPOINT
+ 
+FOR CMD
+
+docker run image
+will run CMD as the default
+
+docker run image otherthing
+
+will run otherthing as the default
+
+FOR ENTRYPOINT
+
+docker run image
+will run ENTRYPOINT as the default
+
+docker run image otherthing
+will run ENTRYPOINT otherthing
