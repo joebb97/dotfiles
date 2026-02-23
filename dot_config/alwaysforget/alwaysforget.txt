@@ -119,7 +119,7 @@ will run CMD as the default
 
 docker run image otherthing
 
-will run otherthing as the default
+will run otherthing instead of CMD
 
 FOR ENTRYPOINT
 
@@ -128,3 +128,86 @@ will run ENTRYPOINT as the default
 
 docker run image otherthing
 will run ENTRYPOINT otherthing
+
+## Docker networking
+
+none:
+    no networking, container is completely network isolated
+
+bridge:
+    docker makes a bridge interface that has a subnet
+    subnet gets nat'd to hosts ip address for ipv4
+    for ipv6 they also get nat'd to the hosts single ipv6 address
+    individual ports need to be forwarded from host to containers
+
+    proxmox also supports NAT using similar iptables rules that docker bridge adds
+    https://pve.proxmox.com/wiki/Network_Configuration#sysadmin_network_masquerading
+
+    `ip a` will print an address that is NAT'd to the hosts IP.
+    for ipv4 this is double nat, which is sad. for ipv6 it's just one nat
+
+host:
+    container uses hosts networking stack. uses the same ip address as the host
+    no port forwarding required
+    `ip a` will print the same thing you see on the host
+
+macvlan:
+    each container gets an interface with its own mac address
+    uses promiscuous mode of network card to send frames with different mac address
+    no bridges are created
+    sketchy as fuck
+
+    at work so can't check if it gets a real ip address from the lan or not via dhcp over wifi
+    they have WPA3 enabled which the container doesn't know how to do
+
+    to have a container on a vlan, you make a vlan interface on the parent interface
+    then assign the container to a macvlan network pointed at that vlan interface
+
+ipvlan:
+    two modes
+
+    l2:
+        similar to macvlan, no bridge is created
+        each container has its own IP, but uses the host interface's mac address
+
+    l3:
+        ip forwarding on the host interface basically. host acts as a router
+        each container gets assigned an ip as part of a subnet
+        subnets are routed from host's interface (on its own subnet) to the container's subnet
+        drops all broadcast and multicast traffic, no bridging loops
+        containers that use the same host routing interface can ping each other
+
+        needs to be on separate subnet as the default namespace since it requires a netlink
+            route in the default namespace pointing to the ipvlan parent interface
+
+        other hosts on the network need to have routes pointing to the docker host
+        in order to reach containers in the ipvlan l3 mode networks
+
+
+# KIBANA
+by default things will be like
+{
+  "query": {
+    "match_phrase": {
+      "tags": "thing=value"
+    }
+  }
+}
+
+you can regex like
+
+{
+  "query": {
+    "regexp": {
+      "tags": "thing.*"
+    }
+  }
+}
+
+# SYSTEMD DON'T CUT OFF MY OUTPUT
+When serial'd into a device systemd won't wrap lines by default
+You can make it wrap lines with these commands
+
+SYSTEMD_LESS="FRXMK" journalctl -b
+or just
+journalctl -b | cat

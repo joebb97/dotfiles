@@ -61,9 +61,9 @@ abbr -g ggf "git log --graph --date=short --pretty=format:'%C(auto)%h %Cgreen%an
 abbr -g ggs "$_fish_abbr_gg --stat"
 abbr -g gsh "git show"
 abbr -g gwc "git whatchanged"
-abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD)"
-abbr -g gu "git push -u origin (git rev-parse --abbrev-ref HEAD)"
-abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD)"
+abbr -g gfu "git push --force-with-lease -u origin (git rev-parse --abbrev-ref HEAD) --tags"
+abbr -g gu "git push -u origin (git rev-parse --abbrev-ref HEAD) --tags"
+abbr -g gfme "git push --force-with-lease -u me (git rev-parse --abbrev-ref HEAD) --tags"
 # alias awk="gawk"
 abbr -g dk docker
 abbr -g dke "docker exec"

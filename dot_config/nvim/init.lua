@@ -12,14 +12,14 @@ local function install_plugins()
     end
     vim.opt.rtp:prepend(lazypath)
     local plugins = {
-        -- {
-        --     "dracula/vim",
-        --     name = "dracula",
-        --     priority = 1000,
-        --     init = function()
-        --         vim.cmd.colorscheme("dracula")
-        --     end,
-        -- },
+        {
+            "dracula/vim",
+            name = "dracula",
+            priority = 1000,
+            init = function()
+                -- vim.cmd.colorscheme("dracula")
+            end,
+        },
         {
             "p00f/alabaster.nvim",
             priority = 1000,
@@ -363,7 +363,7 @@ local function configure_keymaps()
     vim.keymap.set("n", "<leader>w", ":w<CR>", opts)
     vim.keymap.set("n", "<leader>q", ":q<CR>", opts)
     vim.keymap.set("n", "<leader>m", ":make<CR>", opts)
-    vim.keymap.set("n", "<leader>z", "<C-w>\\|<C-w>_", opts)
+    vim.keymap.set("n", "<leader>z", "<C-w><Bar><C-w>_", opts)
     vim.keymap.set("n", "<leader>x", "<C-w>=", opts)
     vim.keymap.set("n", "<leader>sa", ":Save<CR>", opts)
     vim.keymap.set("n", "<leader>sv", ":Svrc<CR>", opts)
@@ -386,7 +386,7 @@ local function configure_keymaps()
 
     -- PLUGIN SPECIFIC LEADERS
     vim.keymap.set("n", "<leader>gg", ":Gitsigns toggle_signs<CR>", opts)
-    vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", opts)
+    vim.keymap.set("n", "<leader>gb", ":Git blame --ignore-revs-file=.git-blame-ignore-revs<CR>", opts)
     vim.keymap.set("n", "<leader>so", ":SymbolsOutline<CR>", opts)
     vim.keymap.set("n", "<leader>nt", ":NvimTreeToggle<CR>", opts)
     vim.keymap.set("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)
