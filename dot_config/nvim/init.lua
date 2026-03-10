@@ -386,7 +386,17 @@ local function configure_keymaps()
 
     -- PLUGIN SPECIFIC LEADERS
     vim.keymap.set("n", "<leader>gg", ":Gitsigns toggle_signs<CR>", opts)
-    vim.keymap.set("n", "<leader>gb", ":Git blame --ignore-revs-file=.git-blame-ignore-revs<CR>", opts)
+
+    -- Thanks Claude Opus 4.5
+    local function git_blame_smart()
+      local ignore_file = vim.fn.findfile('.git-blame-ignore-revs', '.;')
+      if ignore_file ~= '' then
+        vim.cmd('Git blame --ignore-revs-file=.git-blame-ignore-revs')
+      else
+        vim.cmd('Git blame')
+      end
+    end
+    vim.keymap.set('n', '<leader>gb', git_blame_smart, { desc = 'Git blame (smart)' })
     vim.keymap.set("n", "<leader>so", ":SymbolsOutline<CR>", opts)
     vim.keymap.set("n", "<leader>nt", ":NvimTreeToggle<CR>", opts)
     vim.keymap.set("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)
