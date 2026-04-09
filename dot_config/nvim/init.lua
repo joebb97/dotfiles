@@ -142,17 +142,17 @@ local function install_plugins()
             "stevearc/conform.nvim",
             opts = {
                 notify_on_error = true,
-                format_on_save = nil,
-                -- format_on_save = function(bufnr)
-                --     -- Disable "format_on_save lsp_fallback" for languages that don't
-                --     -- have a well standardized coding style. You can add additional
-                --     -- languages here or re-enable it for the disabled ones.
-                --     local disable_filetypes = { c = true, cpp = true }
-                --     return {
-                --         timeout_ms = 500,
-                --         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-                --     }
-                -- end,
+                -- format_on_save = nil,
+                format_on_save = function(bufnr)
+                    -- Disable "format_on_save lsp_fallback" for languages that don't
+                    -- have a well standardized coding style. You can add additional
+                    -- languages here or re-enable it for the disabled ones.
+                    local disable_filetypes = { c = true, cpp = true }
+                    return {
+                        timeout_ms = 500,
+                        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+                    }
+                end,
                 formatters_by_ft = {
                     lua = { "stylua" },
                     -- Conform can also run multiple formatters sequentially
@@ -162,6 +162,14 @@ local function install_plugins()
                     -- is found.
                     -- javascript = { { "prettierd", "prettier" } },
                     json = { "prettier" },
+                    rust = { "rustfmt" },
+                },
+                formatters = {
+                    rustfmt = {
+                        options = {
+                            nightly = true,
+                        },
+                    },
                 },
             },
             init = function()
@@ -389,14 +397,14 @@ local function configure_keymaps()
 
     -- Thanks Claude Opus 4.5
     local function git_blame_smart()
-      local ignore_file = vim.fn.findfile('.git-blame-ignore-revs', '.;')
-      if ignore_file ~= '' then
-        vim.cmd('Git blame --ignore-revs-file=.git-blame-ignore-revs')
-      else
-        vim.cmd('Git blame')
-      end
+        local ignore_file = vim.fn.findfile(".git-blame-ignore-revs", ".;")
+        if ignore_file ~= "" then
+            vim.cmd("Git blame --ignore-revs-file=.git-blame-ignore-revs")
+        else
+            vim.cmd("Git blame")
+        end
     end
-    vim.keymap.set('n', '<leader>gb', git_blame_smart, { desc = 'Git blame (smart)' })
+    vim.keymap.set("n", "<leader>gb", git_blame_smart, { desc = "Git blame (smart)" })
     vim.keymap.set("n", "<leader>so", ":SymbolsOutline<CR>", opts)
     vim.keymap.set("n", "<leader>nt", ":NvimTreeToggle<CR>", opts)
     vim.keymap.set("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)
@@ -643,13 +651,20 @@ function configure_lsp()
             -- })
         end
         -- require("lsp-inlayhints").on_attach(client, event.buf)
-        if client and client.server_capabilities and client.server_capabilities.documentSymbolProvider then
+        if
+            client
+            and client.server_capabilities
+            and client.server_capabilities.documentSymbolProvider
+        then
             require("nvim-navic").attach(client, event.buf)
         end
 
-
         -- needed for alabaster colors to not disappear
-        if client and client.server_capabilities and client.server_capabilities.semanticTokensProvider then
+        if
+            client
+            and client.server_capabilities
+            and client.server_capabilities.semanticTokensProvider
+        then
             client.server_capabilities.semanticTokensProvider = nil
         end
     end
@@ -670,7 +685,9 @@ function configure_lsp()
             settings = {
                 ["rust-analyzer"] = {
                     rustfmt = {
-                        extraArgs = { "+nightly" },
+                        -- doesn't work
+                        -- extraArgs = { "+nightly" },
+                        overrideCommand = { "rustfmt", "+nightly", "--emit", "stdout" },
                     },
                     imports = {
                         granularity = {

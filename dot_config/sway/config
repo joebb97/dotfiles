@@ -121,6 +121,37 @@ mode "resize" {
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
+
+    bindsym Shift+1 resize set width 10 ppt
+    bindsym Shift+2 resize set width 20 ppt
+    bindsym Shift+3 resize set width 30 ppt
+    bindsym Shift+4 resize set width 40 ppt
+    bindsym Shift+5 resize set width 50 ppt
+    bindsym Shift+6 resize set width 60 ppt
+    bindsym Shift+7 resize set width 70 ppt
+    bindsym Shift+8 resize set width 80 ppt
+    bindsym Shift+9 resize set width 90 ppt
+
+    bindsym 1 resize set width 11 ppt
+    bindsym 2 resize set width 22 ppt
+    bindsym 3 resize set width 33 ppt
+    bindsym 4 resize set width 44 ppt
+    bindsym 5 resize set width 55 ppt
+    bindsym 6 resize set width 66 ppt
+    bindsym 7 resize set width 77 ppt
+    bindsym 8 resize set width 88 ppt
+    bindsym 9 resize set width 99 ppt
+
+    bindsym Ctrl+1 resize set width 15 ppt
+    bindsym Ctrl+2 resize set width 25 ppt
+    bindsym Ctrl+3 resize set width 35 ppt
+    bindsym Ctrl+4 resize set width 45 ppt
+    bindsym Ctrl+5 resize set width 55 ppt
+    bindsym Ctrl+6 resize set width 65 ppt
+    bindsym Ctrl+7 resize set width 75 ppt
+    bindsym Ctrl+8 resize set width 85 ppt
+    bindsym Ctrl+9 resize set width 95 ppt
+
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"

@@ -1,5 +1,6 @@
 # Aliases
 abbr -g e '$EDITOR'
+abbr -g es '$EDITOR -S'
 abbr -g sbrc 'source $HOME/.bashrc'
 abbr -g ebrc '$EDITOR $HOME/.bashrc'
 abbr -g efc '$EDITOR $HOME/.config/fish/config.fish'
@@ -246,8 +247,8 @@ if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
-set -gx VOLTA_HOME "$HOME/.volta"
-add_to_path "$VOLTA_HOME/bin"
+# set -gx VOLTA_HOME "$HOME/.volta"
+# add_to_path "$VOLTA_HOME/bin"
 
 set -x PASSAGE_DIR $HOME/.config/passage/store
 set -x PASSAGE_IDENTITIES_FILE $HOME/.config/passage/identities
