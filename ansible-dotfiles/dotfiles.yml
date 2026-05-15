@@ -1,0 +1,5 @@
+- hosts: macs
+  roles:
+    - { role: nvim, tags: ['nvim'] }
+    - { role: helix, tags: ['helix'] }
+    - { role: fish, tags: ['fish'] }

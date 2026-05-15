@@ -1,0 +1,20 @@
+- set_fact:
+    config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/helix"
+
+- name: install helix
+  package:
+    name: helix
+    state: present
+
+- name: ensure config dir exists
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: copy files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ config_dir }}/{{ item }}"
+  loop:
+    - config.toml
+    - languages.toml

@@ -1,0 +1,31 @@
+- set_fact:
+    config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/nvim"
+
+- name: install neovim
+  package:
+    name: neovim
+    state: present
+
+- name: ensure config dir exists
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: copy files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ config_dir }}/{{ item }}"
+  loop:
+    - init.lua
+    - .stylua.toml
+
+- name: copy lazy-lock.json if not exists
+  copy:
+    src: lazy-lock.json
+    dest: "{{ config_dir }}/lazy-lock.json"
+    force: false
+
+- name: copy most recent lazy-lock.json here in case of updates
+  copy:
+    dest: "{{ role_path }}/files/lazy-lock.json"
+    src: "{{ config_dir }}/lazy-lock.json"

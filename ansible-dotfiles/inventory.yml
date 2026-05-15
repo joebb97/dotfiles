@@ -1,0 +1,10 @@
+macs:
+  hosts:
+    leorio.local:
+  vars:
+    ansible_connection: local
+      
+
+all:
+  vars:
+    ansible_user: joey

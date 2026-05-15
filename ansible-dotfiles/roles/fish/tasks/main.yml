@@ -1,0 +1,37 @@
+- set_fact:
+    config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/fish"
+
+- name: install fish
+  package:
+    name: fish
+    state: present
+
+- name: ensure config dir exists
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: copy files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ config_dir }}/{{ item }}"
+  loop:
+    - prompt_help.fish
+    - conf.d/dracula.fish
+    - conf.d/fzf.fish
+
+- name: copy templates
+  template:
+    src: config.fish.j2
+    dest: "{{ config_dir }}/config.fish"
+
+- name: Add fish to /etc/shells
+  ansible.builtin.lineinfile:
+    path: /etc/shells
+    line: /opt/homebrew/bin/fish
+  become: true
+- name: Set fish as default shell
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: /opt/homebrew/bin/fish
+  become: true
