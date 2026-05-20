@@ -5,6 +5,7 @@
   package:
     name: neovim
     state: present
+  become: "{{ ansible_facts['system'] != 'Darwin' }}"
 
 - name: ensure config dir exists
   file:

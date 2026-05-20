@@ -1,3 +1,13 @@
+- name: Include OS-specific vars
+  include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - '{{ ansible_facts["system"] }}.yml'
+      paths:
+        - 'vars'
+      skip: true
+
 - set_fact:
     config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/fish"
 
@@ -5,6 +15,7 @@
   package:
     name: fish
     state: present
+  become: "{{ ansible_facts['system'] != 'Darwin' }}"
 
 - name: ensure config dir exists
   file:
@@ -28,10 +39,13 @@
 - name: Add fish to /etc/shells
   ansible.builtin.lineinfile:
     path: /etc/shells
-    line: /opt/homebrew/bin/fish
+    line: "{{ fish_shell_path }}"
   become: true
+  tags: ['become']
+
 - name: Set fish as default shell
   ansible.builtin.user:
     name: "{{ ansible_facts['user_id'] }}"
-    shell: /opt/homebrew/bin/fish
+    shell: "{{ fish_shell_path }}"
   become: true
+  tags: ['become']
