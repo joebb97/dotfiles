@@ -1,11 +1,11 @@
 To run everything that doesn't require sudo, do
 
-`uv run ansible-playbook dotfiles.yml --skip-tags
+`uv run ansible-playbook dotfiles-mac.yml --skip-tags
  become`
 
 To run everything, including sudo tasks, use
 
-`uv run ansible-playbook dotfiles.yml -K`
+`uv run ansible-playbook dotfiles-mac.yml`
 
 ```
 joey@nocloud:~/ansible-dotfiles$ ./install-uv.sh
@@ -23,5 +23,7 @@ joey@nocloud:~/ansible-dotfiles$ source $HOME/.local/bin/env
 joey@nocloud:~/ansible-dotfiles$ uv sync
 ```
 
-I suppose ansible_become_password is not available when you use connection: local
-Thanks ansible
+The macOS playbook prompts for `ansible_become_password` directly so it can be
+shared by regular `become: true` tasks and Homebrew casks that need
+`sudo_password`. The prompt is tagged `become`, so it is skipped by
+`--skip-tags become`.

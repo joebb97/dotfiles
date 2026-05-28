@@ -1,0 +1,9 @@
+fd_package_name: fd
+dev_tools_brew_taps:
+  - hashicorp/tap
+dev_tools_brew_casks:
+  - hashicorp/tap/hashicorp-vagrant
+  - codex
+  - signal
+dev_tools_vagrant_plugins:
+  - vagrant_utm

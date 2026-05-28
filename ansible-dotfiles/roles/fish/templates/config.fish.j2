@@ -27,8 +27,13 @@ abbr -g enotes '$EDITOR $HOME/Documents/notes/notes.txt'
 abbr -g howbig 'du -sh'
 abbr -g sshnc 'ssh -F /dev/null'
 # abbr -g ssh 'TERM=xterm-256color ssh'
+{% if ansible_facts['system'] == 'Linux' %}
 abbr -g m 'make -j(nproc)'
 abbr -g make 'make -j(nproc)'
+{% elif ansible_facts['system'] == 'Darwin' %}
+abbr -g m 'make -j(sysctl -n hw.ncpu)'
+abbr -g make 'make -j(sysctl -n hw.ncpu)'
+{% endif %}
 abbr -g ag "ag --pager='less -XFR"
 abbr -g weather 'curl wttr.in/austin'
 abbr -g dkc 'docker container'
@@ -215,6 +220,8 @@ end
 
 if type -q nproc
     set -x NUMCPUS (nproc)
+else if type -q sysctl
+    set NUMCPUS (sysctl -n hw.ncpu)
 end
 
 if type -q gotestsum

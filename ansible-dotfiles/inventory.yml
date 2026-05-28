@@ -1,3 +1,6 @@
 all:
+  hosts:
+    localhost:
+      ansible_connection: local
   vars:
     ansible_user: joey

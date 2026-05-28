@@ -1,0 +1,12 @@
+fd_package_name: fd-find
+dev_tools_packages:
+  - git-delta
+  - ripgrep
+  - zoxide
+  - "{{ fd_package_name }}"
+  - bat
+  - broot
+
+dev_tools_brew_taps: []
+dev_tools_brew_packages: []
+dev_tools_vagrant_plugins: []

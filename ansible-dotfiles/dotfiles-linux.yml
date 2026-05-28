@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: rust, tags: ['rust'] }
+    - { role: dev-tools, tags: ['dev-tools'] }
+    - { role: nvim, tags: ['nvim'] }
+    - { role: helix, tags: ['helix'] }
+    - { role: fish, tags: ['fish'] }
+    - { role: i3, tags: ['i3'] }
+    - { role: mako, tags: ['mako'] }
+    - { role: kanshi, tags: ['kanshi'] }
+    - { role: sway, tags: ['sway'] }

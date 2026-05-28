@@ -1,0 +1,25 @@
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: Prompt for become password
+      ansible.builtin.pause:
+        prompt: BECOME password
+        echo: false
+      register: become_password_prompt
+      when: ansible_become_password is not defined
+      no_log: true
+      tags: become
+
+    - name: Seed become password
+      ansible.builtin.set_fact:
+        ansible_become_password: "{{ become_password_prompt.user_input }}"
+      when: ansible_become_password is not defined
+      no_log: true
+      tags: become
+  roles:
+    - { role: homebrew, tags: ['homebrew'] }
+    - { role: rust, tags: ['rust'] }
+    - { role: dev-tools, tags: ['dev-tools'] }
+    - { role: nvim, tags: ['nvim'] }
+    - { role: helix, tags: ['helix'] }
+    - { role: fish, tags: ['fish'] }

@@ -1,0 +1,12 @@
+- set_fact:
+    config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/kanshi"
+
+- name: ensure config dir exists
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: copy config
+  copy:
+    src: config
+    dest: "{{ config_dir }}/config"

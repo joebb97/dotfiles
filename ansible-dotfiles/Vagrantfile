@@ -1,0 +1,20 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "utm/bookworm"
+  config.vm.hostname = "dotfiles-debian-test"
+
+  config.vm.provider "utm" do |u|
+    u.name = "dotfiles-debian-test"
+    u.cpus = 2
+    u.memory = 2048
+    u.icon = "debian"
+  end
+
+  config.vm.synced_folder ".", "/opt/ansible-dotfiles",
+    type: "rsync",
+    rsync__exclude: [
+      ".git/",
+      ".venv/",
+      ".vagrant/",
+      "__pycache__/",
+    ]
+end

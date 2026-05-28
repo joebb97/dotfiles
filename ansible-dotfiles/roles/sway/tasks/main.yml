@@ -1,0 +1,17 @@
+- set_fact:
+    config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/sway"
+
+- name: ensure config dir exists
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: copy config
+  copy:
+    src: config
+    dest: "{{ config_dir }}/config"
+
+- name: copy devices config
+  copy:
+    src: devices.sway
+    dest: "{{ config_dir }}/devices.sway"

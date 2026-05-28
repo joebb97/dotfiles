@@ -1,0 +1,14 @@
+- name: Check if rustup is installed
+  ansible.builtin.command: which rustup
+  register: rustup_check
+  failed_when: false
+  changed_when: false
+
+- name: Install rustup and cargo
+  ansible.builtin.shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  when: rustup_check.rc != 0
+
+- name: Ensure cargo bin dir is in PATH for subsequent tasks
+  ansible.builtin.set_fact:
+    ansible_env_path: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin:{{ ansible_env_path }}"
+  when: "ansible_facts['env']['HOME'] ~ '/.cargo/bin' not in ansible_facts['env']['PATH'] | default('')"

@@ -1,0 +1,143 @@
+input "type:keyboard" {
+    xkb_layout us(dvorak)
+}
+
+input "5426:67:Razer_Razer_DeathAdder_Chroma" {
+    accel_profile "flat"
+    pointer_accel 1
+    calibration_matrix 2 0 0 0 2 0
+}
+
+# moonlander, obviously
+input 12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard {
+    xkb_layout us(dvorak)
+    xkb_options compose:ralt
+}
+
+# gk61 boards
+input 7847:2311:SEMITEK_USB-HID_Gaming_Keyboard {
+    xkb_layout us(dvorak)
+    xkb_options caps:escape
+}
+
+# builtin work laptop keyboard
+input 1:1:AT_Translated_Set_2_keyboard {
+    xkb_layout us(dvorak)
+    xkb_options caps:escape
+}
+
+input 7247:67:Satechi_ST-UCSW3M {
+    xkb_layout us(dvorak)
+    xkb_options "altwin:swap_alt_win,caps:escape"
+}
+
+# gmmk61 boards, no caps escape since arrow keys
+# rely on swapping fn with caps
+input 3141:25903:SONiX_USB_DEVICE {
+    xkb_layout us(dvorak)
+}
+
+# dell internal trackpad
+input 1267:12572:DLL0945:00_04F3:311C_Touchpad {
+    accel_profile "flat"
+    pointer_accel 1
+    scroll_factor .5
+    calibration_matrix 2 0 0 0 2 0
+}
+
+input 1133:45105:LIFT_Mouse {
+    accel_profile "flat"
+    pointer_accel .250
+}
+
+# g pro x superlight
+input 1133:50503:Logitech_USB_Receiver {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# pulsar xlite v3es
+input 18509:4098:HeatMoving_Pulsar_Dongle {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# pulsar xlite v3es wired
+input 18509:4097:HeatMoving_Pulsar_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# vaxee e1
+input 12375:5:VAXEE_Technology_Co.,_Ltd._VAXEE_4K_Wireless_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+
+# vaxee e1 wired
+input 12375:8:PIXART_VAXEE_WIRED_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+
+# zowie u2
+input 1189:32776:BenQ_ZOWIE_BenQ_ZOWIE_Gaming_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# logitech lift bolt receiver
+input 1133:50504:Logitech_USB_Receiver_Mouse {
+    accel_profile "flat"
+    pointer_accel .125
+}
+
+# kensington slim blade
+input 1149:8257:Kensington_Kensington_Slimblade_Trackball {
+    accel_profile "flat"
+    pointer_accel .350
+}
+
+# logitech m570
+input 1133:4136:Logitech_M570 {
+    accel_profile "flat"
+    pointer_accel .500
+}
+
+# aoc monitor
+output 'Unknown U34G2G4R3 0x0000A12A' {
+    mode 3440x1440@144hz
+    pos 0 0
+}
+
+# lg gn850b
+output 'Goldstar Company Ltd LG ULTRAGEAR 312NTZNBX629' {
+    mode 3440x1440@85hz
+    pos 0 0
+    adaptive_sync on
+}
+
+# office monitor
+output 'Dell Inc. DELL P2723QE' {
+    mode 3840x2160@60Hz
+    scale 2
+}
+
+# Dell Precision Work Laptop
+output 'Unknown 0x4F9B 0x00000000' {
+    mode 2560x1600
+    scale 1.25
+}
+
+# Dell Precision Work Laptop
+output 'AU Optronics 0x4F9B Unknown' {
+    mode 2560x1600
+    scale 1.25
+}
+
+output 'Dell Inc. DELL P2421D 4D2SS03' {
+    mode 2560x1440@60Hz
+    scale 1
+}
