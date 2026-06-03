@@ -2,3 +2,4 @@
 .vagrant-boxes/
 .venv/
 __pycache__/
+nvim.log

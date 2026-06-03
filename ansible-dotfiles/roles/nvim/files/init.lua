@@ -776,7 +776,7 @@ function configure_lsp()
                 },
             },
         },
-        ["typescript-language-server"] = {},
+        ts_ls = {},
     }
 
     require("mason").setup()
@@ -795,15 +795,15 @@ function configure_lsp()
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
     require("mason-lspconfig").setup({
-        handlers = {
-            function(server_name)
-                local server = servers[server_name] or {}
-                server.capabilities =
-                    vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                require("lspconfig")[server_name].setup(server)
-            end,
-        },
+        ensure_installed = vim.tbl_keys(servers or {}),
+        automatic_enable = false,
     })
+
+    for server_name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+        vim.lsp.enable(server_name)
+    end
 end
 
 function configure_lint()

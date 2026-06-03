@@ -1,9 +1,15 @@
+- name: Set Iosevka Nerd Font version
+  set_fact:
+    iosevka_nerd_font_version: v3.4.0
+
 - name: Set font install paths
   set_fact:
-    iosevka_nerd_font_archive: Iosevka.zip
-    iosevka_nerd_font_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Iosevka.zip
+    iosevka_nerd_font_archive: "Iosevka-{{ iosevka_nerd_font_version }}.zip"
+    iosevka_nerd_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ iosevka_nerd_font_version }}/Iosevka.zip"
+    iosevka_nerd_font_marker: "{{ ansible_facts['env']['HOME'] }}/.cache/ansible-dotfiles/fonts/IosevkaNerdFont-{{ iosevka_nerd_font_version }}.installed"
     fonts_dir: "{{ ansible_facts['env']['HOME'] }}/{{ 'Library/Fonts' if ansible_facts['system'] == 'Darwin' else '.local/share/fonts' }}"
     fonts_cache_dir: "{{ ansible_facts['env']['HOME'] }}/.cache/ansible-dotfiles/fonts"
+    iosevka_nerd_font_file: "{{ ansible_facts['env']['HOME'] }}/{{ 'Library/Fonts' if ansible_facts['system'] == 'Darwin' else '.local/share/fonts' }}/IosevkaNerdFontMono-Regular.ttf"
 
 - name: Install font archive dependencies
   package:
@@ -29,13 +35,45 @@
     dest: "{{ fonts_cache_dir }}/{{ iosevka_nerd_font_archive }}"
     mode: "0644"
 
+- name: Check Iosevka Nerd Font install marker
+  stat:
+    path: "{{ iosevka_nerd_font_marker }}"
+  register: iosevka_nerd_font_marker_check
+
+- name: Check Iosevka Nerd Font file
+  stat:
+    path: "{{ iosevka_nerd_font_file }}"
+  register: iosevka_nerd_font_file_check
+
+- name: Remove stale Iosevka Nerd Font install marker
+  file:
+    path: "{{ iosevka_nerd_font_marker }}"
+    state: absent
+  when:
+    - iosevka_nerd_font_marker_check.stat.exists
+    - not iosevka_nerd_font_file_check.stat.exists
+
+- name: Remove old Iosevka Nerd Font files
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ query('fileglob', fonts_dir ~ '/IosevkaNerdFont*.ttf') }}"
+  when: not iosevka_nerd_font_marker_check.stat.exists or not iosevka_nerd_font_file_check.stat.exists
+
 - name: Install Iosevka Nerd Font
   unarchive:
     src: "{{ fonts_cache_dir }}/{{ iosevka_nerd_font_archive }}"
     dest: "{{ fonts_dir }}"
     remote_src: true
-    creates: "{{ fonts_dir }}/IosevkaNerdFont-Regular.ttf"
+    creates: "{{ iosevka_nerd_font_marker }}"
   register: iosevka_nerd_font_install
+
+- name: Write Iosevka Nerd Font install marker
+  copy:
+    content: "{{ iosevka_nerd_font_version }}\n"
+    dest: "{{ iosevka_nerd_font_marker }}"
+    mode: "0644"
+  when: iosevka_nerd_font_install.changed
 
 - name: Refresh font cache
   command: fc-cache -f "{{ fonts_dir }}"
