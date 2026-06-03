@@ -1,0 +1,4 @@
+.vagrant/
+.vagrant-boxes/
+.venv/
+__pycache__/
