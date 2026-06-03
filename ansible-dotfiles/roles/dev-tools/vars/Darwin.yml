@@ -1,9 +1,21 @@
 fd_package_name: fd
+dev_tools_packages:
+  - git-delta
+  - ripgrep
+  - zoxide
+  - "{{ fd_package_name }}"
+  - bat
+  - broot
+  - gdb
+  - quickemu
+  - lima
 dev_tools_brew_taps:
   - hashicorp/tap
+  - quickemu-project/quickemu
 dev_tools_brew_casks:
   - hashicorp/tap/hashicorp-vagrant
   - codex
   - signal
+  - kitty
 dev_tools_vagrant_plugins:
-  - vagrant_utm
+  - vagrant-qemu

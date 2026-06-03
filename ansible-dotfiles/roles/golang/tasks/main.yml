@@ -1,0 +1,31 @@
+- set_fact:
+    golang_package_name: "{{ 'golang-go' if ansible_facts['os_family'] == 'Debian' else 'go' }}"
+    golang_gopath: "{{ ansible_facts['env']['HOME'] }}/go"
+    golang_command_path: "/opt/homebrew/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:{{ ansible_env_path | default(ansible_facts['env']['PATH']) }}"
+    golang_tools:
+      - module: golang.org/x/tools/gopls@latest
+        binary: gopls
+      - module: github.com/go-delve/delve/cmd/dlv@latest
+        binary: dlv
+      - module: gotest.tools/gotestsum@latest
+        binary: gotestsum
+
+- name: Install Go
+  package:
+    name: "{{ golang_package_name }}"
+    state: present
+  become: "{{ ansible_facts['system'] != 'Darwin' }}"
+
+- name: Ensure Go bin dir exists
+  file:
+    path: "{{ golang_gopath }}/bin"
+    state: directory
+
+- name: Install Go developer tools
+  command: "go install {{ item.module }}"
+  loop: "{{ golang_tools }}"
+  args:
+    creates: "{{ golang_gopath }}/bin/{{ item.binary }}"
+  environment:
+    GOPATH: "{{ golang_gopath }}"
+    PATH: "{{ golang_command_path }}"

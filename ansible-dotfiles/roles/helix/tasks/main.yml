@@ -2,7 +2,7 @@
     config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/helix"
 
 - name: Install helix
-  ansible.builtin.package:
+  package:
     name: "{{ 'hx' if ansible_facts['os_family'] == 'Debian' else 'helix' }}"
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"

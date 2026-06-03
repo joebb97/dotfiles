@@ -1,5 +1,5 @@
 - name: Include OS-specific vars
-  include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -19,6 +19,15 @@
     name: "{{ dev_tools_packages }}"
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"
+  when: dev_tools_packages | length > 0
+
+- name: Install dev tools via cargo
+  community.general.cargo:
+    name: "{{ dev_tools_cargo_packages }}"
+    state: present
+  environment:
+    PATH: "{{ ansible_env_path | default(ansible_facts['env']['PATH']) }}"
+  when: dev_tools_cargo_packages | length > 0
 
 - name: Install Homebrew casks
   community.general.homebrew_cask:
@@ -29,18 +38,18 @@
   tags: become
 
 - name: Set Vagrant plugin installation state
-  ansible.builtin.set_fact:
+  set_fact:
     dev_tools_install_vagrant_plugins: "{{ dev_tools_vagrant_plugins | default([]) | length > 0 }}"
 
 - name: Check if Vagrant is installed
-  ansible.builtin.command: which vagrant
+  command: which vagrant
   register: dev_tools_vagrant_check
   changed_when: false
   failed_when: false
   when: dev_tools_install_vagrant_plugins
 
 - name: List installed Vagrant plugins
-  ansible.builtin.command: vagrant plugin list
+  command: vagrant plugin list
   register: dev_tools_vagrant_plugin_list
   changed_when: false
   when:
@@ -48,7 +57,7 @@
     - dev_tools_vagrant_check.rc == 0
 
 - name: Install Vagrant plugins
-  ansible.builtin.command: "vagrant plugin install {{ item }}"
+  command: "vagrant plugin install {{ item }}"
   loop: "{{ dev_tools_vagrant_plugins }}"
   when:
     - dev_tools_install_vagrant_plugins

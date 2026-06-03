@@ -1,5 +1,5 @@
 - name: Create user joey
-  ansible.builtin.user:
+  user:
     name: joey
     create_home: true
     password: '!'
@@ -7,7 +7,7 @@
   become: true
 
 - name: Add joey to sudo group
-  ansible.builtin.user:
+  user:
     name: joey
     groups: sudo
     append: yes
@@ -15,7 +15,7 @@
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: Configure passwordless sudo for joey
-  ansible.builtin.lineinfile:
+  lineinfile:
     path: /etc/sudoers.d/joey
     line: 'joey ALL=(ALL) NOPASSWD:ALL'
     create: yes

@@ -326,13 +326,27 @@ local function configure_keymaps()
     -- vim.keymap.set("n", "<Leader>D", "<Cmd>MultipleCursorsJumpNextMatch<CR>")
     -- vim.keymap.set({ "n", "x" }, "<Leader>l", "<Cmd>MultipleCursorsLockToggle<CR>")
 
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-    vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float)
-    vim.keymap.set("n", "<leader>sl", vim.diagnostic.setloclist)
-    vim.keymap.set("n", "<leader>sq", function()
-        vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
-    end)
+    vim.diagnostic.config({
+        update_in_insert = false,
+        severity_sort = true,
+        float = { border = "rounded", source = "if_many" },
+        underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+        -- Can switch between these as you prefer
+        -- virtual_text = true, -- Text shows up at the end of the line
+        -- virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+        -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+        jump = {
+            on_jump = function(_, bufnr)
+                vim.diagnostic.open_float({
+                    bufnr = bufnr,
+                    scope = "cursor",
+                    focus = false,
+                })
+            end,
+        },
+    })
 
     -- VNOREMAP
     vim.keymap.set("v", "K", ":m .-2<CR>==", opts)
@@ -451,7 +465,7 @@ local function configure_options()
         showcmd = true,
         showmatch = true,
         -- sidescrolloff = 8 -- when wrap is false, horiz version of scrolloff
-        smartindent = true,
+        -- smartindent = true,
         signcolumn = "yes",
         softtabstop = 4,
         splitbelow = true,
@@ -749,6 +763,7 @@ function configure_lsp()
                     workspace = { checkThirdParty = false },
                     telemetry = { enable = false },
                     diagnostics = {
+                        globals = { "vim" },
                         disable = { "lowercase-global", "missing-fields" },
                     },
                     hint = {

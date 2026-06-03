@@ -1,0 +1,12 @@
+fd_package_name: fd-find
+dev_tools_packages:
+  - ripgrep
+  - zoxide
+  - "{{ fd_package_name }}"
+  - bat
+  - broot
+  - gdb
+  - quickemu
+  - lima
+dev_tools_cargo_packages:
+  - git-delta

@@ -1,10 +1,13 @@
 - hosts: localhost
   connection: local
   roles:
+    - { role: golang, tags: ['golang'] }
     - { role: rust, tags: ['rust'] }
+    - { role: fonts, tags: ['fonts'] }
     - { role: dev-tools, tags: ['dev-tools'] }
     - { role: nvim, tags: ['nvim'] }
     - { role: helix, tags: ['helix'] }
+    - { role: kitty, tags: ['kitty'] }
     - { role: fish, tags: ['fish'] }
     - { role: i3, tags: ['i3'] }
     - { role: mako, tags: ['mako'] }

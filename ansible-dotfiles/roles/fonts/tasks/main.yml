@@ -1,0 +1,45 @@
+- name: Set font install paths
+  set_fact:
+    iosevka_nerd_font_archive: Iosevka.zip
+    iosevka_nerd_font_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Iosevka.zip
+    fonts_dir: "{{ ansible_facts['env']['HOME'] }}/{{ 'Library/Fonts' if ansible_facts['system'] == 'Darwin' else '.local/share/fonts' }}"
+    fonts_cache_dir: "{{ ansible_facts['env']['HOME'] }}/.cache/ansible-dotfiles/fonts"
+
+- name: Install font archive dependencies
+  package:
+    name:
+      - fontconfig
+      - unzip
+    state: present
+  become: true
+  when: ansible_facts["system"] != "Darwin"
+
+- name: Ensure font directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ fonts_dir }}"
+    - "{{ fonts_cache_dir }}"
+
+- name: Download Iosevka Nerd Font
+  get_url:
+    url: "{{ iosevka_nerd_font_url }}"
+    dest: "{{ fonts_cache_dir }}/{{ iosevka_nerd_font_archive }}"
+    mode: "0644"
+
+- name: Install Iosevka Nerd Font
+  unarchive:
+    src: "{{ fonts_cache_dir }}/{{ iosevka_nerd_font_archive }}"
+    dest: "{{ fonts_dir }}"
+    remote_src: true
+    creates: "{{ fonts_dir }}/IosevkaNerdFont-Regular.ttf"
+  register: iosevka_nerd_font_install
+
+- name: Refresh font cache
+  command: fc-cache -f "{{ fonts_dir }}"
+  changed_when: true
+  when:
+    - ansible_facts["system"] != "Darwin"
+    - iosevka_nerd_font_install.changed
