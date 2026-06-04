@@ -19,3 +19,6 @@ dev_tools_brew_casks:
   - kitty
 dev_tools_vagrant_plugins:
   - vagrant-qemu
+dev_tools_cargo_packages:
+  - git-delta
+  - tree-sitter-cli

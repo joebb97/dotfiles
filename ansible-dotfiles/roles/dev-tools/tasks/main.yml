@@ -25,6 +25,7 @@
   community.general.cargo:
     name: "{{ dev_tools_cargo_packages }}"
     state: present
+    locked: true
   environment:
     PATH: "{{ ansible_env_path | default(ansible_facts['env']['PATH']) }}"
   when: dev_tools_cargo_packages | length > 0

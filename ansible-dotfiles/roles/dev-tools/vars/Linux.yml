@@ -10,3 +10,4 @@ dev_tools_packages:
   - lima
 dev_tools_cargo_packages:
   - git-delta
+  - tree-sitter-cli
