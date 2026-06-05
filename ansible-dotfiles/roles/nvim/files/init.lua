@@ -66,7 +66,7 @@ local function install_plugins()
         {
             "nvim-telescope/telescope.nvim",
             event = "VimEnter",
-            branch = "0.1.x",
+            version = "*",
             dependencies = {
                 "nvim-lua/plenary.nvim",
                 {
@@ -167,7 +167,7 @@ local function install_plugins()
                 formatters = {
                     rustfmt = {
                         options = {
-                            nightly = true,
+                            -- nightly = true,
                         },
                     },
                 },
@@ -191,37 +191,179 @@ local function install_plugins()
             end,
         },
         {
-            "hrsh7th/nvim-cmp",
-            -- event = "InsertEnter",
+            "saghen/blink.cmp",
+            dependencies = { "rafamadriz/friendly-snippets" },
+            version = "1.*",
+            opts = {
+                keymap = {
+                    preset = "none",
+                    ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                    ["<C-e>"] = { "hide", "fallback" },
+                    ["<C-y>"] = { "select_and_accept", "fallback" },
+                    ["<CR>"] = {
+                        function(cmp)
+                            return cmp.accept() or cmp.accept({ index = 1 })
+                        end,
+                        "fallback",
+                    },
+                    ["<C-s>"] = { "show", "fallback" },
+
+                    ["<Up>"] = { "select_prev", "fallback" },
+                    ["<Down>"] = { "select_next", "fallback" },
+                    ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+                    ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+
+                    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+                    ["<Tab>"] = { "select_next", "fallback" },
+                    ["<S-Tab>"] = { "select_prev", "fallback" },
+                    ["<C-l>"] = { "snippet_forward", "fallback" },
+                    ["<C-h>"] = { "snippet_backward", "fallback" },
+
+                    ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+                },
+
+                appearance = {
+                    -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                    -- Adjusts spacing to ensure icons are aligned
+                    nerd_font_variant = "mono",
+                },
+
+                -- (Default) Only show the documentation popup when manually triggered
+                completion = { documentation = { auto_show = false } },
+
+                snippets = { preset = "luasnip" },
+
+                -- Default list of enabled providers defined so that you can extend it
+                -- elsewhere in your config, without redefining it, due to `opts_extend`
+                sources = {
+                    default = { "lsp", "snippets", "buffer", "path" },
+                },
+
+                cmdline = {
+                    keymap = { preset = "cmdline" },
+                    sources = function()
+                        local cmdtype = vim.fn.getcmdtype()
+                        if cmdtype == "/" or cmdtype == "?" then
+                            return { "buffer" }
+                        end
+                        if cmdtype == ":" then
+                            return { "path", "cmdline" }
+                        end
+                        return {}
+                    end,
+                },
+
+                enabled = function()
+                    local function in_comment()
+                        local ok, captures = pcall(vim.treesitter.get_captures_at_cursor, 0)
+                        if ok and type(captures) == "table" then
+                            for _, capture in ipairs(captures) do
+                                if type(capture) == "string" and capture:match("comment") then
+                                    return true
+                                end
+                            end
+                        end
+
+                        local group = vim.fn.synIDattr(
+                            vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1),
+                            "name"
+                        ) or ""
+                        return group == "Comment" or group:match("Comment$") ~= nil
+                    end
+
+                    return vim.bo.buftype ~= "prompt" and not in_comment()
+                end,
+
+                -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+                -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+                -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+                --
+                -- See the fuzzy documentation for more information
+                fuzzy = {
+                    implementation = "prefer_rust_with_warning",
+                    -- sorts = {
+                    --     function(a, b)
+                    --         if vim.bo.filetype ~= "rust" then
+                    --             return
+                    --         end
+
+                    --         local kind = vim.lsp.protocol.CompletionItemKind
+                    --         local priority = {
+                    --             [kind.Struct] = 1,
+                    --             [kind.Value] = 2,
+                    --         }
+
+                    --         local a_priority = priority[a.kind]
+                    --         local b_priority = priority[b.kind]
+
+                    --         if a_priority ~= b_priority then
+                    --             return (a_priority or 99) < (b_priority or 99)
+                    --         end
+                    --     end,
+                    --     "score",
+                    --     "sort_text",
+                    --     "label",
+                    -- },
+                },
+            },
+            opts_extend = { "sources.default" },
+        },
+        {
+            "L3MON4D3/LuaSnip",
+            version = "v2.*",
+            build = (function()
+                -- Build Step is needed for regex support in snippets.
+                -- This step is not supported in many windows environments.
+                -- Remove the below condition to re-enable on windows.
+                if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+                    return
+                end
+                return "make install_jsregexp"
+            end)(),
             dependencies = {
                 {
-                    "L3MON4D3/LuaSnip",
-                    build = (function()
-                        -- Build Step is needed for regex support in snippets.
-                        -- This step is not supported in many windows environments.
-                        -- Remove the below condition to re-enable on windows.
-                        if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-                            return
-                        end
-                        return "make install_jsregexp"
-                    end)(),
-                    dependencies = {
-                        {
-                            "rafamadriz/friendly-snippets",
-                            config = function()
-                                require("luasnip.loaders.from_vscode").lazy_load()
-                            end,
-                        },
-                    },
+                    "rafamadriz/friendly-snippets",
+                    config = function()
+                        require("luasnip.loaders.from_vscode").lazy_load()
+                    end,
                 },
-                "saadparwaiz1/cmp_luasnip",
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-buffer",
-                "hrsh7th/cmp-cmdline",
             },
-            config = configure_nvim_cmp,
         },
+        -- {
+        --     "hrsh7th/nvim-cmp",
+        --     -- event = "InsertEnter",
+        --     dependencies = {
+        --         {
+        --             "L3MON4D3/LuaSnip",
+        --             version = "v2.*",
+        --             build = (function()
+        --                 -- Build Step is needed for regex support in snippets.
+        --                 -- This step is not supported in many windows environments.
+        --                 -- Remove the below condition to re-enable on windows.
+        --                 if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+        --                     return
+        --                 end
+        --                 return "make install_jsregexp"
+        --             end)(),
+        --             dependencies = {
+        --                 {
+        --                     "rafamadriz/friendly-snippets",
+        --                     config = function()
+        --                         require("luasnip.loaders.from_vscode").lazy_load()
+        --                     end,
+        --                 },
+        --             },
+        --         },
+        --         "saadparwaiz1/cmp_luasnip",
+        --         "hrsh7th/cmp-nvim-lsp",
+        --         "hrsh7th/cmp-path",
+        --         "hrsh7th/cmp-buffer",
+        --         "hrsh7th/cmp-cmdline",
+        --     },
+        --     config = configure_nvim_cmp,
+        -- },
         {
             "nvim-treesitter/nvim-treesitter",
             lazy = false,
@@ -698,9 +840,10 @@ function configure_lsp()
         callback = lsp_attach_cb,
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities =
-        vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+    -- capabilities =
+    --     vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     local servers = {
         clangd = {},
@@ -711,7 +854,7 @@ function configure_lsp()
                     rustfmt = {
                         -- doesn't work
                         -- extraArgs = { "+nightly" },
-                        overrideCommand = { "rustfmt", "+nightly", "--emit", "stdout" },
+                        -- overrideCommand = { "rustfmt", "+nightly", "--emit", "stdout" },
                     },
                     imports = {
                         granularity = {
@@ -927,6 +1070,7 @@ function configure_dap()
     dap.configurations.rust = dap.configurations.cpp
 end
 
+-- configure_nvim_cmp has been superseded by blink.cmp.
 function configure_nvim_cmp()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
