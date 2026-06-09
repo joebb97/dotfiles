@@ -19,6 +19,7 @@
     name: "{{ dev_tools_packages }}"
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"
+  tags: become
   when: dev_tools_packages | length > 0
 
 - name: Install dev tools via cargo
@@ -92,16 +93,6 @@
           become: true
           tags: become
 
-        # - name: Configure GitHub CLI repository
-        #   yum_repository:
-        #     name: github-cli
-        #     description: GitHub CLI
-        #     baseurl: https://cli.github.com/packages/rpm
-        #     enabled: true
-        #     gpgcheck: true
-        #     gpgkey: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-        #   become: true
-        #   tags: become
         - name: Add github cli repo
           ansible.builtin.get_url:
             url: https://cli.github.com/packages/rpm/gh-cli.repo

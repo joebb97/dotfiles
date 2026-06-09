@@ -6,6 +6,7 @@
     name: "{{ 'hx' if ansible_facts['os_family'] == 'Debian' else 'helix' }}"
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"
+  tags: become
 
 - name: ensure config dir exists
   file:

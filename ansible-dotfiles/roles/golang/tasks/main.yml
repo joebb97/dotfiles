@@ -15,6 +15,7 @@
     name: "{{ golang_package_name }}"
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"
+  tags: become
 
 - name: Ensure Go bin dir exists
   file:

@@ -18,6 +18,7 @@
       - unzip
     state: present
   become: true
+  tags: become
   when: ansible_facts["system"] != "Darwin"
 
 - name: Ensure font directories exist

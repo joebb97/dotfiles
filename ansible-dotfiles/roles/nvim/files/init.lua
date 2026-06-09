@@ -383,7 +383,7 @@ local function install_plugins()
         {
             "jedrzejboczar/devcontainers.nvim",
             dependencies = {
-                "netman.nvim", -- optional to browse files in docker container
+                "miversen33/netman.nvim", -- optional to browse files in docker container
             },
             opts = {},
         },

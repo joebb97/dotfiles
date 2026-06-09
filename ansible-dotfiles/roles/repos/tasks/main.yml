@@ -46,6 +46,7 @@
   git:
     repo: git@github.com:tokio-rs/tokio.git
     dest: "{{ src_dir }}/oss/tokio-rs/tokio"
+    update: false
 
 - name: checkout uwebsocket
   git:
