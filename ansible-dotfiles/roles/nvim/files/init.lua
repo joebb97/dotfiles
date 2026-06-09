@@ -196,7 +196,7 @@ local function install_plugins()
             version = "1.*",
             opts = {
                 keymap = {
-                    preset = "none",
+                    preset = "enter",
                     ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                     ["<C-e>"] = { "hide", "fallback" },
                     ["<C-y>"] = { "select_and_accept", "fallback" },
@@ -370,9 +370,22 @@ local function install_plugins()
             build = ":TSUpdate",
             config = configure_treesitter,
         },
+        -- Trying out devcontainer solutions
+        {
+            "https://codeberg.org/esensar/nvim-dev-container",
+            dependencies = "nvim-treesitter/nvim-treesitter",
+            opts = {},
+        },
         {
             "nvim-treesitter/nvim-treesitter-textobjects",
             config = configure_treesitter_textobjects,
+        },
+        {
+            "jedrzejboczar/devcontainers.nvim",
+            dependencies = {
+                "netman.nvim", -- optional to browse files in docker container
+            },
+            opts = {},
         },
         -- disabled for vim deprecated warning
         -- {
@@ -1174,6 +1187,7 @@ function configure_treesitter()
         "vimdoc",
         "markdown",
         "vim",
+        "json",
     }
     require("nvim-treesitter").install(parsers)
 

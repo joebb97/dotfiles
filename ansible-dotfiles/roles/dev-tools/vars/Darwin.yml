@@ -9,6 +9,8 @@ dev_tools_packages:
   - gdb
   - quickemu
   - lima
+  - just
+  - cargo-binstall
 dev_tools_brew_taps:
   - hashicorp/tap
   - quickemu-project/quickemu
@@ -22,3 +24,4 @@ dev_tools_vagrant_plugins:
 dev_tools_cargo_packages:
   - git-delta
   - tree-sitter-cli
+  - cargo-nextest

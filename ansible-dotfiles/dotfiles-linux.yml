@@ -13,3 +13,6 @@
     - { role: mako, tags: ['mako'] }
     - { role: kanshi, tags: ['kanshi'] }
     - { role: sway, tags: ['sway'] }
+    - { role: repos, tags: ['repos'] }
+    - { role: docker, tags: ['docker'] }
+    - { role: flatpaks, tags: ['flatpaks'] }

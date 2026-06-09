@@ -64,3 +64,52 @@
     - dev_tools_install_vagrant_plugins
     - dev_tools_vagrant_check.rc == 0
     - item not in dev_tools_vagrant_plugin_list.stdout
+
+- name: install codex
+  block:
+    - name: Check if codex is installed
+      command: which codex
+      register: codex_check
+      failed_when: false
+      changed_when: false
+    - name: Install codex
+      shell: curl -fsSL https://chatgpt.com/codex/install.sh | sh
+      when: codex_check.rc != 0
+
+- name: install gh
+  block:
+    - name: Install gh mac
+      package:
+        name: gh
+        state: present
+      when: ansible_facts['system'] == 'Darwin'
+    - name: Install gh fedora
+      block:
+        - name: Install dnf5 plugins
+          ansible.builtin.dnf:
+            name: dnf5-plugins
+            state: present
+          become: true
+          tags: become
+
+        # - name: Configure GitHub CLI repository
+        #   yum_repository:
+        #     name: github-cli
+        #     description: GitHub CLI
+        #     baseurl: https://cli.github.com/packages/rpm
+        #     enabled: true
+        #     gpgcheck: true
+        #     gpgkey: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+        #   become: true
+        #   tags: become
+        - name: Add github cli repo
+          ansible.builtin.get_url:
+            url: https://cli.github.com/packages/rpm/gh-cli.repo
+            dest: /etc/yum.repos.d/gh-cli.repo
+        - name: Install GitHub CLI
+          ansible.builtin.dnf:
+            name: gh
+            state: present
+          become: true
+          tags: become
+      when: ansible_facts['pkg_mgr'] == 'dnf5'

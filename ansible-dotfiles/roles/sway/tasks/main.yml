@@ -1,17 +1,62 @@
 - set_fact:
     config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/sway"
+    gammastep_dir: "{{ ansible_facts['env']['HOME'] }}/.config/gammastep"
 
 - name: ensure config dir exists
   file:
     path: "{{ config_dir }}"
     state: directory
 
+- name: install bumblebee-status
+  command: pip3 install --user bumblebee-status netifaces
+  register: bumblebee_status_install
+  changed_when: "'Requirement already satisfied' not in bumblebee_status_install.stdout"
+
 - name: copy config
-  copy:
-    src: config
+  template:
+    src: config.j2
     dest: "{{ config_dir }}/config"
 
 - name: copy devices config
   copy:
     src: devices.sway
     dest: "{{ config_dir }}/devices.sway"
+
+- name: ensure gammastep dir exists
+  file:
+    path: "{{ gammastep_dir }}"
+    state: directory
+
+- name: copy gammastep ini
+  copy:
+    src: gammastep.ini
+    dest: "{{ gammastep_dir }}/config.ini"
+
+- name: install supporting programs
+  package:
+    name:
+      - gammastep
+      - geoclue2
+      - wofi
+  become: true
+  tags: become
+
+# TODO: Doesn't work yet
+- name: ensure geoclue conf dir exists
+  file:
+    path: "/etc/geoclue/conf.d/"
+    state: directory
+  become: true
+  tags: become
+
+- name: allow gammastep access to geoclue
+  blockinfile:
+    path: /etc/geoclue/conf.d/99-gammastep.conf
+    create: true
+    block: |
+      [gammastep]
+      allowed=true
+      system=false
+      users=
+  become: true
+  tags: become

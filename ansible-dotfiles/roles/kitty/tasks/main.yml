@@ -1,6 +1,6 @@
 - set_fact:
     config_dir: "{{ ansible_facts['env']['HOME'] }}/.config/kitty"
-    kitty_font_size: "{{ 14 if ansible_facts['system'] == 'Darwin' else 11 }}"
+    kitty_font_size: "{{ 14 if ansible_facts['system'] == 'Darwin' else 12 }}"
 
 - name: ensure config dir exists
   file:

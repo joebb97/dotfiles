@@ -1,0 +1,61 @@
+- name: docker fedora
+  block:
+    - name: ensure no distro packages
+      dnf:
+        name:
+          - docker
+          - docker-client 
+          - docker-client-latest 
+          - docker-common 
+          - docker-latest 
+          - docker-latest-logrotate 
+          - docker-logrotate 
+          - docker-selinux 
+          - docker-engine-selinux 
+          - docker-engine
+        state: removed
+      failed_when: false
+    - name: Add Docker repo
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+    - name: install packages
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+      become: true
+      tags: become
+    - name: ensure systemd started
+      systemd_service:
+        name: docker
+        enabled: true
+        state: started
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ ansible_facts['user_id'] }}"
+        groups: docker
+        append: true
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+
+- name: devcontainers
+  block:
+    - name: Install prerequisites
+      package:
+        name:
+          - nodejs
+          - npm
+
+    - name: Install Dev Container CLI globally
+      community.general.npm:
+        name: "@devcontainers/cli"
+        global: true
+        state: present
+
+  become: true
+  tags: become

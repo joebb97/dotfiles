@@ -141,3 +141,8 @@ output 'Dell Inc. DELL P2421D 4D2SS03' {
     mode 2560x1440@60Hz
     scale 1
 }
+
+output 'ASUSTek COMPUTER INC XG27AQDMG T2LMRS047440' {
+    mode 2560x1440@240hz
+    scale 1
+}

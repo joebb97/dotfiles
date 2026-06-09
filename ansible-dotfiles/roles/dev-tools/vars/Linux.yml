@@ -4,10 +4,13 @@ dev_tools_packages:
   - zoxide
   - "{{ fd_package_name }}"
   - bat
-  - broot
   - gdb
   - quickemu
-  - lima
+  - just
+  - protobuf-compiler
 dev_tools_cargo_packages:
   - git-delta
   - tree-sitter-cli
+  - broot
+  - cargo-nextest
+  - cargo-binstall

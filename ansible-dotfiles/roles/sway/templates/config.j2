@@ -6,17 +6,17 @@ set $down j
 set $up k
 set $right l
 
-set $background-image ~/Pictures/desktop-backgrounds/all-pictures/low-contrast1.jpg
+set $background-image ~/Pictures/desktop-backgrounds/all-pictures/blond.png
 exec_always '[ -e $background-image ] && swaymsg "output * bg $background-image fill"'
 
-set $term ~/.local/bin/kitty
+set $term kitty
 gaps inner 5
 font pango:Iosevka NF Bold 10
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 500 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 600 'systemctl suspend' before-sleep 'swaylock -f -c 000000'
 
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
@@ -216,5 +216,6 @@ exec_always systemctl --user start sway-session.target
 exec_always systemctl --user restart kanshi.service
 # Remember to systemctl --user enable mako.service
 # mako.service not listed here since it usually doesn't need to be restarted
+exec_always systemctl --user restart gammastep.service
 
 include @sysconfdir@/sway/config.d/*

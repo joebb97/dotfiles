@@ -1,0 +1,40 @@
+- name: Install flatpak package
+  ansible.builtin.package:
+    name: flatpak
+    state: present
+  tags: become
+  become: true
+
+- name: Add Flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    method: system
+
+- name: Add Flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+- name: Install Flatpak system apps
+  community.general.flatpak:
+    name:
+      - com.discordapp.Discord
+      - org.pipewire.Helvum
+      - org.videolan.VLC
+    state: present
+    remote: flathub
+    method: system
+
+- name: Install Flatpak user apps
+  community.general.flatpak:
+    name:
+      - com.spotify.Client
+      - com.discordapp.Discord
+      - us.zoom.Zoom
+    state: present
+    remote: flathub
+    method: user

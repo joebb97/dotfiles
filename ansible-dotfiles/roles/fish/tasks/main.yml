@@ -16,6 +16,7 @@
     name: fish
     state: present
   become: "{{ ansible_facts['system'] != 'Darwin' }}"
+  tags: ['become']
 
 - name: ensure config dir exists
   file:

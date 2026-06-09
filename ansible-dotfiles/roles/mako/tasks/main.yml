@@ -10,3 +10,9 @@
   copy:
     src: config
     dest: "{{ config_dir }}/config"
+
+- name: install mako
+  package:
+    name: mako
+  become: true
+  tags: become

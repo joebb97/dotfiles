@@ -244,11 +244,14 @@ end
 
 abbr -g restore_kitty_session 'kitty --session $HOME/.local/kitty-session.kitty'
 
+# makes ctrl-h delete backwards bigword
 bind \b backward-kill-bigword
 bind \ev backward-kill-bigword
 bind \eV kill-bigword
 bind \cB backward-bigword
 bind \cF forward-bigword
+# undo fish 4.0 change
+bind \e\x7f backward-kill-word
 
 # pnpm
 set -gx PNPM_HOME /Users/Joey/Library/pnpm
@@ -262,10 +265,10 @@ end
 set -x PASSAGE_DIR $HOME/.config/passage/store
 set -x PASSAGE_IDENTITIES_FILE $HOME/.config/passage/identities
 set -x PASSAGE_RECIPIENTS_FILE $HOME/.config/passage/store/.age-recipients
-
 # set -x SSH_AUTH_SOCK (find /tmp/ssh-* -type s -name "*agent*")
 # set -x SSH_AGENT_PID (echo $SSH_AUTH_SOCK | awk -F'.' '{print $NF + 1}')
 
+{% if ansible_facts['system'] == 'Darwin' %}
 function set_non_yubikey_auth_sock
     set -l ssh_agent_files $TMPDIR/ssh-*
     echo "pre files: " $ssh_agent_files
@@ -279,11 +282,15 @@ function set_non_yubikey_auth_sock
     set -x SSH_AGENT_PID (echo $SSH_AUTH_SOCK | awk -F'.' '{print $NF +1 }')
     echo "post pid: $SSH_AGENT_PID"
 end
-{% if ansible_facts['system'] == 'Darwin' %}
+{% endif %}
+
 function set_yubikey_auth_sock
+{% if ansible_facts['system'] == 'Darwin' %}
     set -x SSH_AUTH_SOCK (brew --prefix)/var/run/yubikey-agent.sock
+{% else %}
+    set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/yubikey-agent/yubikey-agent.sock
+{% endif %}
     set -e SSH_AGENT_PID
 end
 # NOTE, THIS BREAKS SSH -J if you're proxy jumping with an agent on different keys
 # set_yubikey_auth_sock
-{% endif %}

@@ -1,0 +1,60 @@
+- set_fact:
+    desktop_backgrounds: "{{ ansible_facts['env']['HOME'] }}/Pictures/desktop-backgrounds"
+    src_dir: "{{ ansible_facts['env']['HOME'] }}/src"
+
+- name: checkout desktop pictures
+  git:
+    repo: git@github.com:joebb97/desktop-backgrounds.git
+    dest: "{{ desktop_backgrounds }}"
+
+- name: all pictures dir exists
+  stat:
+    path: "{{ desktop_backgrounds }}/all-pictures"
+  register: pictures_stat
+
+- name: run add all pictures
+  shell: "{{ desktop_backgrounds }}/add-all-pictures.sh"
+  args:
+    chdir: "{{ desktop_backgrounds }}"
+  when: not pictures_stat.stat.exists
+
+- name: sandbox exists
+  stat:
+    path: "{{ src_dir }}/sandbox"
+  register: sandbox_stat
+
+- name: checkout sandbox
+  git:
+    repo: git@github.com:joebb97/sandbox.git
+    dest: "{{ src_dir }}/sandbox"
+    update: false
+  when: not sandbox_stat.stat.exists
+
+- name: checkout linkerd2-proxy
+  git:
+    repo: git@github.com:linkerd/linkerd2-proxy.git
+    dest: "{{ src_dir }}/oss/linkerd/linkerd2-proxy"
+    update: false
+
+- name: checkout linkerd dev
+  git:
+    repo: git@github.com:linkerd/dev.git
+    dest: "{{ src_dir }}/oss/linkerd/dev"
+    update: false
+
+- name: checkout tokio
+  git:
+    repo: git@github.com:tokio-rs/tokio.git
+    dest: "{{ src_dir }}/oss/tokio-rs/tokio"
+
+- name: checkout uwebsocket
+  git:
+    repo: git@github.com:uNetworking/uWebSockets.git
+    dest: "{{ src_dir }}/oss/uNetworking/uWebSockets"
+    update: false
+
+- name: checkout libuv
+  git:
+    repo: git@github.com:libuv/libuv.git
+    dest: "{{ src_dir }}/oss/libuv/libuv"
+    update: false
