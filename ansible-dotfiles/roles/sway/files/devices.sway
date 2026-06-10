@@ -106,6 +106,12 @@ input 1133:4136:Logitech_M570 {
     pointer_accel .500
 }
 
+# logitech m575s
+input 1133:50504:Logitech_USB_Receiver_Mouse {
+    accel_profile "flat"
+    pointer_accel .500
+}
+
 # aoc monitor
 output 'Unknown U34G2G4R3 0x0000A12A' {
     mode 3440x1440@144hz
