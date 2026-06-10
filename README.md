@@ -1,5 +1,9 @@
 # Joey's Dotfiles Repo
 
+In the process of migrating from chezmoi to Ansible.
+
+-- old
+
 ## Disclaimer
 
 This repository hosts my dotfiles setup and hooks in tools I really like. It is only meant for my personal use for now and likely forever.
