@@ -48,6 +48,18 @@
     dest: "{{ src_dir }}/oss/tokio-rs/tokio"
     update: false
 
+- name: checkout axum
+  git:
+    repo: git@github.com:tokio-rs/axum.git
+    dest: "{{ src_dir }}/oss/tokio-rs/axum"
+    update: false
+
+- name: checkout hyper
+  git:
+    repo: git@github.com:hyperium/hyper.git
+    dest: "{{ src_dir }}/oss/hyperium/hyper"
+    update: false
+
 - name: checkout uwebsocket
   git:
     repo: git@github.com:uNetworking/uWebSockets.git
