@@ -90,9 +90,6 @@
           ansible.builtin.dnf:
             name: dnf5-plugins
             state: present
-          become: true
-          tags: become
-
         - name: Add github cli repo
           ansible.builtin.get_url:
             url: https://cli.github.com/packages/rpm/gh-cli.repo
@@ -101,6 +98,6 @@
           ansible.builtin.dnf:
             name: gh
             state: present
-          become: true
-          tags: become
       when: ansible_facts['pkg_mgr'] == 'dnf5'
+      become: true
+      tags: become
