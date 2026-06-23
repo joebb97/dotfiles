@@ -16,3 +16,5 @@
     - { role: repos, tags: ['repos'] }
     - { role: docker, tags: ['docker'] }
     - { role: flatpaks, tags: ['flatpaks'] }
+    - { role: passage, tags: ['passage'] }
+    - { role: ssh, tags: ['ssh'] }

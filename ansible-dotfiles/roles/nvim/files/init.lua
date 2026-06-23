@@ -201,9 +201,7 @@ local function install_plugins()
                     ["<C-e>"] = { "hide", "fallback" },
                     ["<C-y>"] = { "select_and_accept", "fallback" },
                     ["<CR>"] = {
-                        function(cmp)
-                            return cmp.accept() or cmp.accept({ index = 1 })
-                        end,
+                        "select_and_accept",
                         "fallback",
                     },
                     ["<C-s>"] = { "show", "fallback" },
@@ -430,6 +428,22 @@ local function install_plugins()
         --     },
         -- },
     }
+
+    local orig = vim.keymap.del
+    vim.keymap.del = function(mode, lhs, opts)
+        if mode == "i" and lhs == "<CR>" then
+            vim.notify(debug.traceback("Deleting <CR>"))
+        end
+        return orig(mode, lhs, opts)
+    end
+    local orig = vim.api.nvim_del_keymap
+
+    vim.api.nvim_del_keymap = function(mode, lhs)
+        if mode == "i" and lhs == "<CR>" then
+            vim.notify(debug.traceback("nvim_del_keymap <CR>"))
+        end
+        return orig(mode, lhs)
+    end
     require("lazy").setup(plugins)
 end
 

@@ -27,3 +27,4 @@
     - { role: kitty, tags: ['kitty'] }
     - { role: fish, tags: ['fish'] }
     - { role: repos, tags: ['repos'] }
+    - { role: ssh, tags: ['ssh'] }

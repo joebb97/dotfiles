@@ -54,10 +54,70 @@
     dest: "{{ src_dir }}/oss/tokio-rs/axum"
     update: false
 
+- name: checkout mio
+  git:
+    repo: git@github.com:tokio-rs/mio.git
+    dest: "{{ src_dir }}/oss/tokio-rs/mio"
+    update: false
+
+- name: checkout smol
+  git:
+    repo: git@github.com:smol-rs/smol.git
+    dest: "{{ src_dir }}/oss/smol-rs/smol"
+    update: false
+
+- name: checkout smol polling
+  git:
+    repo: git@github.com:smol-rs/polling.git
+    dest: "{{ src_dir }}/oss/smol-rs/polling"
+    update: false
+
+- name: checkout smol async-io
+  git:
+    repo: git@github.com:smol-rs/async-io.git
+    dest: "{{ src_dir }}/oss/smol-rs/async-io"
+    update: false
+
+- name: checkout smol async-net
+  git:
+    repo: git@github.com:smol-rs/async-net.git
+    dest: "{{ src_dir }}/oss/smol-rs/async-net"
+    update: false
+
 - name: checkout hyper
   git:
     repo: git@github.com:hyperium/hyper.git
     dest: "{{ src_dir }}/oss/hyperium/hyper"
+    update: false
+
+- name: checkout river
+  git:
+    repo: git@github.com:memorysafety/river.git
+    dest: "{{ src_dir }}/oss/memorysafety/river"
+    update: false
+
+- name: checkout pingap
+  git:
+    repo: git@github.com:vicanso/pingap.git
+    dest: "{{ src_dir}}/oss/vicanso/pingap"
+    update: false
+
+- name: checkout pingora
+  git:
+    repo: git@github.com:cloudflare/pingora.git
+    dest: "{{ src_dir}}/oss/cloudflare/pingora"
+    update: false
+
+- name: checkout foundations
+  git:
+    repo: git@github.com:cloudflare/foundations.git
+    dest: "{{ src_dir}}/oss/cloudflare/foundations"
+    update: false
+
+- name: checkout workers-rs
+  git:
+    repo: git@github.com:cloudflare/workers-rs.git
+    dest: "{{ src_dir}}/oss/cloudflare/workers-rs"
     update: false
 
 - name: checkout uwebsocket
@@ -70,4 +130,10 @@
   git:
     repo: git@github.com:libuv/libuv.git
     dest: "{{ src_dir }}/oss/libuv/libuv"
+    update: false
+
+- name: checkout homelab
+  git:
+    repo: git@github.com:joebb97/homelab.git
+    dest: "{{ src_dir }}/homelab"
     update: false

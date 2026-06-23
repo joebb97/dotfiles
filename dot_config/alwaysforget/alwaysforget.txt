@@ -215,3 +215,14 @@ You can make it wrap lines with these commands
 SYSTEMD_LESS="FRXMK" journalctl -b
 or just
 journalctl -b | cat
+
+# URL vs URI
+https://danielmiessler.com/blog/difference-between-uri-url
+
+All URLs are URIs, but not all URIs are URLs
+
+URL example is https://google.com/articles/articlename
+
+URI example is google.com/articles/articlename
+
+URN example is /articles/articlename

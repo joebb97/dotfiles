@@ -280,6 +280,10 @@ function set_non_yubikey_auth_sock
     set -x SSH_AGENT_PID (echo $SSH_AUTH_SOCK | awk -F'.' '{print $NF +1 }')
     echo "post pid: $SSH_AGENT_PID"
 end
+{% else %}
+function set_non_yubikey_auth_sock
+    set -x SSH_AUTH_SOCK /run/user/1000/ssh-agent.socket
+end
 {% endif %}
 
 function set_yubikey_auth_sock
