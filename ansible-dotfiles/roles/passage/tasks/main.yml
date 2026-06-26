@@ -1,0 +1,38 @@
+- set_fact:
+    cache_dir: "{{ ansible_facts['env']['HOME'] }}/.cache/ansible-dotfiles/"
+
+- name: checkout passage
+  git:
+    repo: git@github.com:FiloSottile/passage.git
+    dest: "{{ cache_dir }}/passage"
+    update: false
+
+
+- name: Check if passage is installed
+  command: which passage
+  register: passage_check
+  changed_when: false
+
+- name: Run make install
+  command: make install
+  args:
+    chdir: "{{ cache_dir }}/passage"
+  become: true
+  tags: become
+  when:
+    - passage_check.rc == 0
+  changed_when: false
+
+- name: Install age
+  package:
+    name: age
+  become: true
+  tags: become
+
+- name: Install dev tools via cargo
+  community.general.cargo:
+    name: age-plugin-yubikey
+    state: present
+    locked: true
+  environment:
+    PATH: "{{ ansible_env_path | default(ansible_facts['env']['PATH']) }}"

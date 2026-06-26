@@ -1,0 +1,59 @@
+- name: Ensure ~/.ssh exists with 0700
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+    state: directory
+    mode: "0700"
+
+- name: Find public keys
+  find:
+    paths: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+    patterns: "*.pub"
+    file_type: file
+  register: ssh_pub_keys
+
+- name: Set public key permissions to 0644
+  file:
+    path: "{{ item.path }}"
+    mode: "0644"
+  loop: "{{ ssh_pub_keys.files }}"
+
+- name: Find private keys (excluding .pub, config, authorized_keys, known_hosts)
+  find:
+    paths: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+    file_type: file
+    excludes:
+      - "*.pub"
+      - "authorized_keys"
+      - "config"
+      - "known_hosts"
+  register: ssh_private_keys
+
+- name: Set private key permissions to 0600
+  file:
+    path: "{{ item.path }}"
+    mode: "0600"
+  loop: "{{ ssh_private_keys.files }}"
+
+- name: Create known_hosts if missing
+  copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/known_hosts"
+    content: ""
+    force: false
+
+- name: Ensure known_hosts is 0644
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.ssh/known_hosts"
+    mode: "0644"
+    force: false
+
+- name: Create ssh config if missing
+  copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
+    content: ""
+    force: false
+
+- name: Ensure SSH config is 0600
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.ssh/config"
+    mode: "0600"
+    force: false
