@@ -1,9 +1,8 @@
-fd_package_name: fd
 dev_tools_packages:
   - git-delta
   - ripgrep
   - zoxide
-  - "{{ fd_package_name }}"
+  - fd
   - bat
   - broot
   - gdb
@@ -11,6 +10,8 @@ dev_tools_packages:
   - lima
   - just
   - cargo-binstall
+  - yq
+  - hashicorp/tap/terraform
 dev_tools_brew_taps:
   - hashicorp/tap
   - quickemu-project/quickemu

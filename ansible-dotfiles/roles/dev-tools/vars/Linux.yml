@@ -1,13 +1,14 @@
-fd_package_name: fd-find
+fd_package_name: 
 dev_tools_packages:
   - ripgrep
   - zoxide
-  - "{{ fd_package_name }}"
+  - fd-find
   - bat
   - gdb
   - quickemu
   - just
   - protobuf-compiler
+  - yq
 dev_tools_cargo_packages:
   - git-delta
   - tree-sitter-cli

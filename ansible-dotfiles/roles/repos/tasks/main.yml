@@ -18,122 +18,39 @@
     chdir: "{{ desktop_backgrounds }}"
   when: not pictures_stat.stat.exists
 
-- name: sandbox exists
-  stat:
-    path: "{{ src_dir }}/sandbox"
-  register: sandbox_stat
-
-- name: checkout sandbox
+- name: checkout personal repos
   git:
-    repo: git@github.com:joebb97/sandbox.git
-    dest: "{{ src_dir }}/sandbox"
+    repo: "git@github.com:joebb97/{{ item }}.git"
+    dest: "{{ src_dir }}/{{ item }}"
     update: false
-  when: not sandbox_stat.stat.exists
+  loop:
+    - homelab
+    - sandbox
 
-- name: checkout linkerd2-proxy
+- name: checkout oss repos
   git:
-    repo: git@github.com:linkerd/linkerd2-proxy.git
-    dest: "{{ src_dir }}/oss/linkerd/linkerd2-proxy"
+    repo: "git@github.com:{{ item }}.git"
+    dest: "{{ src_dir }}/oss/{{ item }}"
     update: false
-
-- name: checkout linkerd dev
-  git:
-    repo: git@github.com:linkerd/dev.git
-    dest: "{{ src_dir }}/oss/linkerd/dev"
-    update: false
-
-- name: checkout tokio
-  git:
-    repo: git@github.com:tokio-rs/tokio.git
-    dest: "{{ src_dir }}/oss/tokio-rs/tokio"
-    update: false
-
-- name: checkout axum
-  git:
-    repo: git@github.com:tokio-rs/axum.git
-    dest: "{{ src_dir }}/oss/tokio-rs/axum"
-    update: false
-
-- name: checkout mio
-  git:
-    repo: git@github.com:tokio-rs/mio.git
-    dest: "{{ src_dir }}/oss/tokio-rs/mio"
-    update: false
-
-- name: checkout smol
-  git:
-    repo: git@github.com:smol-rs/smol.git
-    dest: "{{ src_dir }}/oss/smol-rs/smol"
-    update: false
-
-- name: checkout smol polling
-  git:
-    repo: git@github.com:smol-rs/polling.git
-    dest: "{{ src_dir }}/oss/smol-rs/polling"
-    update: false
-
-- name: checkout smol async-io
-  git:
-    repo: git@github.com:smol-rs/async-io.git
-    dest: "{{ src_dir }}/oss/smol-rs/async-io"
-    update: false
-
-- name: checkout smol async-net
-  git:
-    repo: git@github.com:smol-rs/async-net.git
-    dest: "{{ src_dir }}/oss/smol-rs/async-net"
-    update: false
-
-- name: checkout hyper
-  git:
-    repo: git@github.com:hyperium/hyper.git
-    dest: "{{ src_dir }}/oss/hyperium/hyper"
-    update: false
-
-- name: checkout river
-  git:
-    repo: git@github.com:memorysafety/river.git
-    dest: "{{ src_dir }}/oss/memorysafety/river"
-    update: false
-
-- name: checkout pingap
-  git:
-    repo: git@github.com:vicanso/pingap.git
-    dest: "{{ src_dir}}/oss/vicanso/pingap"
-    update: false
-
-- name: checkout pingora
-  git:
-    repo: git@github.com:cloudflare/pingora.git
-    dest: "{{ src_dir}}/oss/cloudflare/pingora"
-    update: false
-
-- name: checkout foundations
-  git:
-    repo: git@github.com:cloudflare/foundations.git
-    dest: "{{ src_dir}}/oss/cloudflare/foundations"
-    update: false
-
-- name: checkout workers-rs
-  git:
-    repo: git@github.com:cloudflare/workers-rs.git
-    dest: "{{ src_dir}}/oss/cloudflare/workers-rs"
-    update: false
-
-- name: checkout uwebsocket
-  git:
-    repo: git@github.com:uNetworking/uWebSockets.git
-    dest: "{{ src_dir }}/oss/uNetworking/uWebSockets"
-    update: false
-
-- name: checkout libuv
-  git:
-    repo: git@github.com:libuv/libuv.git
-    dest: "{{ src_dir }}/oss/libuv/libuv"
-    update: false
-
-- name: checkout homelab
-  git:
-    repo: git@github.com:joebb97/homelab.git
-    dest: "{{ src_dir }}/homelab"
-    update: false
+  loop:
+    - linkerd/linkerd2-proxy
+    - linkerd/dev
+    - tokio-rs/tokio
+    - tokio-rs/axum
+    - tokio-rs/mio
+    - smol-rs/smol
+    - smol-rs/polling
+    - smol-rs/async-io
+    - smol-rs/async-net
+    - hyperium/hyper
+    - memorysafety/river
+    - vicanso/pingap
+    - cloudflare/pingora
+    - cloudflare/foundations
+    - cloudflare/workers-rs
+    - cloudflare/quiche
+    - uNetworking/uWebSockets
+    - uNetworking/uSockets
+    - litespeedtech/lsquic
+    - aws/s2n-quic
+    - libuv/libuv
