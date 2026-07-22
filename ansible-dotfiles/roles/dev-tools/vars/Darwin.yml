@@ -12,17 +12,26 @@ dev_tools_packages:
   - cargo-binstall
   - yq
   - hashicorp/tap/terraform
+  - b2-tools
+  - awscli
+  - minio/aistor/mc
+  - peak/tap/s5cmd
 dev_tools_brew_taps:
   - hashicorp/tap
   - quickemu-project/quickemu
+  - minio/aistor
+  - peak/tap
 dev_tools_brew_casks:
   - hashicorp/tap/hashicorp-vagrant
   - codex
   - signal
   - kitty
+  - mitmproxy
+  - insomnia
 dev_tools_vagrant_plugins:
   - vagrant-qemu
 dev_tools_cargo_packages:
   - git-delta
   - tree-sitter-cli
   - cargo-nextest
+  - cargo-generate

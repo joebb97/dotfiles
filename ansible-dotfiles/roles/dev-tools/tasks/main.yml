@@ -101,3 +101,9 @@
       when: ansible_facts['pkg_mgr'] == 'dnf5'
       become: true
       tags: become
+
+- name: install b2-tools
+  get_url:
+    url: https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux
+    dest: "{{ ansible_facts['env']['HOME'] }}/.local/bin/b2 }}"
+  when: ansible_facts['system'] == 'Linux'

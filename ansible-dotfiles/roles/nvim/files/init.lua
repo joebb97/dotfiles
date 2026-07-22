@@ -450,6 +450,8 @@ end
 local function configure_keymaps()
     local opts = { noremap = true, silent = true }
     vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", opts)
+    vim.keymap.set("x", "p", "P", opts)
+    vim.keymap.set("x", "P", "p", opts)
     vim.g.mapleader = " "
     vim.g.maplocalleader = " "
 

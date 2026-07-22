@@ -27,4 +27,5 @@
     - { role: kitty, tags: ['kitty'] }
     - { role: fish, tags: ['fish'] }
     - { role: repos, tags: ['repos'] }
+    - { role: passage, tags: ['passage'] }
     - { role: ssh, tags: ['ssh'] }

@@ -54,3 +54,10 @@
     - litespeedtech/lsquic
     - aws/s2n-quic
     - libuv/libuv
+    - jemalloc/jemalloc
+    - tikv/jemallocator
+    - slatedb/slatedb
+    - rustfs/rustfs
+    - durch/rust-s3
+    - awslabs/aws-sdk-rust
+    - versity/versitygw
