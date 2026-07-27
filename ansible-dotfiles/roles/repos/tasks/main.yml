@@ -61,3 +61,8 @@
     - durch/rust-s3
     - awslabs/aws-sdk-rust
     - versity/versitygw
+    - faiscadev/fakecloud
+    - deuxfleurs-org/garage
+    - srl-labs/containerlab
+    - bgplab/bgplab
+    - ipspace/netlab

@@ -14,6 +14,17 @@
   loop: "{{ dev_tools_brew_taps }}"
   when: dev_tools_brew_taps is defined
 
+- name: Install dev tools groups fedora
+  dnf:
+    name: "{{ item }}"
+    state: present
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+  loop:
+    - '@Development Tools'
+    - '@Development Libraries'
+
 - name: Install dev tools via package manager
   package:
     name: "{{ dev_tools_packages }}"
@@ -107,3 +118,150 @@
     url: https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux
     dest: "{{ ansible_facts['env']['HOME'] }}/.local/bin/b2 }}"
   when: ansible_facts['system'] == 'Linux'
+
+- name: install wrk
+  block:
+    - community.general.copr:
+        name: getpagespeed/wrk
+        state: enabled
+    - dnf:
+        name: wrk
+        state: present
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+
+- name: install mitmproxy
+  block:
+    - name: install mitmproxy
+      pip:
+        name: mitmproxy
+        extra_args: --user
+      when: ansible_facts['system'] == 'Linux'
+    - name: Check if mitmproxy has been initialized
+      ansible.builtin.stat:
+        path: "{{ ansible_facts['env']['HOME'] }}/.mitmproxy"
+      register: mitmproxy_dir
+    - name: Initialize mitmproxy
+      ansible.builtin.shell: >
+        timeout 1s mitmdump
+      when: not mitmproxy_dir.stat.exists
+      failed_when: false
+    - name: Create combined CA bundle for mitmproxy
+      ansible.builtin.shell: |
+        cat "$(python3 -c 'import certifi; print(certifi.where())')" \
+          "$HOME/.mitmproxy/mitmproxy-ca-cert.pem" \
+          > "$HOME/.mitmproxy/ca-bundle-with-mitm.pem"
+      args:
+        creates: "{{ ansible_facts['env']['HOME'] }}/.mitmproxy/ca-bundle-with-mitm.pem"
+
+- name: install insomnia
+  block:
+    - name: Check if Insomnia RPM is installed
+      ansible.builtin.command: rpm -q insomnia
+      register: insomnia
+      changed_when: false
+      failed_when: false
+    - name: Install official Insomnia RPM
+      ansible.builtin.dnf:
+        name: https://github.com/Kong/insomnia/releases/download/core@13.0.2/Insomnia.Core-13.0.2.rpm
+        state: present
+        disable_gpg_check: true
+      when: insomnia.rc != 0
+    - name: add debian style cert bundle for insomnia
+      ansible.builtin.file:
+        src: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+        dest: /etc/ssl/certs/ca-certificates.crt
+        state: link
+        force: true
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+
+- name: set up netlabs linux
+  block:
+    - name: Install vagrant
+      get_url:
+        url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+        dest: /etc/yum.repos.d/hashicorp.repo
+    - name: Install netlab requirements
+      ansible.builtin.dnf:
+        name:
+          - '@virtualization'
+          - vagrant
+          - vagrant-libvirt
+          - sshpass
+          - ansible
+          - libvirt-devel
+          - bridge-utils # requires brctl sadly, which is older and shouldn't be used
+                         # over the newer `bridge` command
+        state: present
+    - name: copy kvm-ok
+      copy:
+        src: kvm-ok.sh
+        dest: "/usr/bin/kvm-ok"
+        mode: "a+x"
+    - name: install netlab
+      pip:
+        name:
+          - networklab
+          - paramiko
+        extra_args: --user
+      become: false
+    - name: vagrant plugin install
+      command: vagrant plugin install vagrant-libvirt --plugin-version=0.12.2
+      changed_when: false
+      failed_when: false
+      become: false
+    - name: Add user to libvirt group
+      ansible.builtin.user:
+        name: "{{ ansible_facts['user_id'] }}"
+        groups: libvirt
+        append: true
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+
+- name: set up containerlab linux
+  block:
+    - name: Add NetDevOps Fury repository
+      yum_repository:
+        name: netdevops.fury.site_yum_
+        description: NetDevOps Fury Repository
+        baseurl: https://netdevops.fury.site/yum/
+        enabled: true
+        gpgcheck: false
+    - name: Install containerlab
+      dnf:
+        name: containerlab
+        state: present
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become
+
+- name: install vscode linux
+  block:
+    - name: Import Microsoft GPG key
+      ansible.builtin.rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - name: Add Visual Studio Code repository
+      ansible.builtin.yum_repository:
+        name: code
+        description: Visual Studio Code
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        repo_gpgcheck: false
+        file: vscode
+
+    - name: Install Visual Studio Code
+      ansible.builtin.dnf:
+        name: code
+        state: present
+
+  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  become: true
+  tags: become

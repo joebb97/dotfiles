@@ -9,6 +9,22 @@ dev_tools_packages:
   - just
   - protobuf-compiler
   - yq
+  - gcc-c++
+  - llvm
+  - llvm-devel 
+  - clang 
+  - clang-devel 
+  - clang-tools-extra 
+  - lldb
+  - python3-pip
+  - kitty
+  - lshw
+  - lshw-gui
+  - NetworkManager-tui
+  - pavucontrol
+  - btop
+  - ninja-build
+  - awscli2
 dev_tools_cargo_packages:
   - git-delta
   - tree-sitter-cli

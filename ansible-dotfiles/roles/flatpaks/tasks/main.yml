@@ -35,6 +35,8 @@
       - com.spotify.Client
       - com.discordapp.Discord
       - us.zoom.Zoom
+      - com.slack.Slack
+      - md.obsidian.Obsidian
     state: present
     remote: flathub
     method: user

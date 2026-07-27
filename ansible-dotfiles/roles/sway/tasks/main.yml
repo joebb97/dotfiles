@@ -7,6 +7,11 @@
     path: "{{ config_dir }}"
     state: directory
 
+- name: ensure screenshots dir exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/Pictures/screenshots"
+    state: directory
+
 - name: install bumblebee-status
   command: pip3 install --user bumblebee-status netifaces
   register: bumblebee_status_install
@@ -32,12 +37,17 @@
     src: gammastep.ini
     dest: "{{ gammastep_dir }}/config.ini"
 
-- name: install supporting programs
+- name: install programs
   package:
     name:
       - gammastep
       - geoclue2
       - wofi
+      - sway
+      - playerctl
+      - brightnessctl
+      - grimshot
+      - earlyoom
   become: true
   tags: become
 
@@ -58,5 +68,37 @@
       allowed=true
       system=false
       users=
+  become: true
+  tags: become
+
+- name: tweak oom, systemd-oomd is not doing what it should
+  block:
+  - name: Install earlyoom
+    package:
+      name: earlyoom
+      state: present
+
+  - name: Disable and stop systemd-oomd
+    systemd_service:
+      name: systemd-oomd.service
+      enabled: false
+      state: stopped
+      masked: true
+
+  - name: Enable and start earlyoom
+    systemd_service:
+      name: earlyoom.service
+      enabled: true
+      state: started
+
+  become: true
+  tags: become
+
+- name: tweak, use openh264 instead of noopenh264
+  block:
+  - name: Install openh264
+    package:
+      name: openh264
+      state: present
   become: true
   tags: become

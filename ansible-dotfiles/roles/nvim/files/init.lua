@@ -894,11 +894,11 @@ function configure_lsp()
                     check = {
                         command = "clippy",
                         -- allTargets = true,
-                        -- features = "all",
+                        features = "all",
                     },
                     cargo = {
                         -- allTargets = true,
-                        -- features = "all",
+                        features = "all",
                         buildScripts = {
                             enable = true,
                         },

@@ -23,6 +23,11 @@
     path: "{{ config_dir }}"
     state: directory
 
+- name: ensure conf.d dir exists
+  file:
+    path: "{{ config_dir }}/conf.d"
+    state: directory
+
 - name: copy files
   copy:
     src: "{{ item }}"

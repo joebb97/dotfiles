@@ -12,6 +12,7 @@
   command: which passage
   register: passage_check
   changed_when: false
+  failed_when: false
 
 - name: Run make install
   command: make install
