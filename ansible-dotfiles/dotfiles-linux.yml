@@ -18,3 +18,7 @@
     - { role: flatpaks, tags: ['flatpaks'] }
     - { role: passage, tags: ['passage'] }
     - { role: ssh, tags: ['ssh'] }
+    - { role: git, tags: ['git'] }
+    - { role: neovide, tags: ['neovide'] }
+    - { role: wireshark, tags: ['wireshark'] }
+    - { role: ai-tools, tags: ['ai-tools'] }

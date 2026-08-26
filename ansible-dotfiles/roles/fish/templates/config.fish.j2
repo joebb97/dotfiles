@@ -149,6 +149,7 @@ add_to_path /usr/local/go/bin
 add_to_path ~/.nimble/bin
 add_to_path /opt/homebrew/bin
 add_to_path $HOME/.opencode/bin
+add_to_path $HOME/.bun/bin
 
 set -x GOPATH $HOME/go:$HOME/src/sandbox/go
 set -x ELM_HOME $HOME/src/.elm
@@ -284,6 +285,7 @@ end
 function set_non_yubikey_auth_sock
     set -x SSH_AUTH_SOCK /run/user/1000/ssh-agent.socket
 end
+set -x SSH_AUTH_SOCK /run/user/1000/ssh-agent.socket
 {% endif %}
 
 function set_yubikey_auth_sock

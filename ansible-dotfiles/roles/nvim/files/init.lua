@@ -147,7 +147,7 @@ local function install_plugins()
                     -- Disable "format_on_save lsp_fallback" for languages that don't
                     -- have a well standardized coding style. You can add additional
                     -- languages here or re-enable it for the disabled ones.
-                    local disable_filetypes = { c = true, cpp = true }
+                    local disable_filetypes = { c = true, cpp = true, typescript = true }
                     return {
                         timeout_ms = 500,
                         lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -624,6 +624,7 @@ local function configure_options()
         autowrite = true,
         backup = false,
         backspace = "indent,eol,start",
+        background = "dark",
         clipboard = "unnamedplus",
         -- completeopt = { "menuone", "noselect" }, -- mostly just for cmp
         cursorline = true,
@@ -631,6 +632,7 @@ local function configure_options()
         foldenable = true,
         foldlevelstart = 100,
         foldmethod = "indent",
+        guifont = "Iosevka Nerd Font Mono:h12",
         hlsearch = false,
         incsearch = true,
         laststatus = 2,

@@ -1,0 +1,23 @@
+- name: install neovide
+  block:
+    - name: packages
+      dnf:
+        name:
+          - fontconfig-devel
+          - freetype-devel
+          - '@development-tools'
+          - libstdc++-static 
+          - libstdc++-devel
+    - name: neovide exists
+      stat:
+        path: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/neovide"
+      become: false
+      register: neovide_exists
+    - name: cargo package
+      shell:
+        cargo install --git https://github.com/neovide/neovide --locked
+      when: not neovide_exists.stat.exists
+      become: false
+  when: ansible_facts['os_family'] == 'RedHat'
+  become: true
+  tags: become

@@ -66,3 +66,5 @@
     - srl-labs/containerlab
     - bgplab/bgplab
     - ipspace/netlab
+    - abseil/abseil-cpp
+    - rclone/rclone

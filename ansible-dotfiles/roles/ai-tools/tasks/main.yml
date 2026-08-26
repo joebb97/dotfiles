@@ -1,0 +1,21 @@
+- name: install codex
+  block:
+    - name: Check if codex is installed
+      command: which codex
+      register: codex_check
+      failed_when: false
+      changed_when: false
+    - name: Install codex
+      shell: curl -fsSL https://chatgpt.com/codex/install.sh | sh
+      when: codex_check.rc != 0
+
+- name: install claude
+  block:
+    - name: Check if claude is installed
+      command: which claude
+      register: claude_check
+      failed_when: false
+      changed_when: false
+    - name: Install claude
+      shell: curl -fsSL https://claude.ai/install.sh | bash
+      when: claude_check.rc != 0

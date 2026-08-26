@@ -29,3 +29,5 @@
     - { role: repos, tags: ['repos'] }
     - { role: passage, tags: ['passage'] }
     - { role: ssh, tags: ['ssh'] }
+    - { role: git, tags: ['git'] }
+    - { role: neovide, tags: ['neovide'] }

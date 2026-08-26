@@ -1,0 +1,14 @@
+- block:
+  - name: install wireshark linux
+    package:
+      name:
+        - wireshark
+        - wireshark-cli
+  - name: Add current user to wireshark group
+    ansible.builtin.user:
+      name: joey
+      groups: wireshark
+      append: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+  become: true
+  tags: become

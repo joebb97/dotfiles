@@ -1,0 +1,17 @@
+- set_fact:
+    git_dir: "{{ ansible_facts['env']['HOME'] }}/.config/git"
+
+- name: ensure git dir exists
+  file:
+    state: directory
+    path: "{{ git_dir }}"
+
+- name: copy gitconfig
+  template:
+    src: config.j2
+    dest: "{{ git_dir }}/config"
+
+- name: copy global gitignore
+  template:
+    src: global-gitignore.txt.j2
+    dest: "{{ git_dir }}/global-gitignore.txt"

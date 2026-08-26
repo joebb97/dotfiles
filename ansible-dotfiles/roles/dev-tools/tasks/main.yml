@@ -33,14 +33,29 @@
   tags: become
   when: dev_tools_packages | length > 0
 
-- name: Install dev tools via cargo
-  community.general.cargo:
-    name: "{{ dev_tools_cargo_packages }}"
-    state: present
-    locked: true
-  environment:
-    PATH: "{{ ansible_env_path | default(ansible_facts['env']['PATH']) }}"
-  when: dev_tools_cargo_packages | length > 0
+- name: Install cargo binstall
+  block:
+    - name: Check if cargo-binstall installed
+      stat:
+        path: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/cargo-binstall"
+      register: binstall_stat
+    - name: Install cargo-binstall
+      shell: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+      when: not binstall_stat.stat.exists
+
+- name: Install dev tools via cargo-binstall
+  block:
+    - name: tools exists
+      stat:
+        path: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/{{ item[1] }}"
+      loop: "{{ dev_tools_cargo_packages }}"
+      register: tools_stats
+    - debug:
+        var: tools_stats
+    - name: install non-existent tools
+      shell: "cargo binstall -y {{ item.item[0] }}"
+      loop: "{{ tools_stats.results }}"
+      when: not item.stat.exists
 
 - name: Install Homebrew casks
   community.general.homebrew_cask:
@@ -77,16 +92,16 @@
     - dev_tools_vagrant_check.rc == 0
     - item not in dev_tools_vagrant_plugin_list.stdout
 
-- name: install codex
+- name: install bun
   block:
-    - name: Check if codex is installed
-      command: which codex
-      register: codex_check
+    - name: Check if bun is installed
+      command: which bun
+      register: bun_check
       failed_when: false
       changed_when: false
-    - name: Install codex
-      shell: curl -fsSL https://chatgpt.com/codex/install.sh | sh
-      when: codex_check.rc != 0
+    - name: Install bun
+      shell: curl -fsSL https://bun.com/install | sh
+      when: bun_check.rc != 0
 
 - name: install gh
   block:
@@ -180,10 +195,15 @@
 
 - name: set up netlabs linux
   block:
+    - name: repo file exists
+      stat:
+        path: /etc/yum.repos.d/hashicorp.repo
+      register: hashicorp_repo
     - name: Install vagrant
       get_url:
         url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
         dest: /etc/yum.repos.d/hashicorp.repo
+      when: not hashicorp_repo.stat.exists
     - name: Install netlab requirements
       ansible.builtin.dnf:
         name:
@@ -262,6 +282,6 @@
         name: code
         state: present
 
-  when: ansible_facts['pkg_mgr'] == 'dnf5'
+  when: ansible_facts['os_family'] == 'RedHat'
   become: true
   tags: become

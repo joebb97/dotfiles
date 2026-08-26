@@ -25,9 +25,15 @@ dev_tools_packages:
   - btop
   - ninja-build
   - awscli2
+  - nmap
+  - hping3
+  - entr
+  - podman-compose
 dev_tools_cargo_packages:
-  - git-delta
-  - tree-sitter-cli
-  - broot
-  - cargo-nextest
-  - cargo-binstall
+  - [git-delta, delta]
+  - [tree-sitter-cli, tree-sitter]
+  - [broot, broot]
+  - [cargo-nextest, cargo-nextest]
+  - [jwt-cli, jwt]
+  - [watchexec-cli, watchexec]
+  - [bacon, bacon]

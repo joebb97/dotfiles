@@ -59,3 +59,12 @@
 
   become: true
   tags: become
+
+- name: docker config
+  copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.docker/config.json"
+    content: |
+      {
+        "detachKeys": "ctrl-],ctrl-]"
+      }
+
