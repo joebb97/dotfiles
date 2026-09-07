@@ -1,0 +1,9 @@
+- name: tmux dir exists
+  file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/tmux/"
+    state: directory
+    
+- name: install tmux conf
+  copy:
+    src: tmux.conf
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/tmux/tmux.conf"

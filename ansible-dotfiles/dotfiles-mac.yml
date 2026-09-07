@@ -31,3 +31,4 @@
     - { role: ssh, tags: ['ssh'] }
     - { role: git, tags: ['git'] }
     - { role: neovide, tags: ['neovide'] }
+    - { role: tmux, tags: ['tmux'] }
