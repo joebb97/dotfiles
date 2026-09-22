@@ -1,0 +1,23 @@
+- name: Add k8s repo
+  block:
+    - name: add k8s repo file
+      copy:
+        content: |
+          [kubernetes]
+          name=Kubernetes
+          baseurl=https://pkgs.k8s.io/core:/stable:/v1.37/rpm/
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://pkgs.k8s.io/core:/stable:/v1.37/rpm/repodata/repomd.xml.key
+        dest: /etc/yum.repos.d/kubernetes.repo
+      become: true
+      tags: become
+    - name: install kubectl and k9s
+      package:
+        name:
+          - kubectl
+          - k9s
+          - google-cloud-cli-gke-gcloud-auth-plugin
+      become: true
+      tags: become
+  when: ansible_facts['pkg_mgr'] == 'dnf5'

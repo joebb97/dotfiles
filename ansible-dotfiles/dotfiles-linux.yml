@@ -23,3 +23,4 @@
     - { role: wireshark, tags: ['wireshark'] }
     - { role: ai-tools, tags: ['ai-tools'] }
     - { role: tmux, tags: ['tmux'] }
+    - { role: kubernetes, tags: ['kubernetes'] }

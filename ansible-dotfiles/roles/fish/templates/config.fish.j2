@@ -42,7 +42,7 @@ abbr -g tma 'tmux attach'
 abbr -g cm chezmoi
 # Aliases
 abbr -g ga 'git add'
-abbr -g gap 'git add -p'
+abbr -g gap 'git add -N . && git add -p'
 abbr -g gall 'git add -A'
 abbr -g g git
 abbr -g gs 'git status'
@@ -296,5 +296,7 @@ function set_yubikey_auth_sock
 {% endif %}
     set -e SSH_AGENT_PID
 end
+set -x PODMAN_COMPOSE_PROVIDER podman-compose
+set -x PODMAN_COMPOSE_WARNING_LOGS false
 # NOTE, THIS BREAKS SSH -J if you're proxy jumping with an agent on different keys
 # set_yubikey_auth_sock

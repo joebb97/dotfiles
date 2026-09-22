@@ -32,3 +32,4 @@
     - { role: git, tags: ['git'] }
     - { role: neovide, tags: ['neovide'] }
     - { role: tmux, tags: ['tmux'] }
+    - { role: kubernetes, tags: ['kubernetes'] }
